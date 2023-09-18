@@ -1,0 +1,147 @@
+LARM LINKER/LOCATER V2.54a                                                              07/14/2010  16:33:38  PAGE 1
+
+
+LARM LINKER/LOCATER V2.54a, INVOKED BY:
+C:\KEIL\ARM\BIN\LA.EXE .\Obj\Startup.obj, .\Obj\DEMO.obj, ..\..\OBJ\SPIsw.obj, ..\..\OBJ\Utility.obj TO .\Obj\DEMO PRINT
+>>  (.\Lst\DEMO.map) CODE (.\Lst\DEMO.cod) CASE CLASSES (DATA (0X40000000-0X40007FFF), CODE (0X0-0X7FFFF), CONST (0X0-0X
+>> 7FFFF))
+
+
+CPU MODE: LITTLE ENDIAN
+
+
+INPUT MODULES INCLUDED:
+  .\Obj\Startup.obj (STARTUP)
+         COMMENT TYPE 0: AA V2.50
+  .\Obj\DEMO.obj (DEMO)
+         COMMENT TYPE 0: CARM V2.54a
+  ..\..\OBJ\SPIsw.obj (SPIsw)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\Utility.obj (Utility)
+         COMMENT TYPE 0: CARM V2.51a
+  C:\KEIL\ARM\LIB\CAL.LIB (FIQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (IRQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (DABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (PABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (SWI)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UNDEF)
+         COMMENT TYPE 0: AA V2.50
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\Obj\DEMO (STARTUP)
+
+BASE       START      END        USED       MEMORY CLASS
+========================================================
+00000000H  40000000H  40007FFFH  000004CDH  DATA
+00000000H  00000000H  0007FFFFH  000009BCH  CODE
+00000000H  00000000H  0007FFFFH  00000020H  CONST
+
+
+
+MEMORY MAP OF MODULE:  .\Obj\DEMO (STARTUP)
+
+START      STOP       LENGTH    ALIGN  RELOC  MEMORY CLASS   SEGMENT NAME
+=========================================================================
+00000000H  0000011FH  00000120H     4  AT..   CODE           STARTUPCODE
+00000120H  00000137H  00000018H     4  UNIT   CONST          ?C_CLRSEG
+00000138H  0000013FH  00000008H     4  UNIT   CONST          ?C_INITSEG
+00000140H  00000257H  00000118H     4  UNIT   CODE           ?PR?main?DEMO
+00000258H  00000473H  0000021CH     4  UNIT   CODE           ?PR?SPI_init?A?SPIsw
+00000474H  0000049FH  0000002CH     4  UNIT   CODE           ?PR?SPI_enable?A?SPIsw
+000004A0H  000004BFH  00000020H     4  UNIT   CODE           ?PR?SPI_disable?A?SPIsw
+000004C0H  000005C7H  00000108H     4  UNIT   CODE           ?PR?SPI_charM0?A?SPIsw
+000005C8H  000006D3H  0000010CH     4  UNIT   CODE           ?PR?SPI_charM1?A?SPIsw
+000006D4H  000007DBH  00000108H     4  UNIT   CODE           ?PR?SPI_charM2?A?SPIsw
+000007DCH  000008E7H  0000010CH     4  UNIT   CODE           ?PR?SPI_charM3?A?SPIsw
+000008E8H  0000099BH  000000B4H     4  UNIT   CODE           ?PR?SPI_char?A?SPIsw
+0000099CH  000009C3H  00000028H     4  UNIT   CODE           ?PR?delay_Nx10cyc?A?Utility
+000009C4H  000009C7H  00000004H     4  UNIT   CODE           ?C?FIQ
+000009C8H  000009CBH  00000004H     4  UNIT   CODE           ?C?IRQ
+000009CCH  000009CFH  00000004H     4  UNIT   CODE           ?C?DABT
+000009D0H  000009D3H  00000004H     4  UNIT   CODE           ?C?PABT
+000009D4H  000009DBH  00000008H     4  UNIT   CODE           ?C?UNDEF
+000009DCH  3FFFFFFFH  3FFFF624H   ---  ---    **GAP**
+40000000H  4000048FH  00000490H     4  UNIT   DATA           STACK
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 2
+
+
+40000490H  40000497H  00000008H     4  UNIT   DATA           ?DT0?DEMO
+40000498H  400004CCH  00000035H     4  UNIT   DATA           ?DT0?SPIsw
+
+
+
+REMOVED FUNCTIONS OF MODULE:  .\Obj\DEMO (STARTUP)
+
+      ATTRIBUTE  FUNCTION NAME
+      ========================
+       unused    Lo?A
+       unused    Hi?A
+       unused    Higher?A
+       unused    Highest?A
+       unused    hex2str?A
+       unused    int2str?A
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\Obj\DEMO (STARTUP)
+
+      VALUE      CLASS    TYPE      PUBLIC SYMBOL NAME
+      ================================================
+      00000120H  ---      ---       ?C?CLRTAB
+      00000140H  ---      ---       ?C?INIT
+      00000138H  ---      ---       ?C?INITTAB
+      400004A8H  DATA     DWORD     CSmask0
+      400004ACH  DATA     DWORD     CSmask1
+      40000494H  DATA     DWORD     DACreg
+      40000490H  DATA     DWORD     DACval
+      000009CCH  CODE     ---       DAbt_Handler?A
+      000009C4H  CODE     ---       FIQ_Handler?A
+      00000000H  CODE     ---       Hi?A
+      00000000H  CODE     ---       Higher?A
+      00000000H  CODE     ---       Highest?A
+      000009C8H  CODE     ---       IRQ_Handler?A
+      00000000H  CODE     ---       Lo?A
+      400004B0H  DATA     DWORD     MISOmask0
+      400004B4H  DATA     DWORD     MISOmask1
+      400004B8H  DATA     DWORD     MOSImask0
+      400004BCH  DATA     DWORD     MOSImask1
+      000009D0H  CODE     ---       PAbt_Handler?A
+      400004C0H  DATA     DWORD     SCKmask0
+      400004C4H  DATA     DWORD     SCKmask1
+      000008E8H  CODE     ---       SPI_char?A
+      000004C0H  CODE     ---       SPI_charM0?A
+      000005C8H  CODE     ---       SPI_charM1?A
+      000006D4H  CODE     ---       SPI_charM2?A
+      000007DCH  CODE     ---       SPI_charM3?A
+      000004A0H  CODE     ---       SPI_disable?A
+      00000474H  CODE     ---       SPI_enable?A
+      00000258H  CODE     ---       SPI_init?A
+      000009D4H  CODE     ---       SWI_Handler?A
+      000009D8H  CODE     ---       Undef_Handler?A
+      00000000H  CODE     ---       __startup
+      0000099CH  CODE     ---       delay_Nx10cyc?A
+      000000FCH  CODE     ---       exit?A
+      00000100H  CODE     ---       exit?T
+      00000000H  CODE     ---       hex2str?A
+      00000000H  CODE     ---       int2str?A
+      000001A8H  CODE     ---       main
+      400004A4H  DATA     ---       pSPIswCLR
+      4000049CH  DATA     ---       pSPIswDIR
+      40000498H  DATA     ---       pSPIswPIN
+      400004A0H  DATA     ---       pSPIswSET
+      400004C8H  DATA     BYTE      posCS
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 3
+
+
+      400004CBH  DATA     BYTE      posMISO
+      400004CAH  DATA     BYTE      posMOSI
+      400004C9H  DATA     BYTE      posSCK
+      400004CCH  DATA     BYTE      spiMode
+
+Program Size: data=1229 const=32 code=2492
+LARM RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

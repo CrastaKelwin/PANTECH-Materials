@@ -1,0 +1,5 @@
+Dependencies for Project 'LED Blinking', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x4F5858F0)(--cpu ARM7TDMI -g --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
+F (.\LED Blinking.c)(0x57124739)(-c --cpu ARM7TDMI -g -O0 --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips -o "led blinking.o" --omf_browse "led blinking.crf" --depend "led blinking.d")
+I (C:\Keil\ARM\Inc\Philips\lpc214x.h)(0x5209CD6C)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C7DA6C)

@@ -1,0 +1,12 @@
+".\Obj\Startup.obj",
+".\Obj\DEMO.obj",
+"..\..\OBJ\c_ctype.obj",
+"..\..\OBJ\conv.obj",
+"..\..\OBJ\enc28j60.obj",
+"..\..\OBJ\SPIhw.obj",
+"..\..\OBJ\Utility.obj" 
+TO ".\Obj\ARM Web Server" 
+PRINT(".\Lst\ARM Web Server.map") CODE(".\Lst\ARM Web Server.cod") 
+CASE 
+CLASSES (DATA (0x40000000-0x40007FFF), 
+CODE (0x0-0x7FFFF), CONST (0x0-0x7FFFF)) 

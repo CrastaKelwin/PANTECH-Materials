@@ -1,0 +1,7 @@
+PS-SLICKER-ARM7 214x //
+====================// LPC2148 Advance Development Board 
+
+IDE 		: KEIL ARM	
+Programmer	: FLASH Magic 
+Others		: GLCD Editor		
+JTAG		: ARM JTAG

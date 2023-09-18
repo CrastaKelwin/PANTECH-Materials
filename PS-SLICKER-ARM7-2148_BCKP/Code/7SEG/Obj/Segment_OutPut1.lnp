@@ -1,0 +1,7 @@
+".\Obj\Startup.obj",
+".\Obj\segment.obj",
+".\Obj\Seg_Utility.obj" 
+TO ".\Obj\Segment_OutPut1" 
+PRINT(".\Lst\Segment_OutPut1.map") CASE 
+CLASSES (DATA (0x40000000-0x40003FFF), 
+CODE (0x0-0x3FFFF), CONST (0x0-0x3FFFF)) 

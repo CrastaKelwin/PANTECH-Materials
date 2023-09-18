@@ -1,0 +1,309 @@
+ARM COMPILER V2.54a,  segment                                                              15/07/10  14:52:27  PAGE 1   
+
+
+ARM COMPILER V2.54a, COMPILATION OF MODULE segment
+OBJECT MODULE PLACED IN .\Obj\segment.obj
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe segment.c THUMB OPTIMIZE(7,SPEED) BROWSE DEBUG PRINT(.\LST\SEGMENT.LST) TABS
+                    -(4) OBJECT(.\Obj\segment.obj) 
+
+stmt  level    source
+
+    1          /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    2          ^######################################################################^
+    3          ^##                                                                  ##^
+    4          ^##    This Software Coding is the sole property of the company!     ##^
+    5          ^##    Any unauthorized re-usage of this code for commercial         ##^
+    6          ^##    purpose is forbidden!...                                      ##^
+    7          ^##    The removal of the object files may cause the code to crack!  ##^
+    8          ^##                                                                  ##^
+    9          ^##         © Pantech Solutions | All rights Reserved.               ##^
+   10          ^##                                                                  ##^
+   11          ^######################################################################^
+   12          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   13          Title       :   Seven Segment Demo Program
+   14          Status      :   Open to all...
+   15          Features    :   Displays as a counter from 0 to 9999
+   16          
+   17          Company     :   © Pantech Solutions | All rights Reserved.
+   18          
+   19          Description :   The Seven Segment Data port are user configurable....
+   20                          The coding is established for a generic approach to any 
+   21                          ports.
+   22                          
+   23                          It is advised to configure the PINSEL and IODIR corresponding to 
+   24                          the OutPut ports........
+   25          
+   26          Important   :   P0.10 to P0.13 are Hardware Configured Control Pins..
+   27                          It is strictly advised not to change the Control Pins..
+   28          --------------------------------------------------------------------------*/
+   29          
+   30          #include <stdio.h>
+   31          #include <LPC213x.H>
+   32          
+   33          #include "7SEG.H"
+   34          
+   35          unsigned int thou,hun,ten,single;
+   36          unsigned int x;
+   37          
+   38          void DelayMs(unsigned int count)    
+   39          {  
+   40   1                              
+   41   1                                          
+   42   1          unsigned int i,j;               
+   43   1          for(i=0;i<count;i++)
+   44   1          {
+   45   2              for(j=0;j<3000;j++);
+   46   2          }
+   47   1      }
+   48          void main(void)
+   49          {
+   50   1      
+   51   1          PINSEL0 = 0;
+   52   1          PINSEL1 = 0;
+   53   1          PINSEL2 &= 0x0000000C;
+   54   1          IODIR0 |= 0x0F << 10 ;                  // P0.10 - P0.13 in-built Control Lines
+   55   1          IODIR1 |= 0xFF << 16;                   //P1.16 - P1.23 are configured as Outputs
+   56   1          
+   57   1      
+   58   1          while(1)
+ARM COMPILER V2.54a,  segment                                                              15/07/10  14:52:27  PAGE 2   
+
+   59   1          {
+   60   2              if(x == 300)   
+   61   2              {
+   62   3                  x=0;
+   63   3                  single++;
+   64   3                  if(single>9)
+   65   3                  {
+   66   4                      single=0;
+   67   4                      ten++;  
+   68   4                      if(ten>9)
+   69   4                      {
+   70   5                          ten=0;
+   71   5                          hun++;  
+   72   5                          if(hun>9)
+   73   5                          {
+   74   6                              hun=0;
+   75   6                              thou++; 
+   76   6                              if(thou>9)
+   77   6                                  thou=0;
+   78   6                          }
+   79   5                      }
+   80   4                  }
+   81   3              }
+   82   2              x++;
+   83   2      /*****************Function Call to the Utility File************************/
+   84   2      
+   85   2              Segment_Disp(&IOPIN1/*Segment Data Port*/, 16/*Data LSB D0*/,     //(Port1.16 - P1.23) Data lines
+   86   2                           thou, hun, ten, single);       
+   87   2          
+   88   2          }
+   89   1      }
+ARM COMPILER V2.54a,  segment                                                              15/07/10  14:52:27  PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN CODE16 (Segment_Disp?T)
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         DelayMs?T
+ PUBLIC         main
+ PUBLIC         thou
+ PUBLIC         hun
+ PUBLIC         ten
+ PUBLIC         single
+ PUBLIC         x
+
+
+
+*** DATA SEGMENT '?DT0?segment':
+ 00000000          thou:
+ 00000000            DS          4
+ 00000004          hun:
+ 00000004            DS          4
+ 00000008          ten:
+ 00000008            DS          4
+ 0000000C          single:
+ 0000000C            DS          4
+ 00000010          x:
+ 00000010            DS          4
+
+
+
+*** CODE SEGMENT '?PR?DelayMs?T?segment':
+   38: void DelayMs(unsigned int count)    
+ 00000000  B410      PUSH        {R4}
+ 00000002  ---- Variable 'count' assigned to Register 'R0' ----
+   39: {  
+ 00000002            ; SCOPE-START
+   43:     for(i=0;i<count;i++)
+ 00000002  2100      MOV         R1,#0x0
+ 00000004  ---- Variable 'i' assigned to Register 'R1' ----
+ 00000004  E006      B           L_3  ; T=0x00000014
+   45:         for(j=0;j<3000;j++);
+ 00000006          L_10:
+ 00000006  2200      MOV         R2,#0x0
+ 00000008  ---- Variable 'j' assigned to Register 'R2' ----
+ 00000008          L_6:
+ 00000008  3201      ADD         R2,#0x1
+ 0000000A  1C13      MOV         R3,R2 ; j
+ 0000000C  4800      LDR         R4,=0xBB8
+ 0000000E  42A3      CMP         R3,R4 ; j
+ 00000010  D3FA      BCC         L_6  ; T=0x00000008
+   46:     }
+ 00000012  3101      ADD         R1,#0x1
+ 00000014          L_3:
+ 00000014  1C03      MOV         R3,R0 ; count
+ 00000016  1C0A      MOV         R2,R1 ; i
+ 00000018  429A      CMP         R2,R3 ; i
+ 0000001A  D3F4      BCC         L_10  ; T=0x00000006
+ 0000001C            ; SCOPE-END
+   47: }
+ 0000001C  BC10      POP         {R4}
+ 0000001E  4770      BX          R14
+ 00000020          ENDP ; 'DelayMs?T'
+
+
+*** CODE SEGMENT '?PR?main?segment':
+   48: void main(void)
+ 00000000  B500      PUSH        {LR}
+   51:     PINSEL0 = 0;
+ 00000002  2100      MOV         R1,#0x0
+ 00000004  4800      LDR         R0,=0xE002C000
+ARM COMPILER V2.54a,  segment                                                              15/07/10  14:52:27  PAGE 4   
+
+ 00000006  6001      STR         R1,[R0,#0x0]
+   52:     PINSEL1 = 0;
+ 00000008  4800      LDR         R0,=0xE002C004
+ 0000000A  6001      STR         R1,[R0,#0x0]
+   53:     PINSEL2 &= 0x0000000C;
+ 0000000C  220C      MOV         R2,#0xC
+ 0000000E  4800      LDR         R0,=0xE002C014
+ 00000010  6801      LDR         R1,[R0,#0x0]
+ 00000012  4011      AND         R1,R2
+ 00000014  6001      STR         R1,[R0,#0x0]
+   54:     IODIR0 |= 0x0F << 10 ;                  // P0.10 - P0.13 in-built Control Lines
+ 00000016  4800      LDR         R2,=0x3C00
+ 00000018  4800      LDR         R0,=0xE0028008
+ 0000001A  6801      LDR         R1,[R0,#0x0]
+ 0000001C  4311      ORR         R1,R2
+ 0000001E  6001      STR         R1,[R0,#0x0]
+   55:        IODIR1 |= 0xFF << 16;                    //P1.16 - P1.23 are configured as Outputs
+ 00000020  4800      LDR         R2,=0xFF0000
+ 00000022  4800      LDR         R0,=0xE0028018
+ 00000024  6801      LDR         R1,[R0,#0x0]
+ 00000026  4311      ORR         R1,R2
+ 00000028  6001      STR         R1,[R0,#0x0]
+   58:     while(1)
+ 0000002A          L_13:
+   60:         if(x == 300)   
+ 0000002A  4800      LDR         R0,=x ; x
+ 0000002C  6800      LDR         R0,[R0,#0x0] ; x
+ 0000002E  494B      LDR         R1,=0x12C
+ 00000030  4288      CMP         R0,R1
+ 00000032  D12A      BNE         L_15  ; T=0x0000008A
+   62:             x=0;
+ 00000034  2100      MOV         R1,#0x0
+ 00000036  4800      LDR         R0,=x ; x
+ 00000038  6001      STR         R1,[R0,#0x0] ; x
+   63:             single++;
+ 0000003A  4800      LDR         R0,=single ; single
+ 0000003C  6802      LDR         R2,[R0,#0x0] ; single
+ 0000003E  3201      ADD         R2,#0x1
+ 00000040  6002      STR         R2,[R0,#0x0] ; single
+   64:             if(single>9)
+ 00000042  4800      LDR         R0,=single ; single
+ 00000044  6800      LDR         R0,[R0,#0x0] ; single
+ 00000046  2809      CMP         R0,#0x9
+ 00000048  D91F      BLS         L_15  ; T=0x0000008A
+   66:                 single=0;
+ 0000004A  4800      LDR         R0,=single ; single
+ 0000004C  6001      STR         R1,[R0,#0x0] ; single
+   67:                 ten++;  
+ 0000004E  4800      LDR         R0,=ten ; ten
+ 00000050  6802      LDR         R2,[R0,#0x0] ; ten
+ 00000052  3201      ADD         R2,#0x1
+ 00000054  6002      STR         R2,[R0,#0x0] ; ten
+   68:                 if(ten>9)
+ 00000056  4800      LDR         R0,=ten ; ten
+ 00000058  6800      LDR         R0,[R0,#0x0] ; ten
+ 0000005A  2809      CMP         R0,#0x9
+ 0000005C  D915      BLS         L_15  ; T=0x0000008A
+   70:                     ten=0;
+ 0000005E  4800      LDR         R0,=ten ; ten
+ 00000060  6001      STR         R1,[R0,#0x0] ; ten
+   71:                     hun++;  
+ 00000062  4800      LDR         R0,=hun ; hun
+ 00000064  6802      LDR         R2,[R0,#0x0] ; hun
+ 00000066  3201      ADD         R2,#0x1
+ 00000068  6002      STR         R2,[R0,#0x0] ; hun
+   72:                     if(hun>9)
+ARM COMPILER V2.54a,  segment                                                              15/07/10  14:52:27  PAGE 5   
+
+ 0000006A  4800      LDR         R0,=hun ; hun
+ 0000006C  6800      LDR         R0,[R0,#0x0] ; hun
+ 0000006E  2809      CMP         R0,#0x9
+ 00000070  D90B      BLS         L_15  ; T=0x0000008A
+   74:                         hun=0;
+ 00000072  4800      LDR         R0,=hun ; hun
+ 00000074  6001      STR         R1,[R0,#0x0] ; hun
+   75:                         thou++; 
+ 00000076  4800      LDR         R0,=thou ; thou
+ 00000078  6802      LDR         R2,[R0,#0x0] ; thou
+ 0000007A  3201      ADD         R2,#0x1
+ 0000007C  6002      STR         R2,[R0,#0x0] ; thou
+   76:                         if(thou>9)
+ 0000007E  4800      LDR         R0,=thou ; thou
+ 00000080  6800      LDR         R0,[R0,#0x0] ; thou
+ 00000082  2809      CMP         R0,#0x9
+ 00000084  D901      BLS         L_15  ; T=0x0000008A
+   77:                             thou=0;
+ 00000086  4800      LDR         R0,=thou ; thou
+ 00000088  6001      STR         R1,[R0,#0x0] ; thou
+   81:         }
+ 0000008A          L_15:
+   82:         x++;
+ 0000008A  4800      LDR         R0,=x ; x
+ 0000008C  6801      LDR         R1,[R0,#0x0] ; x
+ 0000008E  3101      ADD         R1,#0x1
+ 00000090  6001      STR         R1,[R0,#0x0] ; x
+   85:         Segment_Disp(&IOPIN1/*Segment Data Port*/, 16/*Data LSB D0*/,     //(Port1.16 - P1.23) Data lines
+ 00000092  4800      LDR         R0,=single ; single
+ 00000094  6800      LDR         R0,[R0,#0x0] ; single
+ 00000096  B401      PUSH        {R0}
+ 00000098  4800      LDR         R0,=ten ; ten
+ 0000009A  6800      LDR         R0,[R0,#0x0] ; ten
+ 0000009C  B401      PUSH        {R0}
+ 0000009E  4800      LDR         R0,=thou ; thou
+ 000000A0  6802      LDR         R2,[R0,#0x0] ; thou
+ 000000A2  4800      LDR         R0,=hun ; hun
+ 000000A4  6803      LDR         R3,[R0,#0x0] ; hun
+ 000000A6  4800      LDR         R0,=0xE0028010
+ 000000A8  2110      MOV         R1,#0x10
+ 000000AA  F7FF      BL          Segment_Disp?T  ; T=0x0001  (1)
+ 000000AC  FFA9      BL          Segment_Disp?T  ; T=0x0001  (2)
+ 000000AE  B002      ADD         R13,#0x8
+   88:     }
+ 000000B0  E7BB      B           L_13  ; T=0x0000002A
+   89: }
+ 000000B2  BC08      POP         {R3}
+ 000000B4  4718      BX          R3
+ 000000B6          ENDP ; 'main'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =        20
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

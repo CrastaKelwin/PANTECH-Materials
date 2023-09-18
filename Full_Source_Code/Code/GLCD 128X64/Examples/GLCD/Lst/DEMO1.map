@@ -1,0 +1,213 @@
+LARM LINKER/LOCATER V2.53                                                               03/06/2008  12:30:19  PAGE 1
+
+
+LARM LINKER/LOCATER V2.53, INVOKED BY:
+C:\KEIL\ARM\BIN\LA.EXE .\Obj\Startup.obj, .\Obj\Demo.obj, .\Obj\bmp_Maska.obj, ..\..\OBJ\Glcd.obj, ..\..\OBJ\Utility.obj
+>>  TO .\Obj\DEMO1 PRINT (.\Lst\DEMO1.map) CODE (.\Lst\DEMO1.cod) CASE CLASSES (DATA (0X40000000-0X40007FFF), CODE (0X0-
+>> 0X7FFFF), CONST (0X0-0X7FFFF))
+
+
+CPU MODE: LITTLE ENDIAN
+
+
+INPUT MODULES INCLUDED:
+  .\Obj\Startup.obj (STARTUP)
+         COMMENT TYPE 0: AA V2.50
+  .\Obj\Demo.obj (Demo)
+         COMMENT TYPE 0: CARM V2.53
+  .\Obj\bmp_Maska.obj (bmp_Maska)
+         COMMENT TYPE 0: CARM V2.53
+  ..\..\OBJ\Glcd.obj (Glcd)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\Utility.obj (Utility)
+         COMMENT TYPE 0: CARM V2.51a
+  C:\KEIL\ARM\LIB\CAL.LIB (FIQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (IRQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (DABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (PABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (SWI)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UNDEF)
+         COMMENT TYPE 0: AA V2.50
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\Obj\DEMO1 (STARTUP)
+
+BASE       START      END        USED       MEMORY CLASS
+========================================================
+00000000H  40000000H  40007FFFH  000004F9H  DATA
+00000000H  00000000H  0007FFFFH  000014D4H  CODE
+00000000H  00000000H  0007FFFFH  00000511H  CONST
+
+
+
+MEMORY MAP OF MODULE:  .\Obj\DEMO1 (STARTUP)
+
+START      STOP       LENGTH    ALIGN  RELOC  MEMORY CLASS   SEGMENT NAME
+=========================================================================
+00000000H  0000011FH  00000120H     4  AT..   CODE           STARTUPCODE
+00000120H  00000139H  0000001AH     4  UNIT   CONST          ?CON?Demo
+0000013AH  0000013BH  00000002H   ---  ---    **GAP**
+0000013CH  0000053BH  00000400H     4  UNIT   CONST          ?CON?bmp_Maska
+0000053CH  00000612H  000000D7H     4  UNIT   CONST          ?CON?Glcd
+00000613H  00000613H  00000001H   ---  ---    **GAP**
+00000614H  0000062BH  00000018H     4  UNIT   CONST          ?C_CLRSEG
+0000062CH  00000633H  00000008H     4  UNIT   CONST          ?C_INITSEG
+00000634H  0000090FH  000002DCH     4  UNIT   CODE           ?PR?main?Demo
+00000910H  0000099BH  0000008CH     4  UNIT   CODE           ?PR?DataOut?A?Glcd
+0000099CH  000009FBH  00000060H     4  UNIT   CODE           ?PR?DataIn?A?Glcd
+000009FCH  00000A7FH  00000084H     4  UNIT   CODE           ?PR?Glcd_Read_Data?A?Glcd
+00000A80H  00000ACBH  0000004CH     4  UNIT   CODE           ?PR?Glcd_Write_Data?A?Glcd
+00000ACCH  00000B13H  00000048H     4  UNIT   CODE           ?PR?Glcd_Write_Control?A?Glcd
+00000B14H  00000B33H  00000020H     4  UNIT   CODE           ?PR?Glcd_Set_Page?A?Glcd
+00000B34H  00000BB3H  00000080H     4  UNIT   CODE           ?PR?Glcd_Set_Side?A?Glcd
+00000BB4H  00000BCFH  0000001CH     4  UNIT   CODE           ?PR?Glcd_Set_X?A?Glcd
+00000BD0H  00000D07H  00000138H     4  UNIT   CODE           ?PR?Glcd_Fill?A?Glcd
+LARM LINKER/LOCATER V2.53                                                             03/06/2008  12:30:19  PAGE 2
+
+
+00000D08H  00001067H  00000360H     4  UNIT   CODE           ?PR?Glcd_Init?A?Glcd
+00001068H  00001237H  000001D0H     4  UNIT   CODE           ?PR?Glcd_Write_Char?A?Glcd
+00001238H  000012CBH  00000094H     4  UNIT   CODE           ?PR?Glcd_Write_Text?A?Glcd
+000012CCH  000013BBH  000000F0H     4  UNIT   CODE           ?PR?GLCD_Dot?A?Glcd
+000013BCH  0000151FH  00000164H     4  UNIT   CODE           ?PR?Glcd_Line?A?Glcd
+00001520H  00001583H  00000064H     4  UNIT   CODE           ?PR?Glcd_H_Line?A?Glcd
+00001584H  000015E7H  00000064H     4  UNIT   CODE           ?PR?Glcd_V_Line?A?Glcd
+000015E8H  000017DFH  000001F8H     4  UNIT   CODE           ?PR?Glcd_Circle?A?Glcd
+000017E0H  000018C3H  000000E4H     4  UNIT   CODE           ?PR?Glcd_Image?A?Glcd
+000018C4H  0000195BH  00000098H     4  UNIT   CODE           ?PR?Glcd_Rectangle?A?Glcd
+0000195CH  000019A7H  0000004CH     4  UNIT   CODE           ?PR?Glcd_Box?A?Glcd
+000019A8H  000019CFH  00000028H     4  UNIT   CODE           ?PR?delay_Nx10cyc?A?Utility
+000019D0H  000019D3H  00000004H     4  UNIT   CODE           ?C?FIQ
+000019D4H  000019D7H  00000004H     4  UNIT   CODE           ?C?IRQ
+000019D8H  000019DBH  00000004H     4  UNIT   CODE           ?C?DABT
+000019DCH  000019DFH  00000004H     4  UNIT   CODE           ?C?PABT
+000019E0H  000019E7H  00000008H     4  UNIT   CODE           ?C?UNDEF
+000019E8H  3FFFFFFFH  3FFFE618H   ---  ---    **GAP**
+40000000H  4000048FH  00000490H     4  UNIT   DATA           STACK
+40000490H  40000494H  00000005H     4  UNIT   DATA           ?DT0?Demo
+40000495H  40000497H  00000003H   ---  ---    **GAP**
+40000498H  400004FBH  00000064H     4  UNIT   DATA           ?DT0?Glcd
+
+
+
+REMOVED FUNCTIONS OF MODULE:  .\Obj\DEMO1 (STARTUP)
+
+      ATTRIBUTE  FUNCTION NAME
+      ========================
+       unused    Glcd_Read_Control?A
+       unused    Glcd_Set_Font?A
+       unused    Lo?A
+       unused    Hi?A
+       unused    Higher?A
+       unused    Highest?A
+       unused    hex2str?A
+       unused    int2str?A
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\Obj\DEMO1 (STARTUP)
+
+      VALUE      CLASS    TYPE      PUBLIC SYMBOL NAME
+      ================================================
+      00000614H  ---      ---       ?C?CLRTAB
+      00000634H  ---      ---       ?C?INIT
+      0000062CH  ---      ---       ?C?INITTAB
+      0000013CH  CONST    ---       BMP1_bmp
+      000019D8H  CODE     ---       DAbt_Handler?A
+      0000099CH  CODE     ---       DataIn?A
+      00000910H  CODE     ---       DataOut?A
+      000019D0H  CODE     ---       FIQ_Handler?A
+      000012CCH  CODE     ---       GLCD_Dot?A
+      0000195CH  CODE     ---       Glcd_Box?A
+      000015E8H  CODE     ---       Glcd_Circle?A
+      00000BD0H  CODE     ---       Glcd_Fill?A
+      00001520H  CODE     ---       Glcd_H_Line?A
+      000017E0H  CODE     ---       Glcd_Image?A
+      00000D08H  CODE     ---       Glcd_Init?A
+      000013BCH  CODE     ---       Glcd_Line?A
+      00000000H  CODE     ---       Glcd_Read_Control?A
+      000009FCH  CODE     ---       Glcd_Read_Data?A
+      000018C4H  CODE     ---       Glcd_Rectangle?A
+      00000000H  CODE     ---       Glcd_Set_Font?A
+      00000B14H  CODE     ---       Glcd_Set_Page?A
+LARM LINKER/LOCATER V2.53                                                             03/06/2008  12:30:19  PAGE 3
+
+
+      00000B34H  CODE     ---       Glcd_Set_Side?A
+      00000BB4H  CODE     ---       Glcd_Set_X?A
+      00001584H  CODE     ---       Glcd_V_Line?A
+      00001068H  CODE     ---       Glcd_Write_Char?A
+      00000ACCH  CODE     ---       Glcd_Write_Control?A
+      00000A80H  CODE     ---       Glcd_Write_Data?A
+      00001238H  CODE     ---       Glcd_Write_Text?A
+      00000000H  CODE     ---       Hi?A
+      00000000H  CODE     ---       Higher?A
+      00000000H  CODE     ---       Highest?A
+      000019D4H  CODE     ---       IRQ_Handler?A
+      00000000H  CODE     ---       Lo?A
+      000019DCH  CODE     ---       PAbt_Handler?A
+      000019E0H  CODE     ---       SWI_Handler?A
+      000019E4H  CODE     ---       Undef_Handler?A
+      00000000H  CODE     ---       __startup
+      400004BCH  DATA     DWORD     cs1Mask0
+      400004C0H  DATA     DWORD     cs1Mask1
+      400004C4H  DATA     DWORD     cs2Mask0
+      400004C8H  DATA     DWORD     cs2Mask1
+      400004F8H  DATA     BYTE      dataD0pos
+      400004ECH  DATA     DWORD     dataMask0
+      400004F0H  DATA     DWORD     dataMask1
+      0000053CH  CONST    ---       defaultFont
+      000019A8H  CODE     ---       delay_Nx10cyc?A
+      400004E4H  DATA     DWORD     enMask0
+      400004E8H  DATA     DWORD     enMask1
+      000000FCH  CODE     ---       exit?A
+      00000100H  CODE     ---       exit?T
+      400004B8H  DATA     ---       fontDef
+      400004FAH  DATA     BYTE      fontH
+      400004FBH  DATA     BYTE      fontOffset
+      400004F9H  DATA     BYTE      fontW
+      00000000H  CODE     ---       hex2str?A
+      40000494H  DATA     BYTE      ii
+      00000000H  CODE     ---       int2str?A
+      0000069CH  CODE     ---       main
+      *EXTERN*   CONST    ---       maska_bmp
+      400004A4H  DATA     ---       pCtrlCLR
+      4000049CH  DATA     ---       pCtrlDIR
+      40000498H  DATA     ---       pCtrlPIN
+      400004A0H  DATA     ---       pCtrlSET
+      400004B4H  DATA     ---       pDataCLR
+      400004ACH  DATA     ---       pDataDIR
+      400004A8H  DATA     ---       pDataPIN
+      400004B0H  DATA     ---       pDataSET
+      400004CCH  DATA     DWORD     rsMask0
+      400004D0H  DATA     DWORD     rsMask1
+      400004DCH  DATA     DWORD     rstMask0
+      400004E0H  DATA     DWORD     rstMask1
+      400004D4H  DATA     DWORD     rwMask0
+      400004D8H  DATA     DWORD     rwMask1
+      40000490H  DATA     ---       someText
+      400004F4H  DATA     ---       tempP2
+
+
+
+UNRESOLVED EXTERNAL SYMBOLS:
+   maska_bmp
+
+
+
+*** WARNING L23: UNRESOLVED EXTERNAL SYMBOLS
+
+*** ERROR L128: REFERENCE MADE TO UNRESOLVED EXTERNAL
+LARM LINKER/LOCATER V2.53                                                             03/06/2008  12:30:19  PAGE 4
+
+
+    SYMBOL:  maska_bmp
+    ADDRESS: 00000710H
+
+Program Size: data=1273 const=1297 code=5332
+LARM RUN COMPLETE.  1 WARNING(S),  1 ERROR(S)

@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+C:\Documents and Settings\admin\Desktop\ARM Code New\Timer\TimerMatch.uv2
+Project File Date:  02/19/2010
+
+<h2>Output:</h2>
+Build target 'Simulation'
+compiling main.c...
+assembling Startup.s...
+linking...
+Program Size: data=1168 const=16 code=540
+creating hex file from ".\Out\Timer"...
+".\Out\Timer" - 0 Error(s), 0 Warning(s).

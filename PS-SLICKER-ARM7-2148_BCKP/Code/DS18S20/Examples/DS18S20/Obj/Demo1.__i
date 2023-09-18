@@ -1,0 +1,1 @@
+"Demo1.c" THUMB OPTIMIZE (7,SPEED) BROWSE INCDIR(..\..\INC;..\..\OBJ) DEBUG PRINT(.\Lst\Demo1.lst) TABS (4) OBJECT(.\Obj\Demo1.obj)

@@ -1,0 +1,9 @@
+--cpu ARM7TDMI
+".\startup.o"
+".\demo_keypad.o"
+".\Out\KeyPad.obj"
+".\Out\LCD Demo.obj"
+--strict --scatter ".\KEYLCD.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\KEYLCD.map" -o .\KEYLCD.axf

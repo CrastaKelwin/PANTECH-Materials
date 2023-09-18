@@ -1,0 +1,19 @@
+*** Creating Trace Output File '.\OUT\EEPROM.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\out\startup.o"'
+### List of Objects: adding '".\out\uart_utility.o"'
+### List of Objects: adding '".\out\i2c_eeprom.o"'
+### ADS-LD Command completed:
+".\out\startup.o" ".\out\uart_utility.o" ".\out\i2c_eeprom.o" --strict --scatter ".\OUT\EEPROM.sct" 
+-o ".\OUT\EEPROM.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\OUT\EEPROM.axf'
+### ADS-LD Command File: '.\OUT\EEPROM.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\OUT\EEPROM.lnp', Handle=0x00000304
+### Writing '.lnp' file
+### ADS-LD Command file '.\OUT\EEPROM.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

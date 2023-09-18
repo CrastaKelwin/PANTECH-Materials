@@ -1,0 +1,37 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.s*; *.src; *.a*)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt; *.h; *.inc)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (Relay), 0x0005 // Tools: ''
+GRPOPT 1,(Start Up),0,0,0
+GRPOPT 2,(Source Group),1,0,0
+GRPOPT 3,(Documentation),0,0,0
+
+OPTFFF 1,1,2,0,0,0,0,0,<.\Startup.s><Startup.s> 
+OPTFFF 2,2,1,218103810,0,21,34,0,<.\Relay_Toggle.c><Relay_Toggle.c> { 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,0,0,0,0,0,0,0,0,86,4,0,0,135,1,0,0 }
+
+
+TARGOPT 1, (Relay)
+ KACLK=12000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 0,0,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTDL (SARM.DLL)(-cLPC2100)(DARMP.DLL)(-pLPC2148)(SARM.DLL)()(TARMP.DLL)(-pLPC2148)
+  OPTDBG 48125,-1,()()()()()()()()()() ()()()()
+  OPTDF 0x0
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

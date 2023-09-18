@@ -1,0 +1,7 @@
+".\Out\Startup.obj",
+".\Out\RTC_Alarm.obj",
+".\Out\UART_Utility.obj" 
+TO ".\Out\RTC_ALARM" 
+PRINT(".\RTC_ALARM.map") CASE 
+CLASSES (DATA (0x40000000-0x40007FFF), 
+CODE (0x0-0x7FFFF), CONST (0x0-0x7FFFF)) 

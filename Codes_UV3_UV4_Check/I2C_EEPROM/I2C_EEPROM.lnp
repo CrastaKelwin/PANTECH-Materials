@@ -1,0 +1,3 @@
+"startup.o" "uart_utility.o" "i2c_eeprom.o" --strict --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\I2C_EEPROM.map" -o "I2C_EEPROM.axf"

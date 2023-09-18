@@ -1,0 +1,922 @@
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE LCD_Utility
+OBJECT MODULE PLACED IN .\Out\LCD Utility.obj
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe LCD Utility.c THUMB BROWSE DEBUG TABS(4) OBJECT(.\Out\LCD Utility.obj) 
+
+stmt  level    source
+
+    1          /********************************************************************
+    2          
+    3          #######################################################################
+    4          ##                                                                   ##
+    5          ## Important : Not to be Disclosed to the Clients..                  ##
+    6          ## This is transferred into as an object File and...                 ##
+    7          ## is included only for the Company's Development Purpose...         ##
+    8          ##                                                                   ##
+    9          ##      © Pantech Solutions | All rights Reserved.                   ##
+   10          ##                                                                   ##
+   11          #######################################################################
+   12          
+   13              2X16 char LCD Demo Program in 8-bit Mode
+   14              ----------------------------------------
+   15              
+   16              Description
+   17              -----------
+   18              Display Simple text message.
+   19          
+   20              Test configuration:
+   21              -------------------
+   22              Oscillator:      12.0 MHz (cclk = 60.0 MHz, Fcco = 240.0 MHz)
+   23          
+   24              Connections
+   25              -----------
+   26              Control Lines(P0.8--0.15)           
+   27              P0.12   -   RS                  
+   28              P0.13   -   RW                  
+   29              P0.14   -   EN
+   30              
+   31                                  
+   32          /********************************************************************/
+   33          
+   34          #include <lpc21xx.h>
+   35          #include <stdio.h>
+   36          #include "LCD8.H"
+   37          
+   38          extern void DelayMs();
+   39          
+   40          extern unsigned char msg[16];
+   41          extern unsigned char msg1[16];
+   42          
+   43          unsigned char mess[4][8]={ 0x04,0x04,0x04,0x04,0x04,0x04,0,0,
+   44                                     0x10,0x08,0x04,0x02,0x01,0x00,0,0,
+   45                                     0x00,0x00,0x1F,0x00,0x00,0x00,0,0,
+   46                                     0x01,0x02,0x04,0x08,0x10,0x00,0,0
+   47                                    };
+   48          
+   49          const unsigned char cmd[4] = {0x38,0x0c,0x06,0x01}; //lcd commands
+   50          
+   51          unsigned long RS,RW,E;
+   52          unsigned char D0;
+   53          
+   54          //----------------------------------
+   55          //      LCD Initialize
+   56          //----------------------------------
+   57          
+   58          void lcd_initialize(unsigned long *LCDPort)
+   59          {
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 2   
+
+   60   1          int i;
+   61   1          for(i=0;i<4;i++)
+   62   1          {
+   63   2              *(LCDPort + 3) = 0xFF << D0;            //IOCLR 0/1
+   64   2              lcd_cmd(LCDPort, D0, cmd[i]);
+   65   2              delay(15); 
+   66   2          }
+   67   1      
+   68   1      }
+   69          
+   70          
+   71          
+   72          //----------------------------------
+   73          //      LCD Command Send
+   74          //----------------------------------
+   75          void lcd_cmd(unsigned long *LCDPort, unsigned char D0, unsigned char data)
+   76          {
+   77   1          *(LCDPort)  = data << D0;
+   78   1          IOCLR0  |= 0x1000;      //RS
+   79   1          IOCLR0  |= 0x2000;      //RW
+   80   1          IOSET0  |= 0x4000;      //EN
+   81   1          delay(8); 
+   82   1          IOCLR0  |= 0x4000;      //EN
+   83   1      }
+   84          
+   85          
+   86          
+   87          //----------------------------------
+   88          //      LCD Data Send
+   89          //----------------------------------
+   90          void lcd_data(unsigned long *LCDPort, unsigned char D0, unsigned char data)
+   91          {
+   92   1          *LCDPort = data << D0;
+   93   1          IOSET0  |= 0x1000;      //RS
+   94   1          IOCLR0  |= 0x2000;      //RW
+   95   1          IOSET0  |= 0x4000;      //EN
+   96   1          delay(8); 
+   97   1          IOCLR0  |= 0x4000;      //EN
+   98   1      }
+   99          
+  100          
+  101          
+  102          
+  103          //----------------------------------
+  104          //      LCD Display Msg
+  105          //----------------------------------
+  106          void lcd_display(unsigned long *LCDPort, unsigned char D0)
+  107          {
+  108   1          unsigned char pos=0, pos1 = 0;
+  109   1          char i,j;
+  110   1      
+  111   1          //first line message
+  112   1          *(LCDPort + 3) = 0xFF << D0;
+  113   1          lcd_cmd(LCDPort, D0, 0x80);
+  114   1          delay(15); 
+  115   1          i=0;
+  116   1          while(msg[i]!='\0')
+  117   1          {
+  118   2              *(LCDPort + 3) = 0xFF << D0;
+  119   2              lcd_data(LCDPort, D0, msg[i]);
+  120   2              i++;
+  121   2          }
+  122   1          delay(15); 
+  123   1      
+  124   1          //second line message
+  125   1          *(LCDPort + 3) = 0xFF << D0;
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 3   
+
+  126   1          lcd_cmd(LCDPort, D0, 0xc0);
+  127   1          while(1)
+  128   1          {
+  129   2              delay(15); 
+  130   2              i=0;
+  131   2              while(msg1[i]!='\0')
+  132   2                  {
+  133   3                      *(LCDPort + 3) = 0xFF << D0;
+  134   3                      lcd_data(LCDPort, D0, msg1[i]);
+  135   3                      i++;
+  136   3                  }
+  137   2              delay(15); 
+  138   2          
+  139   2              
+  140   2      
+  141   2              pos = 0x40;
+  142   2              /*!!!!!! Writes Special Characters to CG RAM starting address 0x40 !!!!*/
+  143   2      
+  144   2              for(i=0;i<4;i++)
+  145   2              {
+  146   3                  for (j=0;j<8;j++)
+  147   3                  {
+  148   4                      lcd_cmd(LCDPort, D0, pos);
+  149   4                      delay(15);
+  150   4                      lcd_data (LCDPort, D0, mess[i][j]);
+  151   4                      ++pos;  
+  152   4                  }
+  153   3              }
+  154   2                  
+  155   2              pos = 0xC0;
+  156   2              pos1 = 0xCE;
+  157   2              while(1)
+  158   2              {
+  159   3                  //DelayMs();
+  160   3                  for (i=0,j=3;i<4;i++,j--)
+  161   3                  {
+  162   4                      lcd_cmd(LCDPort, D0, pos);
+  163   4                      lcd_data (LCDPort, D0, j);
+  164   4                      //DelayMs();
+  165   4                      lcd_cmd(LCDPort, D0, (pos+1));
+  166   4                      lcd_data (LCDPort, D0, j);
+  167   4                      //delay(25);
+  168   4                      lcd_cmd(LCDPort, D0, pos1);
+  169   4                      lcd_data (LCDPort, D0, j);
+  170   4                      //DelayMs();
+  171   4                      lcd_cmd(LCDPort, D0, (pos1+1));
+  172   4                      lcd_data (LCDPort, D0, j);
+  173   4                      //DelayMs();
+  174   4                  }
+  175   3              }
+  176   2          }
+  177   1          
+  178   1          
+  179   1      
+  180   1          DelayMs();
+  181   1      
+  182   1          
+  183   1      }
+  184          
+  185          
+  186          //----------------------------------
+  187          //      Delay Routine
+  188          //----------------------------------
+  189          void delay(unsigned int n)
+  190          {
+  191   1          int i,j;
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 4   
+
+  192   1          for(i=0;i<n;i++)
+  193   1          {
+  194   2              for(j=0;j<0x2700;j++)
+  195   2              {;}
+  196   2          }
+  197   1      }    
+  198          
+  199          
+  200          
+  201          //--------------------------------------------------------------------------------
+  202          //      Configuration Function Starts Here.. || Called by Main Program
+  203          //--------------------------------------------------------------------------------
+  204          void LCD_Config(unsigned long *LCDPort, unsigned char Dat)
+  205          {
+  206   1          //msg = Line1;
+  207   1          //msg1 = Line2;
+  208   1          D0 = Dat;
+  209   1          *(LCDPort + 2) |= 0xFF << D0;   //Configuring OutPut Pins Corresponding to the D0
+  210   1          *(LCDPort + 2) |= 0x7000;       //Configuring Default Control Pins
+  211   1      
+  212   1          delay(10);
+  213   1      
+  214   1          lcd_initialize(LCDPort/*Data Port*/);       //Initialize LCD
+  215   1          
+  216   1          delay(10);  
+  217   1          lcd_display(LCDPort/*Data Port*/, D0 /*Data Line LSB*/);        //display message
+  218   1          delay(10);
+  219   1      
+  220   1      }
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 5   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN CODE16 (DelayMs?T)
+ EXTERN DATA (msg)
+ EXTERN DATA (msg1)
+
+
+
+*** PUBLICS:
+ PUBLIC         lcd_initialize?T
+ PUBLIC         delay?T
+ PUBLIC         lcd_cmd?T
+ PUBLIC         lcd_data?T
+ PUBLIC         LCD_Config?T
+ PUBLIC         lcd_display?T
+ PUBLIC         mess
+ PUBLIC         RS
+ PUBLIC         RW
+ PUBLIC         E
+ PUBLIC         D0
+ PUBLIC         cmd
+
+
+
+*** DATA SEGMENT '?DT0?LCD_Utility':
+ 00000000          RS:
+ 00000000            DS          4
+ 00000004          RW:
+ 00000004            DS          4
+ 00000008          E:
+ 00000008            DS          4
+ 0000000C          mess:
+ 0000000C           BEGIN_INIT
+ 0000000C  04        DB          0x4
+ 0000000D  04        DB          0x4
+ 0000000E  04        DB          0x4
+ 0000000F  04        DB          0x4
+ 00000010  04        DB          0x4
+ 00000011  04        DB          0x4
+ 00000012  00        DB          0x0
+ 00000013  00        DB          0x0
+ 00000014  10        DB          0x10
+ 00000015  08        DB          0x8
+ 00000016  04        DB          0x4
+ 00000017  02        DB          0x2
+ 00000018  01        DB          0x1
+ 00000019  00        DB          0x0
+ 0000001A  00        DB          0x0
+ 0000001B  00        DB          0x0
+ 0000001C  00        DB          0x0
+ 0000001D  00        DB          0x0
+ 0000001E  1F        DB          0x1F
+ 0000001F  00        DB          0x0
+ 00000020  00        DB          0x0
+ 00000021  00        DB          0x0
+ 00000022  00        DB          0x0
+ 00000023  00        DB          0x0
+ 00000024  01        DB          0x1
+ 00000025  02        DB          0x2
+ 00000026  04        DB          0x4
+ 00000027  08        DB          0x8
+ 00000028  10        DB          0x10
+ 00000029  00        DB          0x0
+ 0000002A  00        DB          0x0
+ 0000002B  00        DB          0x0
+ 0000002C           END_INIT
+ 0000002C          D0:
+ 0000002C            DS          1
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 6   
+
+
+*** DATA SEGMENT '?CON?LCD_Utility':
+ 00000000          cmd:
+ 00000000           BEGIN_INIT
+ 00000000  38        DB          0x38
+ 00000001  0C        DB          0xC
+ 00000002  06        DB          0x6
+ 00000003  01        DB          0x1
+ 00000004           END_INIT
+
+
+
+*** CODE SEGMENT '?PR?lcd_initialize?T?LCD_Utility':
+   58: void lcd_initialize(unsigned long *LCDPort)
+ 00000000  B530      PUSH        {R4-R5,LR}
+ 00000002  1C05      MOV         R5,R0 ; LCDPort
+ 00000004  ---- Variable 'LCDPort' assigned to Register 'R5' ----
+   59: {
+ 00000004            ; SCOPE-START
+   61:     for(i=0;i<4;i++)
+ 00000004  2400      MOV         R4,#0x0
+ 00000006  ---- Variable 'i' assigned to Register 'R4' ----
+ 00000006          L_4:
+   63:         *(LCDPort + 3) = 0xFF << D0;            //IOCLR 0/1
+ 00000006  4800      LDR         R0,=D0 ; D0
+ 00000008  7800      LDRB        R0,[R0,#0x0] ; D0
+ 0000000A  21FF      MOV         R1,#0xFF
+ 0000000C  4081      LSL         R1,R0
+ 0000000E  1C28      MOV         R0,R5 ; LCDPort
+ 00000010  60C1      STR         R1,[R0,#0xC]
+   64:         lcd_cmd(LCDPort, D0, cmd[i]);
+ 00000012  1C21      MOV         R1,R4 ; i
+ 00000014  4800      LDR         R0,=cmd ; cmd
+ 00000016  5C40      LDRB        R0,[R0,R1]
+ 00000018  1C02      MOV         R2,R0
+ 0000001A  4800      LDR         R0,=D0 ; D0
+ 0000001C  7800      LDRB        R0,[R0,#0x0] ; D0
+ 0000001E  1C01      MOV         R1,R0
+ 00000020  1C28      MOV         R0,R5 ; LCDPort
+ 00000022  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 00000024  FFED      BL          lcd_cmd?T  ; T=0x0001  (2)
+   65:         delay(15); 
+ 00000026  200F      MOV         R0,#0xF
+ 00000028  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 0000002A  FFEA      BL          delay?T  ; T=0x0001  (2)
+   66:     }
+ 0000002C  3401      ADD         R4,#0x1
+ 0000002E  1C20      MOV         R0,R4 ; i
+ 00000030  2804      CMP         R0,#0x4 ; i
+ 00000032  DBE8      BLT         L_4  ; T=0x00000006
+ 00000034            ; SCOPE-END
+   68: }
+ 00000034  BC30      POP         {R4-R5}
+ 00000036  BC08      POP         {R3}
+ 00000038  4718      BX          R3
+ 0000003A          ENDP ; 'lcd_initialize?T'
+
+
+*** CODE SEGMENT '?PR?lcd_cmd?T?LCD_Utility':
+   75: void lcd_cmd(unsigned long *LCDPort, unsigned char D0, unsigned char data)
+ 00000000  B500      PUSH        {LR}
+ 00000002  ---- Variable 'data' assigned to Register 'R2' ----
+ 00000002  ---- Variable 'D0' assigned to Register 'R1' ----
+ 00000002  1C03      MOV         R3,R0 ; LCDPort
+ 00000004  ---- Variable 'LCDPort' assigned to Register 'R3' ----
+   77:     *(LCDPort)  = data << D0;
+ 00000004  1C08      MOV         R0,R1 ; D0
+ 00000006  0600      LSL         R0,R0,#0x18 ; D0
+ 00000008  0E00      LSR         R0,R0,#0x18
+ 0000000A  1C11      MOV         R1,R2 ; data
+ 0000000C  0609      LSL         R1,R1,#0x18 ; data
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 7   
+
+ 0000000E  0E09      LSR         R1,R1,#0x18
+ 00000010  4081      LSL         R1,R0
+ 00000012  1C18      MOV         R0,R3 ; LCDPort
+ 00000014  6001      STR         R1,[R0,#0x0] ; LCDPort
+   78:     IOCLR0  |= 0x1000;      //RS
+ 00000016  4800      LDR         R2,=0x1000
+ 00000018  4800      LDR         R0,=0xE002800C
+ 0000001A  6801      LDR         R1,[R0,#0x0]
+ 0000001C  4311      ORR         R1,R2
+ 0000001E  6001      STR         R1,[R0,#0x0]
+   79:     IOCLR0  |= 0x2000;      //RW
+ 00000020  4800      LDR         R2,=0x2000
+ 00000022  4800      LDR         R0,=0xE002800C
+ 00000024  6801      LDR         R1,[R0,#0x0]
+ 00000026  4311      ORR         R1,R2
+ 00000028  6001      STR         R1,[R0,#0x0]
+   80:     IOSET0  |= 0x4000;      //EN
+ 0000002A  4800      LDR         R2,=0x4000
+ 0000002C  4800      LDR         R0,=0xE0028004
+ 0000002E  6801      LDR         R1,[R0,#0x0]
+ 00000030  4311      ORR         R1,R2
+ 00000032  6001      STR         R1,[R0,#0x0]
+   81:     delay(8); 
+ 00000034  2008      MOV         R0,#0x8
+ 00000036  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 00000038  FFE3      BL          delay?T  ; T=0x0001  (2)
+   82:     IOCLR0  |= 0x4000;      //EN
+ 0000003A  4800      LDR         R2,=0x4000
+ 0000003C  4800      LDR         R0,=0xE002800C
+ 0000003E  6801      LDR         R1,[R0,#0x0]
+ 00000040  4311      ORR         R1,R2
+ 00000042  6001      STR         R1,[R0,#0x0]
+   83: }
+ 00000044  BC08      POP         {R3}
+ 00000046  4718      BX          R3
+ 00000048          ENDP ; 'lcd_cmd?T'
+
+
+*** CODE SEGMENT '?PR?lcd_data?T?LCD_Utility':
+   90: void lcd_data(unsigned long *LCDPort, unsigned char D0, unsigned char data)
+ 00000000  B500      PUSH        {LR}
+ 00000002  ---- Variable 'data' assigned to Register 'R2' ----
+ 00000002  ---- Variable 'D0' assigned to Register 'R1' ----
+ 00000002  1C03      MOV         R3,R0 ; LCDPort
+ 00000004  ---- Variable 'LCDPort' assigned to Register 'R3' ----
+   92:     *LCDPort = data << D0;
+ 00000004  1C08      MOV         R0,R1 ; D0
+ 00000006  0600      LSL         R0,R0,#0x18 ; D0
+ 00000008  0E00      LSR         R0,R0,#0x18
+ 0000000A  1C11      MOV         R1,R2 ; data
+ 0000000C  0609      LSL         R1,R1,#0x18 ; data
+ 0000000E  0E09      LSR         R1,R1,#0x18
+ 00000010  4081      LSL         R1,R0
+ 00000012  1C18      MOV         R0,R3 ; LCDPort
+ 00000014  6001      STR         R1,[R0,#0x0] ; LCDPort
+   93:     IOSET0  |= 0x1000;      //RS
+ 00000016  4800      LDR         R2,=0x1000
+ 00000018  4800      LDR         R0,=0xE0028004
+ 0000001A  6801      LDR         R1,[R0,#0x0]
+ 0000001C  4311      ORR         R1,R2
+ 0000001E  6001      STR         R1,[R0,#0x0]
+   94:     IOCLR0  |= 0x2000;      //RW
+ 00000020  4800      LDR         R2,=0x2000
+ 00000022  4800      LDR         R0,=0xE002800C
+ 00000024  6801      LDR         R1,[R0,#0x0]
+ 00000026  4311      ORR         R1,R2
+ 00000028  6001      STR         R1,[R0,#0x0]
+   95:     IOSET0  |= 0x4000;      //EN
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 8   
+
+ 0000002A  4800      LDR         R2,=0x4000
+ 0000002C  4800      LDR         R0,=0xE0028004
+ 0000002E  6801      LDR         R1,[R0,#0x0]
+ 00000030  4311      ORR         R1,R2
+ 00000032  6001      STR         R1,[R0,#0x0]
+   96:     delay(8); 
+ 00000034  2008      MOV         R0,#0x8
+ 00000036  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 00000038  FFE3      BL          delay?T  ; T=0x0001  (2)
+   97:     IOCLR0  |= 0x4000;      //EN
+ 0000003A  4800      LDR         R2,=0x4000
+ 0000003C  4800      LDR         R0,=0xE002800C
+ 0000003E  6801      LDR         R1,[R0,#0x0]
+ 00000040  4311      ORR         R1,R2
+ 00000042  6001      STR         R1,[R0,#0x0]
+   98: }
+ 00000044  BC08      POP         {R3}
+ 00000046  4718      BX          R3
+ 00000048          ENDP ; 'lcd_data?T'
+
+
+*** CODE SEGMENT '?PR?lcd_display?T?LCD_Utility':
+  106: void lcd_display(unsigned long *LCDPort, unsigned char D0)
+ 00000000  B5F0      PUSH        {R4-R7,LR}
+ 00000002  1C0F      MOV         R7,R1 ; D0
+ 00000004  ---- Variable 'D0' assigned to Register 'R7' ----
+ 00000004  1C06      MOV         R6,R0 ; LCDPort
+ 00000006  ---- Variable 'LCDPort' assigned to Register 'R6' ----
+ 00000006  B082      SUB         R13,#0x8
+ 00000008  ---- Variable 'j' assigned to Register 'R4' ----
+  107: {
+ 00000008            ; SCOPE-START
+  108:     unsigned char pos=0, pos1 = 0;
+ 00000008  2100      MOV         R1,#0x0
+ 0000000A  A800      ADD         R0,R13,#0x0
+ 0000000C  7001      STRB        R1,[R0,#0x0] ; pos
+ 0000000E  A801      ADD         R0,R13,#0x4
+ 00000010  7001      STRB        R1,[R0,#0x0] ; pos1
+  112:     *(LCDPort + 3) = 0xFF << D0;
+ 00000012  1C38      MOV         R0,R7 ; D0
+ 00000014  0600      LSL         R0,R0,#0x18 ; D0
+ 00000016  0E00      LSR         R0,R0,#0x18
+ 00000018  21FF      MOV         R1,#0xFF
+ 0000001A  4081      LSL         R1,R0
+ 0000001C  1C30      MOV         R0,R6 ; LCDPort
+ 0000001E  60C1      STR         R1,[R0,#0xC]
+  113:     lcd_cmd(LCDPort, D0, 0x80);
+ 00000020  1C38      MOV         R0,R7 ; D0
+ 00000022  0601      LSL         R1,R0,#0x18 ; D0
+ 00000024  0E09      LSR         R1,R1,#0x18
+ 00000026  1C30      MOV         R0,R6 ; LCDPort
+ 00000028  2280      MOV         R2,#0x80
+ 0000002A  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 0000002C  FFE9      BL          lcd_cmd?T  ; T=0x0001  (2)
+  114:     delay(15); 
+ 0000002E  200F      MOV         R0,#0xF
+ 00000030  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 00000032  FFE6      BL          delay?T  ; T=0x0001  (2)
+  115:     i=0;
+ 00000034  2500      MOV         R5,#0x0
+ 00000036  ---- Variable 'i' assigned to Register 'R5' ----
+  116:     while(msg[i]!='\0')
+ 00000036  E015      B           L_6  ; T=0x00000064
+ 00000038          L_8:
+  118:         *(LCDPort + 3) = 0xFF << D0;
+ 00000038  1C38      MOV         R0,R7 ; D0
+ 0000003A  0600      LSL         R0,R0,#0x18 ; D0
+ 0000003C  0E00      LSR         R0,R0,#0x18
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 9   
+
+ 0000003E  21FF      MOV         R1,#0xFF
+ 00000040  4081      LSL         R1,R0
+ 00000042  1C30      MOV         R0,R6 ; LCDPort
+ 00000044  60C1      STR         R1,[R0,#0xC]
+  119:         lcd_data(LCDPort, D0, msg[i]);
+ 00000046  1C28      MOV         R0,R5 ; i
+ 00000048  0601      LSL         R1,R0,#0x18 ; i
+ 0000004A  0E09      LSR         R1,R1,#0x18
+ 0000004C  4800      LDR         R0,=msg ; msg
+ 0000004E  5C40      LDRB        R0,[R0,R1]
+ 00000050  1C02      MOV         R2,R0
+ 00000052  1C38      MOV         R0,R7 ; D0
+ 00000054  0601      LSL         R1,R0,#0x18 ; D0
+ 00000056  0E09      LSR         R1,R1,#0x18
+ 00000058  1C30      MOV         R0,R6 ; LCDPort
+ 0000005A  F7FF      BL          lcd_data?T  ; T=0x0001  (1)
+ 0000005C  FFD1      BL          lcd_data?T  ; T=0x0001  (2)
+  120:         i++;
+ 0000005E  3501      ADD         R5,#0x1
+ 00000060  062D      LSL         R5,R5,#0x18
+ 00000062  0E2D      LSR         R5,R5,#0x18
+  121:     }
+ 00000064          L_6:
+ 00000064  1C28      MOV         R0,R5 ; i
+ 00000066  0601      LSL         R1,R0,#0x18 ; i
+ 00000068  0E09      LSR         R1,R1,#0x18
+ 0000006A  4800      LDR         R0,=msg ; msg
+ 0000006C  5C40      LDRB        R0,[R0,R1]
+ 0000006E  2800      CMP         R0,#0x0
+ 00000070  D1E2      BNE         L_8  ; T=0x00000038
+  122:     delay(15); 
+ 00000072  200F      MOV         R0,#0xF
+ 00000074  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 00000076  FFC4      BL          delay?T  ; T=0x0001  (2)
+  125:     *(LCDPort + 3) = 0xFF << D0;
+ 00000078  1C38      MOV         R0,R7 ; D0
+ 0000007A  0600      LSL         R0,R0,#0x18 ; D0
+ 0000007C  0E00      LSR         R0,R0,#0x18
+ 0000007E  21FF      MOV         R1,#0xFF
+ 00000080  4081      LSL         R1,R0
+ 00000082  1C30      MOV         R0,R6 ; LCDPort
+ 00000084  60C1      STR         R1,[R0,#0xC]
+  126:     lcd_cmd(LCDPort, D0, 0xc0);
+ 00000086  1C38      MOV         R0,R7 ; D0
+ 00000088  0601      LSL         R1,R0,#0x18 ; D0
+ 0000008A  0E09      LSR         R1,R1,#0x18
+ 0000008C  1C30      MOV         R0,R6 ; LCDPort
+ 0000008E  22C0      MOV         R2,#0xC0
+ 00000090  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 00000092  FFB6      BL          lcd_cmd?T  ; T=0x0001  (2)
+  129:         delay(15); 
+ 00000094  200F      MOV         R0,#0xF
+ 00000096  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 00000098  FFB3      BL          delay?T  ; T=0x0001  (2)
+  130:         i=0;
+ 0000009A  2500      MOV         R5,#0x0
+  131:         while(msg1[i]!='\0')
+ 0000009C  E015      B           L_14  ; T=0x000000CA
+ 0000009E          L_16:
+  133:                 *(LCDPort + 3) = 0xFF << D0;
+ 0000009E  1C38      MOV         R0,R7 ; D0
+ 000000A0  0600      LSL         R0,R0,#0x18 ; D0
+ 000000A2  0E00      LSR         R0,R0,#0x18
+ 000000A4  21FF      MOV         R1,#0xFF
+ 000000A6  4081      LSL         R1,R0
+ 000000A8  1C30      MOV         R0,R6 ; LCDPort
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 10  
+
+ 000000AA  60C1      STR         R1,[R0,#0xC]
+  134:                 lcd_data(LCDPort, D0, msg1[i]);
+ 000000AC  1C28      MOV         R0,R5 ; i
+ 000000AE  0601      LSL         R1,R0,#0x18 ; i
+ 000000B0  0E09      LSR         R1,R1,#0x18
+ 000000B2  4800      LDR         R0,=msg1 ; msg1
+ 000000B4  5C40      LDRB        R0,[R0,R1]
+ 000000B6  1C02      MOV         R2,R0
+ 000000B8  1C38      MOV         R0,R7 ; D0
+ 000000BA  0601      LSL         R1,R0,#0x18 ; D0
+ 000000BC  0E09      LSR         R1,R1,#0x18
+ 000000BE  1C30      MOV         R0,R6 ; LCDPort
+ 000000C0  F7FF      BL          lcd_data?T  ; T=0x0001  (1)
+ 000000C2  FF9E      BL          lcd_data?T  ; T=0x0001  (2)
+  135:                 i++;
+ 000000C4  3501      ADD         R5,#0x1
+ 000000C6  062D      LSL         R5,R5,#0x18
+ 000000C8  0E2D      LSR         R5,R5,#0x18
+  136:             }
+ 000000CA          L_14:
+ 000000CA  1C28      MOV         R0,R5 ; i
+ 000000CC  0601      LSL         R1,R0,#0x18 ; i
+ 000000CE  0E09      LSR         R1,R1,#0x18
+ 000000D0  4800      LDR         R0,=msg1 ; msg1
+ 000000D2  5C40      LDRB        R0,[R0,R1]
+ 000000D4  2800      CMP         R0,#0x0
+ 000000D6  D1E2      BNE         L_16  ; T=0x0000009E
+  137:         delay(15); 
+ 000000D8  200F      MOV         R0,#0xF
+ 000000DA  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 000000DC  FF91      BL          delay?T  ; T=0x0001  (2)
+  141:         pos = 0x40;
+ 000000DE  2140      MOV         R1,#0x40
+ 000000E0  A800      ADD         R0,R13,#0x0
+ 000000E2  7001      STRB        R1,[R0,#0x0] ; pos
+  144:         for(i=0;i<4;i++)
+ 000000E4  2500      MOV         R5,#0x0
+ 000000E6  E02D      B           L_20  ; T=0x00000144
+  146:             for (j=0;j<8;j++)
+ 000000E8          L_27:
+ 000000E8  2400      MOV         R4,#0x0
+ 000000EA  E023      B           L_25  ; T=0x00000134
+ 000000EC          L_26:
+  148:                 lcd_cmd(LCDPort, D0, pos);
+ 000000EC  1C38      MOV         R0,R7 ; D0
+ 000000EE  0601      LSL         R1,R0,#0x18 ; D0
+ 000000F0  0E09      LSR         R1,R1,#0x18
+ 000000F2  A800      ADD         R0,R13,#0x0
+ 000000F4  7800      LDRB        R0,[R0,#0x0] ; pos
+ 000000F6  1C02      MOV         R2,R0
+ 000000F8  1C30      MOV         R0,R6 ; LCDPort
+ 000000FA  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 000000FC  FF81      BL          lcd_cmd?T  ; T=0x0001  (2)
+  149:                 delay(15);
+ 000000FE  200F      MOV         R0,#0xF
+ 00000100  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 00000102  FF7E      BL          delay?T  ; T=0x0001  (2)
+  150:                 lcd_data (LCDPort, D0, mess[i][j]);
+ 00000104  1C28      MOV         R0,R5 ; i
+ 00000106  0601      LSL         R1,R0,#0x18 ; i
+ 00000108  0E09      LSR         R1,R1,#0x18
+ 0000010A  00C9      LSL         R1,R1,#0x3
+ 0000010C  1C20      MOV         R0,R4 ; j
+ 0000010E  0600      LSL         R0,R0,#0x18 ; j
+ 00000110  0E00      LSR         R0,R0,#0x18
+ 00000112  1809      ADD         R1,R0
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 11  
+
+ 00000114  4800      LDR         R0,=mess ; mess
+ 00000116  5C40      LDRB        R0,[R0,R1]
+ 00000118  1C02      MOV         R2,R0
+ 0000011A  1C38      MOV         R0,R7 ; D0
+ 0000011C  0601      LSL         R1,R0,#0x18 ; D0
+ 0000011E  0E09      LSR         R1,R1,#0x18
+ 00000120  1C30      MOV         R0,R6 ; LCDPort
+ 00000122  F7FF      BL          lcd_data?T  ; T=0x0001  (1)
+ 00000124  FF6D      BL          lcd_data?T  ; T=0x0001  (2)
+  151:                 ++pos;  
+ 00000126  A800      ADD         R0,R13,#0x0
+ 00000128  7801      LDRB        R1,[R0,#0x0] ; pos
+ 0000012A  3101      ADD         R1,#0x1
+ 0000012C  7001      STRB        R1,[R0,#0x0] ; pos
+  152:             }
+ 0000012E  3401      ADD         R4,#0x1
+ 00000130  0624      LSL         R4,R4,#0x18
+ 00000132  0E24      LSR         R4,R4,#0x18
+ 00000134          L_25:
+ 00000134  1C20      MOV         R0,R4 ; j
+ 00000136  0600      LSL         R0,R0,#0x18 ; j
+ 00000138  0E00      LSR         R0,R0,#0x18
+ 0000013A  2808      CMP         R0,#0x8
+ 0000013C  DBD6      BLT         L_26  ; T=0x000000EC
+  153:         }
+ 0000013E  3501      ADD         R5,#0x1
+ 00000140  062D      LSL         R5,R5,#0x18
+ 00000142  0E2D      LSR         R5,R5,#0x18
+ 00000144          L_20:
+ 00000144  1C28      MOV         R0,R5 ; i
+ 00000146  0600      LSL         R0,R0,#0x18 ; i
+ 00000148  0E00      LSR         R0,R0,#0x18
+ 0000014A  2804      CMP         R0,#0x4
+ 0000014C  DBCC      BLT         L_27  ; T=0x000000E8
+  155:         pos = 0xC0;
+ 0000014E  21C0      MOV         R1,#0xC0
+ 00000150  A800      ADD         R0,R13,#0x0
+ 00000152  7001      STRB        R1,[R0,#0x0] ; pos
+  156:         pos1 = 0xCE;
+ 00000154  21CE      MOV         R1,#0xCE
+ 00000156  A801      ADD         R0,R13,#0x4
+ 00000158  7001      STRB        R1,[R0,#0x0] ; pos1
+  160:             for (i=0,j=3;i<4;i++,j--)
+ 0000015A          L_36:
+ 0000015A  2500      MOV         R5,#0x0
+ 0000015C  2403      MOV         R4,#0x3
+ 0000015E  E04F      B           L_34  ; T=0x00000200
+ 00000160          L_35:
+  162:                 lcd_cmd(LCDPort, D0, pos);
+ 00000160  1C38      MOV         R0,R7 ; D0
+ 00000162  0601      LSL         R1,R0,#0x18 ; D0
+ 00000164  0E09      LSR         R1,R1,#0x18
+ 00000166  A800      ADD         R0,R13,#0x0
+ 00000168  7800      LDRB        R0,[R0,#0x0] ; pos
+ 0000016A  1C02      MOV         R2,R0
+ 0000016C  1C30      MOV         R0,R6 ; LCDPort
+ 0000016E  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 00000170  FF47      BL          lcd_cmd?T  ; T=0x0001  (2)
+  163:                 lcd_data (LCDPort, D0, j);
+ 00000172  1C38      MOV         R0,R7 ; D0
+ 00000174  0601      LSL         R1,R0,#0x18 ; D0
+ 00000176  0E09      LSR         R1,R1,#0x18
+ 00000178  1C20      MOV         R0,R4 ; j
+ 0000017A  0602      LSL         R2,R0,#0x18 ; j
+ 0000017C  0E12      LSR         R2,R2,#0x18
+ 0000017E  1C30      MOV         R0,R6 ; LCDPort
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 12  
+
+ 00000180  F7FF      BL          lcd_data?T  ; T=0x0001  (1)
+ 00000182  FF3E      BL          lcd_data?T  ; T=0x0001  (2)
+  165:                 lcd_cmd(LCDPort, D0, (pos+1));
+ 00000184  A800      ADD         R0,R13,#0x0
+ 00000186  7800      LDRB        R0,[R0,#0x0] ; pos
+ 00000188  1C02      MOV         R2,R0
+ 0000018A  3201      ADD         R2,#0x1
+ 0000018C  1C38      MOV         R0,R7 ; D0
+ 0000018E  0601      LSL         R1,R0,#0x18 ; D0
+ 00000190  0E09      LSR         R1,R1,#0x18
+ 00000192  1C30      MOV         R0,R6 ; LCDPort
+ 00000194  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 00000196  FF34      BL          lcd_cmd?T  ; T=0x0001  (2)
+  166:                 lcd_data (LCDPort, D0, j);
+ 00000198  1C38      MOV         R0,R7 ; D0
+ 0000019A  0601      LSL         R1,R0,#0x18 ; D0
+ 0000019C  0E09      LSR         R1,R1,#0x18
+ 0000019E  1C20      MOV         R0,R4 ; j
+ 000001A0  0602      LSL         R2,R0,#0x18 ; j
+ 000001A2  0E12      LSR         R2,R2,#0x18
+ 000001A4  1C30      MOV         R0,R6 ; LCDPort
+ 000001A6  F7FF      BL          lcd_data?T  ; T=0x0001  (1)
+ 000001A8  FF2B      BL          lcd_data?T  ; T=0x0001  (2)
+  168:                 lcd_cmd(LCDPort, D0, pos1);
+ 000001AA  1C38      MOV         R0,R7 ; D0
+ 000001AC  0601      LSL         R1,R0,#0x18 ; D0
+ 000001AE  0E09      LSR         R1,R1,#0x18
+ 000001B0  A801      ADD         R0,R13,#0x4
+ 000001B2  7800      LDRB        R0,[R0,#0x0] ; pos1
+ 000001B4  1C02      MOV         R2,R0
+ 000001B6  1C30      MOV         R0,R6 ; LCDPort
+ 000001B8  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 000001BA  FF22      BL          lcd_cmd?T  ; T=0x0001  (2)
+  169:                 lcd_data (LCDPort, D0, j);
+ 000001BC  1C38      MOV         R0,R7 ; D0
+ 000001BE  0601      LSL         R1,R0,#0x18 ; D0
+ 000001C0  0E09      LSR         R1,R1,#0x18
+ 000001C2  1C20      MOV         R0,R4 ; j
+ 000001C4  0602      LSL         R2,R0,#0x18 ; j
+ 000001C6  0E12      LSR         R2,R2,#0x18
+ 000001C8  1C30      MOV         R0,R6 ; LCDPort
+ 000001CA  F7FF      BL          lcd_data?T  ; T=0x0001  (1)
+ 000001CC  FF19      BL          lcd_data?T  ; T=0x0001  (2)
+  171:                 lcd_cmd(LCDPort, D0, (pos1+1));
+ 000001CE  A801      ADD         R0,R13,#0x4
+ 000001D0  7800      LDRB        R0,[R0,#0x0] ; pos1
+ 000001D2  1C02      MOV         R2,R0
+ 000001D4  3201      ADD         R2,#0x1
+ 000001D6  1C38      MOV         R0,R7 ; D0
+ 000001D8  0601      LSL         R1,R0,#0x18 ; D0
+ 000001DA  0E09      LSR         R1,R1,#0x18
+ 000001DC  1C30      MOV         R0,R6 ; LCDPort
+ 000001DE  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 000001E0  FF0F      BL          lcd_cmd?T  ; T=0x0001  (2)
+  172:                 lcd_data (LCDPort, D0, j);
+ 000001E2  1C38      MOV         R0,R7 ; D0
+ 000001E4  0601      LSL         R1,R0,#0x18 ; D0
+ 000001E6  0E09      LSR         R1,R1,#0x18
+ 000001E8  1C20      MOV         R0,R4 ; j
+ 000001EA  0602      LSL         R2,R0,#0x18 ; j
+ 000001EC  0E12      LSR         R2,R2,#0x18
+ 000001EE  1C30      MOV         R0,R6 ; LCDPort
+ 000001F0  F7FF      BL          lcd_data?T  ; T=0x0001  (1)
+ 000001F2  FF06      BL          lcd_data?T  ; T=0x0001  (2)
+  174:             }
+ 000001F4  3501      ADD         R5,#0x1
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 13  
+
+ 000001F6  062D      LSL         R5,R5,#0x18
+ 000001F8  0E2D      LSR         R5,R5,#0x18
+ 000001FA  3C01      SUB         R4,#0x1
+ 000001FC  0624      LSL         R4,R4,#0x18
+ 000001FE  0E24      LSR         R4,R4,#0x18
+ 00000200          L_34:
+ 00000200  1C28      MOV         R0,R5 ; i
+ 00000202  0600      LSL         R0,R0,#0x18 ; i
+ 00000204  0E00      LSR         R0,R0,#0x18
+ 00000206  2804      CMP         R0,#0x4
+ 00000208  DBAA      BLT         L_35  ; T=0x00000160
+  175:         }
+ 0000020A  E7A6      B           L_36  ; T=0x0000015A
+  180:     DelayMs();
+ 0000020C            ; SCOPE-END
+  183: }
+ 0000020C  BCF0      POP         {R4-R7}
+ 0000020E  BC08      POP         {R3}
+ 00000210  4718      BX          R3
+ 00000212          ENDP ; 'lcd_display?T'
+
+
+*** CODE SEGMENT '?PR?delay?T?LCD_Utility':
+  189: void delay(unsigned int n)
+ 00000000  B410      PUSH        {R4}
+ 00000002  ---- Variable 'n' assigned to Register 'R0' ----
+  190: {
+ 00000002            ; SCOPE-START
+  192:     for(i=0;i<n;i++)
+ 00000002  2100      MOV         R1,#0x0
+ 00000004  ---- Variable 'i' assigned to Register 'R1' ----
+ 00000004  E006      B           L_39  ; T=0x00000014
+  194:         for(j=0;j<0x2700;j++)
+ 00000006          L_46:
+ 00000006  2200      MOV         R2,#0x0
+ 00000008  ---- Variable 'j' assigned to Register 'R2' ----
+  195:         {;}
+ 00000008          L_42:
+ 00000008  3201      ADD         R2,#0x1
+ 0000000A  1C13      MOV         R3,R2 ; j
+ 0000000C  4800      LDR         R4,=0x2700
+ 0000000E  42A3      CMP         R3,R4 ; j
+ 00000010  DBFA      BLT         L_42  ; T=0x00000008
+  196:     }
+ 00000012  3101      ADD         R1,#0x1
+ 00000014          L_39:
+ 00000014  1C0A      MOV         R2,R1 ; i
+ 00000016  1C03      MOV         R3,R0 ; n
+ 00000018  429A      CMP         R2,R3 ; i
+ 0000001A  D3F4      BCC         L_46  ; T=0x00000006
+ 0000001C            ; SCOPE-END
+  197: }     
+ 0000001C  BC10      POP         {R4}
+ 0000001E  4770      BX          R14
+ 00000020          ENDP ; 'delay?T'
+
+
+*** CODE SEGMENT '?PR?LCD_Config?T?LCD_Utility':
+  204: void LCD_Config(unsigned long *LCDPort, unsigned char Dat)
+ 00000000  B510      PUSH        {R4,LR}
+ 00000002  1C0A      MOV         R2,R1 ; Dat
+ 00000004  ---- Variable 'Dat' assigned to Register 'R2' ----
+ 00000004  1C04      MOV         R4,R0 ; LCDPort
+ 00000006  ---- Variable 'LCDPort' assigned to Register 'R4' ----
+  208:     D0 = Dat;
+ 00000006  1C11      MOV         R1,R2 ; Dat
+ 00000008  4800      LDR         R0,=D0 ; D0
+ 0000000A  7001      STRB        R1,[R0,#0x0] ; D0
+  209:     *(LCDPort + 2) |= 0xFF << D0;   //Configuring OutPut Pins Corresponding to the D0
+ 0000000C  4800      LDR         R0,=D0 ; D0
+ARM COMPILER V2.53,  LCD_Utility                                                           22/08/08  15:03:40  PAGE 14  
+
+ 0000000E  7800      LDRB        R0,[R0,#0x0] ; D0
+ 00000010  22FF      MOV         R2,#0xFF
+ 00000012  4082      LSL         R2,R0
+ 00000014  1C20      MOV         R0,R4 ; LCDPort
+ 00000016  6881      LDR         R1,[R0,#0x8]
+ 00000018  4311      ORR         R1,R2
+ 0000001A  1C20      MOV         R0,R4 ; LCDPort
+ 0000001C  6081      STR         R1,[R0,#0x8]
+  210:     *(LCDPort + 2) |= 0x7000;       //Configuring Default Control Pins
+ 0000001E  1C20      MOV         R0,R4 ; LCDPort
+ 00000020  6881      LDR         R1,[R0,#0x8]
+ 00000022  4800      LDR         R0,=0x7000
+ 00000024  4301      ORR         R1,R0
+ 00000026  1C20      MOV         R0,R4 ; LCDPort
+ 00000028  6081      STR         R1,[R0,#0x8]
+  212:     delay(10);
+ 0000002A  200A      MOV         R0,#0xA
+ 0000002C  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 0000002E  FFE8      BL          delay?T  ; T=0x0001  (2)
+  214:     lcd_initialize(LCDPort/*Data Port*/);       //Initialize LCD
+ 00000030  1C20      MOV         R0,R4 ; LCDPort
+ 00000032  F7FF      BL          lcd_initialize?T  ; T=0x0001  (1)
+ 00000034  FFE5      BL          lcd_initialize?T  ; T=0x0001  (2)
+  216:     delay(10);  
+ 00000036  200A      MOV         R0,#0xA
+ 00000038  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 0000003A  FFE2      BL          delay?T  ; T=0x0001  (2)
+  217:     lcd_display(LCDPort/*Data Port*/, D0 /*Data Line LSB*/);        //display message
+ 0000003C  4800      LDR         R0,=D0 ; D0
+ 0000003E  7800      LDRB        R0,[R0,#0x0] ; D0
+ 00000040  1C01      MOV         R1,R0
+ 00000042  1C20      MOV         R0,R4 ; LCDPort
+ 00000044  F7FF      BL          lcd_display?T  ; T=0x0001  (1)
+ 00000046  FFDC      BL          lcd_display?T  ; T=0x0001  (2)
+  218:     delay(10);
+ 00000048  200A      MOV         R0,#0xA
+ 0000004A  F7FF      BL          delay?T  ; T=0x0001  (1)
+ 0000004C  FFD9      BL          delay?T  ; T=0x0001  (2)
+  220: }
+ 0000004E  BC10      POP         {R4}
+ 00000050  BC08      POP         {R3}
+ 00000052  4718      BX          R3
+ 00000054          ENDP ; 'LCD_Config?T'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =        45
+  const size           =         4
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

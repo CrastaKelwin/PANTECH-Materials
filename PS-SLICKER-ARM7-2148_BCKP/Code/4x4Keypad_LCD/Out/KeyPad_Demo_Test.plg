@@ -1,0 +1,14 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+G:\Karan 2008_2009\Products Delivery 2009\ARM7\PS-SLICKER-ARM7-2148\Code\4x4Keypad_LCD\KeyPad.uv2
+Project File Date:  05/25/2009
+
+<h2>Output:</h2>
+Build target 'KeyPad_LCD'
+linking...
+Program Size: data=1250 const=128 code=1624
+creating hex file from ".\Out\KeyPad_Demo_Test"...
+".\Out\KeyPad_Demo_Test" - 0 Error(s), 0 Warning(s).

@@ -1,0 +1,6 @@
+Dependencies for Project 'SPI_DAC', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x4F5858F0)(--cpu ARM7TDMI -g --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
+F (.\SPI_DAC.c)(0x56331BBA)(-c --cpu ARM7TDMI -g -O0 --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips -o "spi_dac.o" --omf_browse "spi_dac.crf" --depend "spi_dac.d")
+I (C:\Keil4\ARM\Inc\Philips\lpc214x.h)(0x4F585AA4)
+I (C:\Keil4\ARM\RV31\Inc\stdio.h)(0x4F5858A4)
+I (C:\Keil4\ARM\RV31\Inc\math.h)(0x4F5858A2)

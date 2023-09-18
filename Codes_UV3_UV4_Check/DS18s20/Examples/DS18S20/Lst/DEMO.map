@@ -1,0 +1,196 @@
+LARM LINKER/LOCATER V2.51a                                                              06/21/2008  11:48:15  PAGE 1
+
+
+LARM LINKER/LOCATER V2.51a, INVOKED BY:
+C:\KEIL\ARM\BIN\LA.EXE .\Obj\Startup.obj, .\Obj\DEMO.obj, ..\..\OBJ\ps2.obj, ..\..\OBJ\Serial.obj, ..\..\OBJ\Utility.obj
+>>  TO .\Obj\DEMO PRINT (.\Lst\DEMO.map) CASE CLASSES (DATA (0X40000000-0X40007FFF), CODE (0X0-0X7FFFF), CONST (0X0-0X7F
+>> FFF))
+
+
+CPU MODE: LITTLE ENDIAN
+
+
+INPUT MODULES INCLUDED:
+  .\Obj\Startup.obj (STARTUP)
+         COMMENT TYPE 0: AA V2.50
+  .\Obj\DEMO.obj (DEMO)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\ps2.obj (ps2)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\Serial.obj (Serial)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\Utility.obj (Utility)
+         COMMENT TYPE 0: CARM V2.51a
+  C:\KEIL\ARM\LIB\CAL.LIB (FIQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (IRQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (DABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (PABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (SWI)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UNDEF)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UDIV)
+         COMMENT TYPE 0: AA V2.50
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\Obj\DEMO (STARTUP)
+
+BASE       START      END        USED       MEMORY CLASS
+========================================================
+00000000H  40000000H  40007FFFH  000004EBH  DATA
+00000000H  00000000H  0007FFFFH  000009D0H  CODE
+00000000H  00000000H  0007FFFFH  00000161H  CONST
+
+
+
+MEMORY MAP OF MODULE:  .\Obj\DEMO (STARTUP)
+
+START      STOP       LENGTH    ALIGN  RELOC  MEMORY CLASS   SEGMENT NAME
+=========================================================================
+00000000H  0000011FH  00000120H     4  AT..   CODE           STARTUPCODE
+00000120H  00000124H  00000005H     4  UNIT   CONST          ?CON?DEMO
+00000125H  00000127H  00000003H   ---  ---    **GAP**
+00000128H  00000249H  00000122H     4  UNIT   CONST          ?CON?ps2
+0000024AH  0000024BH  00000002H   ---  ---    **GAP**
+0000024CH  0000024DH  00000002H     4  UNIT   CONST          ?CON?Serial
+0000024EH  0000024FH  00000002H   ---  ---    **GAP**
+00000250H  0000026FH  00000020H     4  UNIT   CONST          ?C_CLRSEG
+00000270H  00000287H  00000018H     4  UNIT   CONST          ?C_INITSEG
+00000288H  00000393H  0000010CH     4  UNIT   CODE           ?PR?main?DEMO
+00000394H  0000047FH  000000ECH     4  UNIT   CODE           ?PR?Ps2_Init?T?ps2
+00000480H  000004BBH  0000003CH     4  UNIT   CODE           ?PR?Ps2_Data_Read?T?ps2
+000004BCH  0000050BH  00000050H     4  UNIT   CODE           ?PR?Ps2_Adjust_Rate?T?ps2
+0000050CH  00000697H  0000018CH     4  UNIT   CODE           ?PR?Send_command?T?ps2
+00000698H  000006DBH  00000044H     4  UNIT   CODE           ?PR?Clock_Wait_High?T?ps2
+000006DCH  0000071FH  00000044H     4  UNIT   CODE           ?PR?Clock_Wait_Low?T?ps2
+LARM LINKER/LOCATER V2.51a                                                            06/21/2008  11:48:15  PAGE 2
+
+
+00000720H  00000733H  00000014H     4  UNIT   CODE           ?PR?Clock_Enable?T?ps2
+00000734H  0000074FH  0000001CH     4  UNIT   CODE           ?PR?Clock_Disable?T?ps2
+00000750H  0000076BH  0000001CH     4  UNIT   CODE           ?PR?Get_Bit?T?ps2
+0000076CH  000007D3H  00000068H     4  UNIT   CODE           ?PR?Wait_for_StartBit?T?ps2
+000007D4H  0000088FH  000000BCH     4  UNIT   CODE           ?PR?Get_ScanCode?T?ps2
+00000890H  000008CBH  0000003CH     4  UNIT   CODE           ?PR?Toggle_LOCKs?T?ps2
+000008CCH  00000917H  0000004CH     4  UNIT   CODE           ?PR?Adjust_LOCKs?T?ps2
+00000918H  000009AFH  00000098H     4  UNIT   CODE           ?PR?UART0_init?T?Serial
+000009B0H  000009CBH  0000001CH     4  UNIT   CODE           ?PR?UART0_sendchar?T?Serial
+000009CCH  000009E7H  0000001CH     4  UNIT   CODE           ?PR?UART0_sendstring?T?Serial
+000009E8H  00000A0FH  00000028H     4  UNIT   CODE           ?PR?UART0_WriteNum?T?Serial
+00000A10H  00000A2BH  0000001CH     4  UNIT   CODE           ?PR?UART1_sendchar?T?Serial
+00000A2CH  00000A47H  0000001CH     4  UNIT   CODE           ?PR?UART1_sendstring?T?Serial
+00000A48H  00000AC3H  0000007CH     4  UNIT   CODE           ?PR?hex2str?T?Utility
+00000AC4H  00000AD7H  00000014H     4  UNIT   CODE           ?PR?delay_Nx10cyc?T?Utility
+00000AD8H  00000ADBH  00000004H     4  UNIT   CODE           ?C?FIQ
+00000ADCH  00000ADFH  00000004H     4  UNIT   CODE           ?C?IRQ
+00000AE0H  00000AE3H  00000004H     4  UNIT   CODE           ?C?DABT
+00000AE4H  00000AE7H  00000004H     4  UNIT   CODE           ?C?PABT
+00000AE8H  00000AEFH  00000008H     4  UNIT   CODE           ?C?UNDEF
+00000AF0H  00000B37H  00000048H     4  UNIT   CODE           ?PR?C?UDIV
+00000B38H  3FFFFFFFH  3FFFF4C8H   ---  ---    **GAP**
+40000000H  4000048FH  00000490H     4  UNIT   DATA           STACK
+40000490H  400004A4H  00000015H     4  UNIT   DATA           ?DT0?DEMO
+400004A5H  400004A7H  00000003H   ---  ---    **GAP**
+400004A8H  400004DDH  00000036H     4  UNIT   DATA           ?DT0?ps2
+400004DEH  400004DFH  00000002H   ---  ---    **GAP**
+400004E0H  400004EFH  00000010H     4  UNIT   DATA           ?DT0?Serial
+
+
+
+REMOVED FUNCTIONS OF MODULE:  .\Obj\DEMO (STARTUP)
+
+      ATTRIBUTE  FUNCTION NAME
+      ========================
+       unused    UART0_getchar?T
+       unused    UART0_WriteLnNum?T
+       unused    UART1_init?T
+       unused    UART1_getchar?T
+       unused    UART1_WriteNum?T
+       unused    UART1_WriteLnNum?T
+       unused    Lo?T
+       unused    Hi?T
+       unused    Higher?T
+       unused    Highest?T
+       unused    int2str?T
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\Obj\DEMO (STARTUP)
+
+      VALUE      CLASS    TYPE      PUBLIC SYMBOL NAME
+      ================================================
+      00000250H  ---      ---       ?C?CLRTAB
+      00000288H  ---      ---       ?C?INIT
+      00000270H  ---      ---       ?C?INITTAB
+      00000AF4H  CODE     ---       ?C?UDIV?A
+      00000AF0H  CODE     ---       ?C?UDIV?T
+      000008CCH  CODE     ---       Adjust_LOCKs?T
+      400004C8H  DATA     DWORD     CLK_DATmask0
+      400004CCH  DATA     DWORD     CLK_DATmask1
+      400004C0H  DATA     DWORD     CLKmask0
+      400004C4H  DATA     DWORD     CLKmask1
+      400004B8H  DATA     DWORD     DATmask0
+      400004BCH  DATA     DWORD     DATmask1
+LARM LINKER/LOCATER V2.51a                                                            06/21/2008  11:48:15  PAGE 3
+
+
+      00000AE0H  CODE     ---       DAbt_Handler?A
+      400004E0H  DATA     ---       DECnum
+      00000AD8H  CODE     ---       FIQ_Handler?A
+      00000000H  CODE     ---       Hi?T
+      00000000H  CODE     ---       Higher?T
+      00000000H  CODE     ---       Highest?T
+      00000ADCH  CODE     ---       IRQ_Handler?A
+      00000000H  CODE     ---       Lo?T
+      00000AE4H  CODE     ---       PAbt_Handler?A
+      0000012BH  CONST    BYTE      PS2_ALT
+      400004D4H  DATA     ---       PS2_CAPS
+      0000012EH  CONST    BYTE      PS2_CAPS_DOWN
+      0000012AH  CONST    BYTE      PS2_CTRL
+      400004D0H  DATA     ---       PS2_NUM
+      0000012DH  CONST    BYTE      PS2_NUM_DOWN
+      00000128H  CONST    BYTE      PS2_SCROLL
+      0000012CH  CONST    BYTE      PS2_SCROLL_DOWN
+      00000129H  CONST    BYTE      PS2_SHIFT
+      000004BCH  CODE     ---       Ps2_Adjust_Rate?T
+      00000480H  CODE     ---       Ps2_Data_Read?T
+      00000394H  CODE     ---       Ps2_Init?T
+      00000AE8H  CODE     ---       SWI_Handler?A
+      0000050CH  CODE     ---       Send_command?T
+      00000890H  CODE     ---       Toggle_LOCKs?T
+      00000000H  CODE     ---       UART0_WriteLnNum?T
+      000009E8H  CODE     ---       UART0_WriteNum?T
+      00000000H  CODE     ---       UART0_getchar?T
+      00000918H  CODE     ---       UART0_init?T
+      000009B0H  CODE     ---       UART0_sendchar?T
+      000009CCH  CODE     ---       UART0_sendstring?T
+      00000000H  CODE     ---       UART1_WriteLnNum?T
+      00000000H  CODE     ---       UART1_WriteNum?T
+      00000000H  CODE     ---       UART1_getchar?T
+      00000000H  CODE     ---       UART1_init?T
+      00000A10H  CODE     ---       UART1_sendchar?T
+      00000A2CH  CODE     ---       UART1_sendstring?T
+      00000AECH  CODE     ---       Undef_Handler?A
+      00000000H  CODE     ---       __startup
+      00000AC4H  CODE     ---       delay_Nx10cyc?T
+      000000FCH  CODE     ---       exit?A
+      00000100H  CODE     ---       exit?T
+      00000A48H  CODE     ---       hex2str?T
+      00000000H  CODE     ---       int2str?T
+      000002BCH  CODE     ---       main
+      40000490H  DATA     DWORD     n
+      400004B4H  DATA     ---       pPS2CLR
+      400004ACH  DATA     ---       pPS2DIR
+      400004A8H  DATA     ---       pPS2PIN
+      400004B0H  DATA     ---       pPS2SET
+      400004D9H  DATA     BYTE      posCLK
+      400004D8H  DATA     BYTE      posDAT
+      40000494H  DATA     ---       raw_data
+      400004A4H  DATA     BYTE      raw_pos
+
+Program Size: data=1259 const=353 code=2512
+LARM RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,2484 @@
+LARM LINKER/LOCATER V2.53                                                               04/15/2016  17:53:42  PAGE 1
+
+
+
+
+
+ASSEMBLER CODE LISTING OF MODULE:  .\Obj\DEMO (STARTUP)
+
+
+
+*** Disassembly of Segment '?C_CLRSEG':
+ 00000120  40000490  DD          ?DT0?Demo
+ 00000124  400004A3  DD          ?DT0?Demo + 0x13
+ 00000128  400004A4  DD          ?DT0?SPIsw
+ 0000012C  400004D9  DD          ?DT0?SPIsw + 0x35
+ 00000130  00000000  DD          0x0
+ 00000134  00000000  DD          0x0
+
+*** Disassembly of Segment '?C_INITSEG':
+ 00000138  00000000  DD          0x0
+ 0000013C  00000000  DD          0x0
+
+*** Disassembly of Segment 'STACK':
+   70:         DS   (USR_Stack_Size+3)&~3  ; Stack for User/System Mode 
+ 40000000            DS          1024
+   71:         DS   (SVC_Stack_Size+3)&~3  ; Stack for Supervisor Mode
+ 40000400            DS          4
+   72:         DS   (IRQ_Stack_Size+3)&~3  ; Stack for Interrupt Mode
+ 40000404            DS          128
+   73:         DS   (FIQ_Stack_Size+3)&~3  ; Stack for Fast Interrupt Mode 
+ 40000484            DS          4
+   74:         DS   (ABT_Stack_Size+3)&~3  ; Stack for Abort Mode
+ 40000488            DS          4
+   75:         DS   (UND_Stack_Size+3)&~3  ; Stack for Undefined Mode
+ 4000048C            DS          4
+   76: Top_Stack:
+ 40000490          Top_Stack:
+
+*** Disassembly of Segment '?DT0?Demo':
+   41: 	id;
+ 40000490            ALIGN       4
+ 40000490          id:
+ 40000490            DS          4
+   33: 	aa, aa1, aa2,
+ 40000494            ALIGN       1
+ 40000494          aa:
+ 40000494            DS          1
+ 40000495            ALIGN       1
+ 40000495          aa1:
+ 40000495            DS          1
+ 40000496            ALIGN       1
+ 40000496          aa2:
+ 40000496            DS          1
+   34: 	len,
+ 40000497            ALIGN       1
+ 40000497          len:
+ 40000497            DS          1
+   35: 	zr,
+ 40000498            ALIGN       1
+ 40000498          zr:
+ 40000498            DS          1
+   36: 	cont,
+ 40000499            ALIGN       1
+ 40000499          cont:
+ 40000499            DS          1
+   37: 	oldstate,
+ 4000049A            ALIGN       1
+ 4000049A          oldstate:
+ 4000049A            DS          1
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 2
+
+
+   38: 	data[8];
+ 4000049B            ALIGN       1
+ 4000049B          data:
+ 4000049B            DS          8
+
+*** Disassembly of Segment '?DT0?SPIsw':
+ 400004A4            ALIGN       4
+ 400004A4          pSPIswPIN:
+ 400004A4            DS          4
+ 400004A8            ALIGN       4
+ 400004A8          pSPIswDIR:
+ 400004A8            DS          4
+ 400004AC            ALIGN       4
+ 400004AC          pSPIswSET:
+ 400004AC            DS          4
+ 400004B0            ALIGN       4
+ 400004B0          pSPIswCLR:
+ 400004B0            DS          4
+ 400004B4            ALIGN       4
+ 400004B4          CSmask0:
+ 400004B4            DS          4
+ 400004B8            ALIGN       4
+ 400004B8          CSmask1:
+ 400004B8            DS          4
+ 400004BC            ALIGN       4
+ 400004BC          MISOmask0:
+ 400004BC            DS          4
+ 400004C0            ALIGN       4
+ 400004C0          MISOmask1:
+ 400004C0            DS          4
+ 400004C4            ALIGN       4
+ 400004C4          MOSImask0:
+ 400004C4            DS          4
+ 400004C8            ALIGN       4
+ 400004C8          MOSImask1:
+ 400004C8            DS          4
+ 400004CC            ALIGN       4
+ 400004CC          SCKmask0:
+ 400004CC            DS          4
+ 400004D0            ALIGN       4
+ 400004D0          SCKmask1:
+ 400004D0            DS          4
+ 400004D4            ALIGN       1
+ 400004D4          posCS:
+ 400004D4            DS          1
+ 400004D5            ALIGN       1
+ 400004D5          posSCK:
+ 400004D5            DS          1
+ 400004D6            ALIGN       1
+ 400004D6          posMOSI:
+ 400004D6            DS          1
+ 400004D7            ALIGN       1
+ 400004D7          posMISO:
+ 400004D7            DS          1
+ 400004D8            ALIGN       1
+ 400004D8          spiMode:
+ 400004D8            DS          1
+
+*** Disassembly of Segment 'STARTUPCODE':
+ FILE: 'Startup.S'
+  170: __startup       PROC    CODE32
+ 00000000            ; SCOPE-START
+  185: Vectors:        LDR     PC,Reset_Addr         
+ 00000000          Vectors:
+ 00000000  E59FF018  LDR         R15,[R15,#Reset_Addr]
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 3
+
+
+  186:                 LDR     PC,Undef_Addr
+ 00000004  E59FF018  LDR         R15,[R15,#Undef_Addr]
+  187:                 LDR     PC,SWI_Addr
+ 00000008  E59FF018  LDR         R15,[R15,#SWI_Addr]
+  188:                 LDR     PC,PAbt_Addr
+ 0000000C  E59FF018  LDR         R15,[R15,#PAbt_Addr]
+  189:                 LDR     PC,DAbt_Addr
+ 00000010  E59FF018  LDR         R15,[R15,#DAbt_Addr]
+  190:                 NOP                            /* Reserved Vector */
+ 00000014  E1A00000  NOP       
+  192:                 LDR     PC,[PC, #-0x0FF0]      /* Vector from VicVectAddr */
+ 00000018  E51FFFF0  LDR         R15,[R15,#-0xFF0]
+  193:                 LDR     PC,FIQ_Addr
+ 0000001C  E59FF018  LDR         R15,[R15,#FIQ_Addr]
+  195: Reset_Addr:     DD      Reset_Handler
+ 00000020          Reset_Addr:
+ 00000020  00000040  DD          Reset_Handler
+  196: Undef_Addr:     DD      Undef_Handler?A
+ 00000024          Undef_Addr:
+ 00000024  00001B74  DD          Undef_Handler?A
+  197: SWI_Addr:       DD      SWI_Handler?A
+ 00000028          SWI_Addr:
+ 00000028  00001B70  DD          SWI_Handler?A
+  198: PAbt_Addr:      DD      PAbt_Handler?A
+ 0000002C          PAbt_Addr:
+ 0000002C  00001B6C  DD          PAbt_Handler?A
+  199: DAbt_Addr:      DD      DAbt_Handler?A
+ 00000030          DAbt_Addr:
+ 00000030  00001B68  DD          DAbt_Handler?A
+  200:                 DD      0                      /* Reserved Address */
+ 00000034  00000000  DD          0x0
+  201: IRQ_Addr:       DD      IRQ_Handler?A
+ 00000038          IRQ_Addr:
+ 00000038  00001B64  DD          IRQ_Handler?A
+  202: FIQ_Addr:       DD      FIQ_Handler?A
+ 0000003C          FIQ_Addr:
+ 0000003C  00001B60  DD          FIQ_Handler?A
+  207: Reset_Handler:  
+ 00000040          Reset_Handler:
+  211:                 LDR     R0, =VPBDIV
+ 00000040  E59F00BC  LDR         R0,[PC,+188] ; PoolRef @0x104
+  212:                 LDR     R1, =VPBDIV_Val
+ 00000044  E3A01000  MOV         R1,#VPBDIV_Val
+  213:                 STR     R1, [R0]
+ 00000048  E5801000  STR         R1,[R0]
+  218:                 LDR     R0, =PLL_BASE
+ 0000004C  E59F00B4  LDR         R0,[PC,+180] ; PoolRef @0x108
+  219:                 MOV     R1, #0xAA
+ 00000050  E3A010AA  MOV         R1,#0x00AA
+  220:                 MOV     R2, #0x55
+ 00000054  E3A02055  MOV         R2,#0x0055
+  223:                 MOV     R3, #PLLCFG_Val
+ 00000058  E3A03024  MOV         R3,#0x0024
+  224:                 STR     R3, [R0, #PLLCFG_OFS] 
+ 0000005C  E5803004  STR         R3,[R0,#PLLCFG_OFS]
+  225:                 MOV     R3, #PLLCON_PLLE
+ 00000060  E3A03001  MOV         R3,#0x0001
+  226:                 STR     R3, [R0, #PLLCON_OFS]
+ 00000064  E5803000  STR         R3,[R0,#PLLCON_OFS]
+  227:                 STR     R1, [R0, #PLLFEED_OFS]
+ 00000068  E580100C  STR         R1,[R0,#PLLFEED_OFS]
+  228:                 STR     R2, [R0, #PLLFEED_OFS]
+ 0000006C  E580200C  STR         R2,[R0,#PLLFEED_OFS]
+  231: PLL_Loop:       LDR     R3, [R0, #PLLSTAT_OFS]
+ 00000070          PLL_Loop:
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 4
+
+
+ 00000070  E5903008  LDR         R3,[R0,#PLLSTAT_OFS]
+  232:                 ANDS    R3, R3, #PLLSTAT_PLOCK
+ 00000074  E2133B01  ANDS        R3,R3,#0x0400
+  233:                 BEQ     PLL_Loop
+ 00000078  0AFFFFFC  BEQ         PLL_Loop  ; Targ=0x70
+  236:                 MOV     R3, #(PLLCON_PLLE | PLLCON_PLLC)
+ 0000007C  E3A03003  MOV         R3,#0x0003
+  237:                 STR     R3, [R0, #PLLCON_OFS]
+ 00000080  E5803000  STR         R3,[R0,#PLLCON_OFS]
+  238:                 STR     R1, [R0, #PLLFEED_OFS]
+ 00000084  E580100C  STR         R1,[R0,#PLLFEED_OFS]
+  239:                 STR     R2, [R0, #PLLFEED_OFS]
+ 00000088  E580200C  STR         R2,[R0,#PLLFEED_OFS]
+  244:                 LDR     R0, =MAM_BASE
+ 0000008C  E59F0078  LDR         R0,[PC,+120] ; PoolRef @0x10C
+  245:                 MOV     R1, #MAMTIM_Val
+ 00000090  E3A01004  MOV         R1,#0x0004
+  246:                 STR     R1, [R0, #MAMTIM_OFS] 
+ 00000094  E5801004  STR         R1,[R0,#MAMTIM_OFS]
+  247:                 MOV     R1, #MAMCR_Val
+ 00000098  E3A01002  MOV         R1,#0x0002
+  248:                 STR     R1, [R0, #MAMCR_OFS] 
+ 0000009C  E5801000  STR         R1,[R0,#MAMCR_OFS]
+  269:                 LDR     R0, =Top_Stack
+ 000000A0  E59F0068  LDR         R0,[PC,+104] ; PoolRef @0x110
+  272:                 MSR     CPSR_c, #Mode_UND|I_Bit|F_Bit
+ 000000A4  E321F0DB  MSR         CPSR_c,#0xDB
+  273:                 MOV     SP, R0
+ 000000A8  E1A0D000  MOV         R13,R0
+  274:                 SUB     R0, R0, #UND_Stack_Size
+ 000000AC  E2400004  SUB         R0,R0,#0x0004
+  277:                 MSR     CPSR_c, #Mode_ABT|I_Bit|F_Bit
+ 000000B0  E321F0D7  MSR         CPSR_c,#0xD7
+  278:                 MOV     SP, R0
+ 000000B4  E1A0D000  MOV         R13,R0
+  279:                 SUB     R0, R0, #ABT_Stack_Size
+ 000000B8  E2400004  SUB         R0,R0,#0x0004
+  282:                 MSR     CPSR_c, #Mode_FIQ|I_Bit|F_Bit
+ 000000BC  E321F0D1  MSR         CPSR_c,#0xD1
+  283:                 MOV     SP, R0
+ 000000C0  E1A0D000  MOV         R13,R0
+  284:                 SUB     R0, R0, #FIQ_Stack_Size
+ 000000C4  E2400004  SUB         R0,R0,#0x0004
+  287:                 MSR     CPSR_c, #Mode_IRQ|I_Bit|F_Bit
+ 000000C8  E321F0D2  MSR         CPSR_c,#0xD2
+  288:                 MOV     SP, R0
+ 000000CC  E1A0D000  MOV         R13,R0
+  289:                 SUB     R0, R0, #IRQ_Stack_Size
+ 000000D0  E2400080  SUB         R0,R0,#0x0080
+  292:                 MSR     CPSR_c, #Mode_SVC|I_Bit|F_Bit
+ 000000D4  E321F0D3  MSR         CPSR_c,#0xD3
+  293:                 MOV     SP, R0
+ 000000D8  E1A0D000  MOV         R13,R0
+  294:                 SUB     R0, R0, #SVC_Stack_Size
+ 000000DC  E2400004  SUB         R0,R0,#0x0004
+  297:                 MSR     CPSR_c, #Mode_USR
+ 000000E0  E321F010  MSR         CPSR_c,#Mode_USR
+  298:                 MOV     SP, R0
+ 000000E4  E1A0D000  MOV         R13,R0
+  301:                 LDR     R0,=?C?INIT
+ 000000E8  E59F0024  LDR         R0,[PC,+36] ; PoolRef @0x114
+  302:                 TST     R0,#1       ; Bit-0 set: INIT is Thumb
+ 000000EC  E3100001  TST         R0,#0x0001
+  303:                 LDREQ   LR,=exit?A  ; ARM Mode
+ 000000F0  059FE020  LDREQ       R14,[PC,+32] ; PoolRef @0x118
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 5
+
+
+  304:                 LDRNE   LR,=exit?T  ; Thumb Mode
+ 000000F4  159FE020  LDRNE       R14,[PC,+32] ; PoolRef @0x11C
+  305:                 BX      R0
+ 000000F8  E12FFF10  BX          R0
+  306:                 ENDP
+ 000000FC            ; SCOPE-END
+  309: exit?A          PROC    CODE32
+ 000000FC            ; SCOPE-START
+  310:                 B       exit?A
+ 000000FC  EAFFFFFE  B           exit?A  ; Targ=0xFC
+  311:                 ENDP
+ 00000100            ; SCOPE-END
+  314: exit?T          PROC    CODE16
+ 00000100            ; SCOPE-START
+  315: exit:           B       exit?T
+ 00000100          exit:
+ 00000100  E7FE      B           exit?T  ; T=0x00000100
+  316:                 ENDP
+ 00000102            ; SCOPE-END
+ 00000102            ALIGN       4
+ 00000104  E01FC100  DD          VPBDIV		; POOL-Entry U=1
+ 00000108  E01FC080  DD          PLL_BASE		; POOL-Entry U=1
+ 0000010C  E01FC000  DD          MAM_BASE		; POOL-Entry U=1
+ 00000110  40000490  DD          Top_Stack		; POOL-Entry U=1
+ 00000114  00000140  DD          ?C?INIT		; POOL-Entry U=1
+ 00000118  000000FC  DD          exit?A		; POOL-Entry U=1
+ 0000011C  00000101  DD          exit?T		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?main?Demo':
+ FILE: 'Demo.c'
+ 00000140          ?C?INIT:  ; FUNCTION START
+ 00000140  E3A00E12  MOV         R0,#?C?CLRTAB ; ?C?CLRTAB
+ 00000144          L_160:
+ 00000144  E8B00006  LDMIA       R0!,{R1-R2}
+ 00000148  E1A03001  MOV         R3,R1
+ 0000014C  E1933002  ORRS        R3,R3,R2
+ 00000150  0A000005  BEQ         L_162  ; Targ=0x16C
+ 00000154  E3A03000  MOV         R3,#0x0000
+ 00000158          L_161:
+ 00000158  E5C13000  STRB        R3,[R1,#0x0]
+ 0000015C  E2811001  ADD         R1,R1,#0x0001
+ 00000160  E1510002  CMP         R1,R2
+ 00000164  1AFFFFFB  BNE         L_161  ; Targ=0x158
+ 00000168  EAFFFFF5  B           L_160  ; Targ=0x144
+ 0000016C          L_162:
+ 0000016C  E3A00F4E  MOV         R0,#?C?INITTAB ; ?C?INITTAB
+ 00000170          L_163:
+ 00000170  E2800003  ADD         R0,R0,#0x0003
+ 00000174  E3A03003  MOV         R3,#0x0003
+ 00000178  E1C00003  BIC         R0,R0,R3
+ 0000017C  E8B00006  LDMIA       R0!,{R1-R2}
+ 00000180  E1A03001  MOV         R3,R1
+ 00000184  E1933002  ORRS        R3,R3,R2
+ 00000188  0A000006  BEQ         L_165  ; Targ=0x1A8
+ 0000018C          L_164:
+ 0000018C  E5D03000  LDRB        R3,[R0,#0x0]
+ 00000190  E2800001  ADD         R0,R0,#0x0001
+ 00000194  E5C13000  STRB        R3,[R1,#0x0]
+ 00000198  E2811001  ADD         R1,R1,#0x0001
+ 0000019C  E1510002  CMP         R1,R2
+ 000001A0  1AFFFFF9  BNE         L_164  ; Targ=0x18C
+ 000001A4  EAFFFFF1  B           L_163  ; Targ=0x170
+ 000001A8          L_165:
+   45: int main (void)
+ 000001A8          main:
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 6
+
+
+ 000001A8  E92D4000  STMDB       R13!,{LR}
+   47: 	PINSEL0 = 0;
+ 000001AC  E3A01000  MOV         R1,#0x0
+ 000001B0  E59F02AC  LDR         R0,[PC,+684] ; PoolRef @0x464
+ 000001B4  E5801000  STR         R1,[R0,#0x0]
+   48: 	PINSEL1 = 0;
+ 000001B8  E59F02A8  LDR         R0,[PC,+680] ; PoolRef @0x468
+ 000001BC  E5801000  STR         R1,[R0,#0x0]
+   49: 	PINSEL2 &= 0x0000000C;
+ 000001C0  E59F02A4  LDR         R0,[PC,+676] ; PoolRef @0x46C
+ 000001C4  E5901000  LDR         R1,[R0,#0x0]
+ 000001C8  E201100C  AND         R1,R1,#0x000C
+ 000001CC  E5801000  STR         R1,[R0,#0x0]
+   53: 	IOCLR1 |= ((unsigned long)0xFF << 16);			// PORT1[23..16] = 0
+ 000001D0  E59F0298  LDR         R0,[PC,+664] ; PoolRef @0x470
+ 000001D4  E5901000  LDR         R1,[R0,#0x0]
+ 000001D8  E38118FF  ORR         R1,R1,#0xFF0000
+ 000001DC  E5801000  STR         R1,[R0,#0x0]
+   54: 	IODIR1 |= ((unsigned long)0xFF << 16);			// PORT1[23..16] output
+ 000001E0  E59F028C  LDR         R0,[PC,+652] ; PoolRef @0x474
+ 000001E4  E5901000  LDR         R1,[R0,#0x0]
+ 000001E8  E38118FF  ORR         R1,R1,#0xFF0000
+ 000001EC  E5801000  STR         R1,[R0,#0x0]
+   56: 	IOCLR1 |= ((unsigned long)0xFF << 24);			// PORT1[31..24] = 0
+ 000001F0  E59F0278  LDR         R0,[PC,+632] ; PoolRef @0x470
+ 000001F4  E5901000  LDR         R1,[R0,#0x0]
+ 000001F8  E38114FF  ORR         R1,R1,#0xFF000000
+ 000001FC  E5801000  STR         R1,[R0,#0x0]
+   57: 	IODIR1 |= ((unsigned long)0xFF << 24);			// PORT1[31..24] output
+ 00000200  E59F026C  LDR         R0,[PC,+620] ; PoolRef @0x474
+ 00000204  E5901000  LDR         R1,[R0,#0x0]
+ 00000208  E38114FF  ORR         R1,R1,#0xFF000000
+ 0000020C  E5801000  STR         R1,[R0,#0x0]
+   60: 	IODIR0 |= ((unsigned long)1 << 11);					// P0.11 output
+ 00000210  E59F0260  LDR         R0,[PC,+608] ; PoolRef @0x478
+ 00000214  E5901000  LDR         R1,[R0,#0x0]
+ 00000218  E3811B02  ORR         R1,R1,#0x0800
+ 0000021C  E5801000  STR         R1,[R0,#0x0]
+   61: 	IODIR0 |= ((unsigned long)1 << 10);					// P0.10 output
+ 00000220  E59F0250  LDR         R0,[PC,+592] ; PoolRef @0x478
+ 00000224  E5901000  LDR         R1,[R0,#0x0]
+ 00000228  E3811B01  ORR         R1,R1,#0x0400
+ 0000022C  E5801000  STR         R1,[R0,#0x0]
+   62: 	IOSET0 |= ((unsigned long)1 << 11);					// P0.11 = 1			// RESET line
+ 00000230  E59F0244  LDR         R0,[PC,+580] ; PoolRef @0x47C
+ 00000234  E5901000  LDR         R1,[R0,#0x0]
+ 00000238  E3811B02  ORR         R1,R1,#0x0800
+ 0000023C  E5801000  STR         R1,[R0,#0x0]
+   63: 	IOCLR0 |= ((unsigned long)1 << 10);					// P0.10 = 0			// CS line
+ 00000240  E59F0238  LDR         R0,[PC,+568] ; PoolRef @0x480
+ 00000244  E5901000  LDR         R1,[R0,#0x0]
+ 00000248  E3811B01  ORR         R1,R1,#0x0400
+ 0000024C  E5801000  STR         R1,[R0,#0x0]
+   65: 	SPI_init(&IOPIN0, 10/*CS*/, 5/*MISO*/, 6/*MOSI*/, 4/*SCK*/, 0/*CPOL*/, 0/*CPHA*/);
+ 00000250  E3A00000  MOV         R0,#0x0
+ 00000254  E92D0001  STMDB       R13!,{R0}
+ 00000258  E92D0001  STMDB       R13!,{R0}
+ 0000025C  E3A00004  MOV         R0,#0x4
+ 00000260  E92D0001  STMDB       R13!,{R0}
+ 00000264  E59F0218  LDR         R0,[PC,+536] ; PoolRef @0x484
+ 00000268  E3A0100A  MOV         R1,#0xA
+ 0000026C  E3A02005  MOV         R2,#0x5
+ 00000270  E3A03006  MOV         R3,#0x6
+ 00000274  EB00044B  BL          SPI_init?A  ; Targ=0x13A8
+ 00000278  E28DD00C  ADD         R13,R13,#0x000C
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 7
+
+
+   68: 	aa = 0;
+ 0000027C  E3A00000  MOV         R0,#0x0
+ 00000280  E59F4200  LDR         R4,[PC,+512] ; PoolRef @0x488 ; aa
+ 00000284  E5C40000  STRB        R0,[R4,#0x0] ; aa
+   69: 	aa1 = 0;
+ 00000288  E5C40001  STRB        R0,[R4,#0x1] ; aa1
+   70: 	aa2 = 0;
+ 0000028C  E5C40002  STRB        R0,[R4,#0x2] ; aa2
+   71: 	aa =	CAN_CONFIG_SAMPLE_THRICE &						// form value to be used
+ 00000290  E3A000DB  MOV         R0,#0xDB
+ 00000294  E5C40000  STRB        R0,[R4,#0x0] ; aa
+   76: 	aa1 =	CAN_TX_PRIORITY_0 &										// form value to be used
+ 00000298  E3A000F4  MOV         R0,#0xF4
+ 0000029C  E5C40001  STRB        R0,[R4,#0x1] ; aa1
+   79: 	IOSET0 |= (1 << 10);												// set CS line for CAN module high (inactive)
+ 000002A0  E59F01D4  LDR         R0,[PC,+468] ; PoolRef @0x47C
+ 000002A4  E5901000  LDR         R1,[R0,#0x0]
+ 000002A8  E3811B01  ORR         R1,R1,#0x0400
+ 000002AC  E5801000  STR         R1,[R0,#0x0]
+   80: 	id = -1;																		// id temporarily used for SetMask operation
+ 000002B0  E3E00000  MVN         R0,#0x0
+ 000002B4  E5040004  STR         R0,[R4,#0xFFFFFFFC] ; id
+   81: 	CANSPIInitialize(1,1,3,3,1,aa);							// initialize external CAN module
+ 000002B8  E5D40000  LDRB        R0,[R4,#0x0] ; aa
+ 000002BC  E92D0001  STMDB       R13!,{R0}
+ 000002C0  E3A01001  MOV         R1,#0x1
+ 000002C4  E92D0002  STMDB       R13!,{R1}
+ 000002C8  E1A00001  MOV         R0,R1
+ 000002CC  E3A03003  MOV         R3,#0x3
+ 000002D0  E1A02003  MOV         R2,R3
+ 000002D4  EB0003C1  BL          CANSPIInitialize?A  ; Targ=0x11E0
+ 000002D8  E28DD008  ADD         R13,R13,#0x0008
+   82: 	IOCLR1 |= (0xFF << 16);											// PORT1[23..16] = 3;
+ 000002DC  E59F018C  LDR         R0,[PC,+396] ; PoolRef @0x470
+ 000002E0  E5901000  LDR         R1,[R0,#0x0]
+ 000002E4  E38118FF  ORR         R1,R1,#0xFF0000
+ 000002E8  E5801000  STR         R1,[R0,#0x0]
+   83: 	IOSET1 |= (0x03 << 16);
+ 000002EC  E59F0198  LDR         R0,[PC,+408] ; PoolRef @0x48C
+ 000002F0  E5901000  LDR         R1,[R0,#0x0]
+ 000002F4  E3811803  ORR         R1,R1,#0x30000
+ 000002F8  E5801000  STR         R1,[R0,#0x0]
+   85: 	CANSPISetOperationMode(CAN_MODE_CONFIG,0xFF);		// set CONFIGURATION mode
+ 000002FC  E3A00080  MOV         R0,#0x80
+ 00000300  E3A010FF  MOV         R1,#0xFF
+ 00000304  EB0000DB  BL          CANSPISetOperationMode?A  ; Targ=0x678
+   86: 	IOCLR1 |= (0xFF << 16);											// PORT1[23..16] = 4;
+ 00000308  E59F0160  LDR         R0,[PC,+352] ; PoolRef @0x470
+ 0000030C  E5901000  LDR         R1,[R0,#0x0]
+ 00000310  E38118FF  ORR         R1,R1,#0xFF0000
+ 00000314  E5801000  STR         R1,[R0,#0x0]
+   87: 	IOSET1 |= (0x04 << 16);
+ 00000318  E59F016C  LDR         R0,[PC,+364] ; PoolRef @0x48C
+ 0000031C  E5901000  LDR         R1,[R0,#0x0]
+ 00000320  E3811701  ORR         R1,R1,#0x40000
+ 00000324  E5801000  STR         R1,[R0,#0x0]
+   89: 	CANSPISetMask(CAN_MASK_B1,id,CAN_CONFIG_XTD_MSG);						// set all mask1 bits to ones
+ 00000328  E5141004  LDR         R1,[R4,#0xFFFFFFFC] ; id
+ 0000032C  E3A00000  MOV         R0,#0x0
+ 00000330  E3A020F7  MOV         R2,#0xF7
+ 00000334  EB000140  BL          CANSPISetMask?A  ; Targ=0x83C
+   90: 	CANSPISetMask(CAN_MASK_B2,id,CAN_CONFIG_XTD_MSG);						// set all mask2 bits to ones
+ 00000338  E5141004  LDR         R1,[R4,#0xFFFFFFFC] ; id
+ 0000033C  E3A00001  MOV         R0,#0x1
+ 00000340  E3A020F7  MOV         R2,#0xF7
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 8
+
+
+ 00000344  EB00013C  BL          CANSPISetMask?A  ; Targ=0x83C
+   91: 	CANSPISetFilter(CAN_FILTER_B2_F4,12111,CAN_CONFIG_XTD_MSG);			// set id of filter B1_F1 to 12111
+ 00000348  E3A00005  MOV         R0,#0x5
+ 0000034C  E59F113C  LDR         R1,[PC,+316] ; PoolRef @0x490
+ 00000350  E3A020F7  MOV         R2,#0xF7
+ 00000354  EB00014F  BL          CANSPISetFilter?A  ; Targ=0x898
+   92: 	CANSPISetOperationMode(CAN_MODE_NORMAL,0xFF);								// set NORMAL mode
+ 00000358  E3A00000  MOV         R0,#0x0
+ 0000035C  E3A010FF  MOV         R1,#0xFF
+ 00000360  EB0000C4  BL          CANSPISetOperationMode?A  ; Targ=0x678
+   93: 	IOCLR1 |= (0xFF << 16);											// PORT1[23..16] = 5;
+ 00000364  E59F0104  LDR         R0,[PC,+260] ; PoolRef @0x470
+ 00000368  E5901000  LDR         R1,[R0,#0x0]
+ 0000036C  E38118FF  ORR         R1,R1,#0xFF0000
+ 00000370  E5801000  STR         R1,[R0,#0x0]
+   94: 	IOSET1 |= (0x05 << 16);
+ 00000374  E59F0110  LDR         R0,[PC,+272] ; PoolRef @0x48C
+ 00000378  E5901000  LDR         R1,[R0,#0x0]
+ 0000037C  E3811805  ORR         R1,R1,#0x50000
+ 00000380  E5801000  STR         R1,[R0,#0x0]
+   96: 	data[0] = 9;
+ 00000384  E3A00009  MOV         R0,#0x9
+ 00000388  E5C40007  STRB        R0,[R4,#0x7] ; data
+   97: 	data[1] = 0x81;
+ 0000038C  E3A00081  MOV         R0,#0x81
+ 00000390  E5C40008  STRB        R0,[R4,#0x8] ; data
+   98: 	id = 3;
+ 00000394  E3A00003  MOV         R0,#0x3
+ 00000398  E5040004  STR         R0,[R4,#0xFFFFFFFC] ; id
+   99: 	IOCLR1 |= (0xFF << 16);											// PORT1[23..16] = 255;
+ 0000039C  E59F00CC  LDR         R0,[PC,+204] ; PoolRef @0x470
+ 000003A0  E5901000  LDR         R1,[R0,#0x0]
+ 000003A4  E38118FF  ORR         R1,R1,#0xFF0000
+ 000003A8  E5801000  STR         R1,[R0,#0x0]
+  100: 	IOSET1 |= (0xFF << 16);
+ 000003AC  E59F00D8  LDR         R0,[PC,+216] ; PoolRef @0x48C
+ 000003B0  E5901000  LDR         R1,[R0,#0x0]
+ 000003B4  E38118FF  ORR         R1,R1,#0xFF0000
+ 000003B8  E5801000  STR         R1,[R0,#0x0]
+  103: 	while (1)
+ 000003BC          L_3:
+  105: 		zr = CANSPIRead(&id , data , &len, &aa2);
+ 000003BC  E59F40C4  LDR         R4,[PC,+196] ; PoolRef @0x488 ; aa
+ 000003C0  E59F00CC  LDR         R0,[PC,+204] ; PoolRef @0x494 ; id
+ 000003C4  E59F10CC  LDR         R1,[PC,+204] ; PoolRef @0x498 ; data
+ 000003C8  E59F20CC  LDR         R2,[PC,+204] ; PoolRef @0x49C ; len
+ 000003CC  E59F30CC  LDR         R3,[PC,+204] ; PoolRef @0x4A0 ; aa2
+ 000003D0  EB000262  BL          CANSPIRead?A  ; Targ=0xD60
+ 000003D4  E5C40004  STRB        R0,[R4,#0x4] ; zr
+  106: 		if ((id == 12111) && zr)									// respond only to data from node No.12111
+ 000003D8  E5140004  LDR         R0,[R4,#0xFFFFFFFC] ; id
+ 000003DC  E59F10AC  LDR         R1,[PC,+172] ; PoolRef @0x490
+ 000003E0  E1500001  CMP         R0,R1
+ 000003E4  1AFFFFF4  BNE         L_3  ; Targ=0x3BC
+ 000003E8  E59F00B4  LDR         R0,[PC,+180] ; PoolRef @0x4A4 ; zr
+ 000003EC  E5D00000  LDRB        R0,[R0,#0x0] ; zr
+ 000003F0  E3500000  CMP         R0,#0x0000
+ 000003F4  0AFFFFF0  BEQ         L_3  ; Targ=0x3BC
+  108: 			IOCLR1 |= (0xFF << 16);									// output data at PORT1[23..16]
+ 000003F8  E59F0070  LDR         R0,[PC,+112] ; PoolRef @0x470
+ 000003FC  E5901000  LDR         R1,[R0,#0x0]
+ 00000400  E38118FF  ORR         R1,R1,#0xFF0000
+ 00000404  E5801000  STR         R1,[R0,#0x0]
+  109: 			IOSET1 |= ((unsigned long)data[0] << 16) & 0x00FF0000;
+ 00000408  E59F0078  LDR         R0,[PC,+120] ; PoolRef @0x488 ; aa
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 9
+
+
+ 0000040C  E5D01007  LDRB        R1,[R0,#0x7] ; data
+ 00000410  E1A03001  MOV         R3,R1
+ 00000414  E1A03803  MOV         R3,R3,LSL #16
+ 00000418  E20338FF  AND         R3,R3,#0xFF0000
+ 0000041C  E59F1068  LDR         R1,[PC,+104] ; PoolRef @0x48C
+ 00000420  E5912000  LDR         R2,[R1,#0x0]
+ 00000424  E1822003  ORR         R2,R2,R3
+ 00000428  E5812000  STR         R2,[R1,#0x0]
+  110: 			data[0]++ ;
+ 0000042C  E2801007  ADD         R1,R0,#0x0007 ; aa
+ 00000430  E5D12000  LDRB        R2,[R1,#0x0] ; data
+ 00000434  E2822001  ADD         R2,R2,#0x0001
+ 00000438  E5C12000  STRB        R2,[R1,#0x0] ; data
+  119: 			id = 3;														// id contains CAN network ID of this node
+ 0000043C  E3A01003  MOV         R1,#0x3
+ 00000440  E5001004  STR         R1,[R0,#0xFFFFFFFC] ; id
+  120: 			CANSPIWrite(id, data,8,aa1);								// send incremented data back
+ 00000444  E5D01001  LDRB        R1,[R0,#0x1] ; aa1
+ 00000448  E1A03001  MOV         R3,R1
+ 0000044C  E5100004  LDR         R0,[R0,#0xFFFFFFFC] ; id
+ 00000450  E59F1040  LDR         R1,[PC,+64] ; PoolRef @0x498 ; data
+ 00000454  E3A02008  MOV         R2,#0x8
+ 00000458  EB0001A2  BL          CANSPIWrite?A  ; Targ=0xAE8
+  122: 	}
+ 0000045C  EAFFFFD6  B           L_3  ; Targ=0x3BC
+  123: }
+ 00000460  E8BD8000  LDMIA       R13!,{PC}
+ 00000464            ; END 'main'
+
+ 00000464  E002C000  DD          0xE002C000		; POOL-Entry U=1
+ 00000468  E002C004  DD          0xE002C004		; POOL-Entry U=1
+ 0000046C  E002C014  DD          0xE002C014		; POOL-Entry U=1
+ 00000470  E002801C  DD          0xE002801C		; POOL-Entry U=7
+ 00000474  E0028018  DD          0xE0028018		; POOL-Entry U=2
+ 00000478  E0028008  DD          0xE0028008		; POOL-Entry U=2
+ 0000047C  E0028004  DD          0xE0028004		; POOL-Entry U=2
+ 00000480  E002800C  DD          0xE002800C		; POOL-Entry U=1
+ 00000484  E0028000  DD          0xE0028000		; POOL-Entry U=1
+ 00000488  40000494  DD          aa		; POOL-Entry U=3
+ 0000048C  E0028014  DD          0xE0028014		; POOL-Entry U=5
+ 00000490  00002F4F  DD          0x2F4F		; POOL-Entry U=2
+ 00000494  40000490  DD          id		; POOL-Entry U=1
+ 00000498  4000049B  DD          data		; POOL-Entry U=2
+ 0000049C  40000497  DD          len		; POOL-Entry U=1
+ 000004A0  40000496  DD          aa2		; POOL-Entry U=1
+ 000004A4  40000498  DD          zr		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?cs_pin_low?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 000004A8          cs_pin_low?A:  ; FUNCTION START
+ 000004A8  E92D4000  STMDB       R13!,{LR}
+ 000004AC  EB000444  BL          SPI_enable?A  ; Targ=0x15C4
+ 000004B0  E8BD8000  LDMIA       R13!,{PC}
+ 000004B4            ; END 'cs_pin_low?A'
+
+
+*** Disassembly of Segment '?PR?cs_pin_high?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 000004B4          cs_pin_high?A:  ; FUNCTION START
+ 000004B4  E92D4000  STMDB       R13!,{LR}
+ 000004B8  EB00044C  BL          SPI_disable?A  ; Targ=0x15F0
+ 000004BC  E8BD8000  LDMIA       R13!,{PC}
+ 000004C0            ; END 'cs_pin_high?A'
+
+
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 10
+
+
+*** Disassembly of Segment '?PR?CANSPIIDToRegs?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 000004C0          CANSPIIDToRegs?A:  ; FUNCTION START
+ 000004C0  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 000004C4  ---- Variable 'CAN_CONFIG_FLAGS' assigned to Register 'R2' ----
+ 000004C4  E1A05001  MOV         R5,R1 ; val
+ 000004C8  ---- Variable 'val' assigned to Register 'R5' ----
+ 000004C8  E1A06000  MOV         R6,R0 ; ptr
+ 000004CC  ---- Variable 'ptr' assigned to Register 'R6' ----
+ 000004CC  ---- Variable 'dtoreg' assigned to Register 'R4' ----
+ 000004CC            ; SCOPE-START
+ 000004CC  E1A00002  MOV         R0,R2 ; CAN_CONFIG_FLAGS
+ 000004D0  E1A00C00  MOV         R0,R0,LSL #24 ; CAN_CONFIG_FLAGS
+ 000004D4  E1A00C20  MOV         R0,R0,LSR #24
+ 000004D8  E3100008  TST         R0,#0x0008
+ 000004DC  0A000026  BEQ         L_1  ; Targ=0x57C
+ 000004E0  E1A00005  MOV         R0,R5 ; val
+ 000004E4  EB000580  BL          Lo?A  ; Targ=0x1AEC
+ 000004E8  E1A04C00  MOV         R4,R0,LSL #24 ; Lo?A
+ 000004EC  E1A04C24  MOV         R4,R4,LSR #24
+ 000004F0  E1A041A4  MOV         R4,R4,LSR #3
+ 000004F4  E1A04C04  MOV         R4,R4,LSL #24
+ 000004F8  E1A04C24  MOV         R4,R4,LSR #24
+ 000004FC  E1A00005  MOV         R0,R5 ; val
+ 00000500  EB00057D  BL          Hi?A  ; Targ=0x1AFC
+ 00000504  E1A01C00  MOV         R1,R0,LSL #24 ; Hi?A
+ 00000508  E1A01C21  MOV         R1,R1,LSR #24
+ 0000050C  E1A01281  MOV         R1,R1,LSL #5
+ 00000510  E1A00006  MOV         R0,R6 ; ptr
+ 00000514  E1A04C00  MOV         R4,R0,LSL #24 ; ptr
+ 00000518  E1A04C24  MOV         R4,R4,LSR #24
+ 0000051C  E1844001  ORR         R4,R4,R1
+ 00000520  E1A04C04  MOV         R4,R4,LSL #24
+ 00000524  E1A04C24  MOV         R4,R4,LSR #24
+ 00000528  EBFFFFDE  BL          cs_pin_low?A  ; Targ=0x4A8
+ 0000052C  E3A00002  MOV         R0,#0x2
+ 00000530  EB000540  BL          SPI_char?A  ; Targ=0x1A38
+ 00000534  E1A00006  MOV         R0,R6 ; ptr
+ 00000538  E1A00C00  MOV         R0,R0,LSL #24 ; ptr
+ 0000053C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000540  EB00053C  BL          SPI_char?A  ; Targ=0x1A38
+ 00000544  E1A00004  MOV         R0,R4 ; dtoreg
+ 00000548  E1A00C00  MOV         R0,R0,LSL #24 ; dtoreg
+ 0000054C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000550  EB000538  BL          SPI_char?A  ; Targ=0x1A38
+ 00000554  E1A04005  MOV         R4,R5 ; val
+ 00000558  E1A04284  MOV         R4,R4,LSL #5 ; val
+ 0000055C  E1A04C04  MOV         R4,R4,LSL #24
+ 00000560  E1A04C24  MOV         R4,R4,LSR #24
+ 00000564  E1A00004  MOV         R0,R4 ; dtoreg
+ 00000568  E1A00C00  MOV         R0,R0,LSL #24 ; dtoreg
+ 0000056C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000570  EB000530  BL          SPI_char?A  ; Targ=0x1A38
+ 00000574  EBFFFFCE  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000578  EA00003D  B           L_2  ; Targ=0x674
+ 0000057C          L_1:
+ 0000057C  E1A00005  MOV         R0,R5 ; val
+ 00000580  EB000562  BL          Higher?A  ; Targ=0x1B10
+ 00000584  E1A04C00  MOV         R4,R0,LSL #24 ; Higher?A
+ 00000588  E1A04C24  MOV         R4,R4,LSR #24
+ 0000058C  E1A042A4  MOV         R4,R4,LSR #5
+ 00000590  E1A04C04  MOV         R4,R4,LSL #24
+ 00000594  E1A04C24  MOV         R4,R4,LSR #24
+ 00000598  E1A00005  MOV         R0,R5 ; val
+ 0000059C  EB000560  BL          Highest?A  ; Targ=0x1B24
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 11
+
+
+ 000005A0  E1A00C00  MOV         R0,R0,LSL #24 ; Highest?A
+ 000005A4  E1A00C20  MOV         R0,R0,LSR #24
+ 000005A8  E1A00180  MOV         R0,R0,LSL #3
+ 000005AC  E1A00C00  MOV         R0,R0,LSL #24
+ 000005B0  E1A00C20  MOV         R0,R0,LSR #24
+ 000005B4  E1844000  ORR         R4,R4,R0 ; dtoreg
+ 000005B8  EBFFFFBA  BL          cs_pin_low?A  ; Targ=0x4A8
+ 000005BC  E3A00002  MOV         R0,#0x2
+ 000005C0  EB00051C  BL          SPI_char?A  ; Targ=0x1A38
+ 000005C4  E1A00006  MOV         R0,R6 ; ptr
+ 000005C8  E1A00C00  MOV         R0,R0,LSL #24 ; ptr
+ 000005CC  E1A00C20  MOV         R0,R0,LSR #24
+ 000005D0  EB000518  BL          SPI_char?A  ; Targ=0x1A38
+ 000005D4  E1A00004  MOV         R0,R4 ; dtoreg
+ 000005D8  E1A00C00  MOV         R0,R0,LSL #24 ; dtoreg
+ 000005DC  E1A00C20  MOV         R0,R0,LSR #24
+ 000005E0  EB000514  BL          SPI_char?A  ; Targ=0x1A38
+ 000005E4  E1A00005  MOV         R0,R5 ; val
+ 000005E8  EB000548  BL          Higher?A  ; Targ=0x1B10
+ 000005EC  E1A04C00  MOV         R4,R0,LSL #24 ; Higher?A
+ 000005F0  E1A04C24  MOV         R4,R4,LSR #24
+ 000005F4  E1A04184  MOV         R4,R4,LSL #3
+ 000005F8  E20440E0  AND         R4,R4,#0x00E0
+ 000005FC  E1A04C04  MOV         R4,R4,LSL #24
+ 00000600  E1A04C24  MOV         R4,R4,LSR #24
+ 00000604  E3844008  ORR         R4,R4,#0x0008 ; dtoreg
+ 00000608  E1A00005  MOV         R0,R5 ; val
+ 0000060C  EB00053F  BL          Higher?A  ; Targ=0x1B10
+ 00000610  E1A00C00  MOV         R0,R0,LSL #24 ; Higher?A
+ 00000614  E1A00C20  MOV         R0,R0,LSR #24
+ 00000618  E2000003  AND         R0,R0,#0x0003
+ 0000061C  E1A00C00  MOV         R0,R0,LSL #24
+ 00000620  E1A00C20  MOV         R0,R0,LSR #24
+ 00000624  E1844000  ORR         R4,R4,R0 ; dtoreg
+ 00000628  E1A00004  MOV         R0,R4 ; dtoreg
+ 0000062C  E1A00C00  MOV         R0,R0,LSL #24 ; dtoreg
+ 00000630  E1A00C20  MOV         R0,R0,LSR #24
+ 00000634  EB0004FF  BL          SPI_char?A  ; Targ=0x1A38
+ 00000638  E1A00005  MOV         R0,R5 ; val
+ 0000063C  EB00052E  BL          Hi?A  ; Targ=0x1AFC
+ 00000640  E1A04000  MOV         R4,R0 ; dtoreg
+ 00000644  E1A00004  MOV         R0,R4 ; dtoreg
+ 00000648  E1A00C00  MOV         R0,R0,LSL #24 ; dtoreg
+ 0000064C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000650  EB0004F8  BL          SPI_char?A  ; Targ=0x1A38
+ 00000654  E1A00005  MOV         R0,R5 ; val
+ 00000658  EB000523  BL          Lo?A  ; Targ=0x1AEC
+ 0000065C  E1A04000  MOV         R4,R0 ; dtoreg
+ 00000660  E1A00004  MOV         R0,R4 ; dtoreg
+ 00000664  E1A00C00  MOV         R0,R0,LSL #24 ; dtoreg
+ 00000668  E1A00C20  MOV         R0,R0,LSR #24
+ 0000066C  EB0004F1  BL          SPI_char?A  ; Targ=0x1A38
+ 00000670  EBFFFF8F  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000674          L_2:
+ 00000674            ; SCOPE-END
+ 00000674  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 00000678            ; END 'CANSPIIDToRegs?A'
+
+
+*** Disassembly of Segment '?PR?CANSPISetOperationMode?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 00000678          CANSPISetOperationMode?A:  ; FUNCTION START
+ 00000678  E92D4030  STMDB       R13!,{R4-R5,LR}
+ 0000067C  E1A05001  MOV         R5,R1 ; WAIT
+ 00000680  ---- Variable 'WAIT' assigned to Register 'R5' ----
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 12
+
+
+ 00000680  E1A04000  MOV         R4,R0 ; mode
+ 00000684  ---- Variable 'mode' assigned to Register 'R4' ----
+ 00000684            ; SCOPE-START
+ 00000684  EBFFFF87  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000688  E3A00002  MOV         R0,#0x2
+ 0000068C  EB0004E9  BL          SPI_char?A  ; Targ=0x1A38
+ 00000690  E3A000FF  MOV         R0,#0xFF
+ 00000694  EB0004E7  BL          SPI_char?A  ; Targ=0x1A38
+ 00000698  E1A00004  MOV         R0,R4 ; mode
+ 0000069C  E1A00C00  MOV         R0,R0,LSL #24 ; mode
+ 000006A0  E1A00C20  MOV         R0,R0,LSR #24
+ 000006A4  EB0004E3  BL          SPI_char?A  ; Targ=0x1A38
+ 000006A8  EBFFFF81  BL          cs_pin_high?A  ; Targ=0x4B4
+ 000006AC  E1A00005  MOV         R0,R5 ; WAIT
+ 000006B0  E3500000  CMP         R0,#0x0000 ; WAIT
+ 000006B4  0A000011  BEQ         L_3  ; Targ=0x700
+ 000006B8          L_4:
+ 000006B8  EBFFFF7A  BL          cs_pin_low?A  ; Targ=0x4A8
+ 000006BC  E3A00003  MOV         R0,#0x3
+ 000006C0  EB0004DC  BL          SPI_char?A  ; Targ=0x1A38
+ 000006C4  E3A000FE  MOV         R0,#0xFE
+ 000006C8  EB0004DA  BL          SPI_char?A  ; Targ=0x1A38
+ 000006CC  E3A00000  MOV         R0,#0x0
+ 000006D0  EB0004D8  BL          SPI_char?A  ; Targ=0x1A38
+ 000006D4  E1A05000  MOV         R5,R0 ; dcanstat
+ 000006D8  ---- Variable 'dcanstat' assigned to Register 'R5' ----
+ 000006D8  EBFFFF75  BL          cs_pin_high?A  ; Targ=0x4B4
+ 000006DC  E1A00005  MOV         R0,R5 ; dcanstat
+ 000006E0  E1A01C00  MOV         R1,R0,LSL #24 ; dcanstat
+ 000006E4  E1A01C21  MOV         R1,R1,LSR #24
+ 000006E8  E20110E0  AND         R1,R1,#0x00E0
+ 000006EC  E1A00004  MOV         R0,R4 ; mode
+ 000006F0  E1A00C00  MOV         R0,R0,LSL #24 ; mode
+ 000006F4  E1A00C20  MOV         R0,R0,LSR #24
+ 000006F8  E1510000  CMP         R1,R0
+ 000006FC  1AFFFFED  BNE         L_4  ; Targ=0x6B8
+ 00000700          L_3:
+ 00000700            ; SCOPE-END
+ 00000700  E8BD8030  LDMIA       R13!,{R4-R5,PC}
+ 00000704            ; END 'CANSPISetOperationMode?A'
+
+
+*** Disassembly of Segment '?PR?CANSPISetBaudRate?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 00000704          CANSPISetBaudRate?A:  ; FUNCTION START
+ 00000704  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 00000708  E1A05003  MOV         R5,R3 ; PHSEG2
+ 0000070C  ---- Variable 'PHSEG2' assigned to Register 'R5' ----
+ 0000070C  E1A06002  MOV         R6,R2 ; PHSEG1
+ 00000710  ---- Variable 'PHSEG1' assigned to Register 'R6' ----
+ 00000710  ---- Variable 'BRP' assigned to Register 'R1' ----
+ 00000710  E1A04000  MOV         R4,R0 ; SJW
+ 00000714  ---- Variable 'SJW' assigned to Register 'R4' ----
+ 00000714            ; SCOPE-START
+ 00000714  E2444001  SUB         R4,R4,#0x0001 ; SJW
+ 00000718  E20440FF  AND         R4,R4,#0x00FF
+ 0000071C  E2411001  SUB         R1,R1,#0x0001 ; BRP
+ 00000720  E20110FF  AND         R1,R1,#0x00FF
+ 00000724  E2466001  SUB         R6,R6,#0x0001 ; PHSEG1
+ 00000728  E20660FF  AND         R6,R6,#0x00FF
+ 0000072C  E2455001  SUB         R5,R5,#0x0001 ; PHSEG2
+ 00000730  E20550FF  AND         R5,R5,#0x00FF
+ 00000734  E28D0010  ADD         R0,R13,#0x0010
+ 00000738  E5D02000  LDRB        R2,[R0,#0x0] ; PROPSEG
+ 0000073C  E2422001  SUB         R2,R2,#0x0001
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 13
+
+
+ 00000740  E5C02000  STRB        R2,[R0,#0x0] ; PROPSEG
+ 00000744  E1A00004  MOV         R0,R4 ; SJW
+ 00000748  E1A04C00  MOV         R4,R0,LSL #24 ; SJW
+ 0000074C  E1A04C24  MOV         R4,R4,LSR #24
+ 00000750  E1A04304  MOV         R4,R4,LSL #6
+ 00000754  E1A04C04  MOV         R4,R4,LSL #24
+ 00000758  E1A04C24  MOV         R4,R4,LSR #24
+ 0000075C  ---- Variable 'dbaud' assigned to Register 'R4' ----
+ 0000075C  E1A00001  MOV         R0,R1 ; BRP
+ 00000760  E1844000  ORR         R4,R4,R0 ; dbaud
+ 00000764  EBFFFF4F  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000768  E3A00002  MOV         R0,#0x2
+ 0000076C  EB0004B1  BL          SPI_char?A  ; Targ=0x1A38
+ 00000770  E3A0002A  MOV         R0,#0x2A
+ 00000774  EB0004AF  BL          SPI_char?A  ; Targ=0x1A38
+ 00000778  E1A00004  MOV         R0,R4 ; dbaud
+ 0000077C  E1A00C00  MOV         R0,R0,LSL #24 ; dbaud
+ 00000780  E1A00C20  MOV         R0,R0,LSR #24
+ 00000784  EB0004AB  BL          SPI_char?A  ; Targ=0x1A38
+ 00000788  EBFFFF49  BL          cs_pin_high?A  ; Targ=0x4B4
+ 0000078C  E1A00006  MOV         R0,R6 ; PHSEG1
+ 00000790  E1A04C00  MOV         R4,R0,LSL #24 ; PHSEG1
+ 00000794  E1A04C24  MOV         R4,R4,LSR #24
+ 00000798  E1A04184  MOV         R4,R4,LSL #3
+ 0000079C  E1A04C04  MOV         R4,R4,LSL #24
+ 000007A0  E1A04C24  MOV         R4,R4,LSR #24
+ 000007A4  E28D0010  ADD         R0,R13,#0x0010
+ 000007A8  E5D00000  LDRB        R0,[R0,#0x0] ; PROPSEG
+ 000007AC  E1844000  ORR         R4,R4,R0 ; dbaud
+ 000007B0  E28D0014  ADD         R0,R13,#0x0014
+ 000007B4  E5D00000  LDRB        R0,[R0,#0x0] ; CAN_CONFIG_FLAGS
+ 000007B8  E3100004  TST         R0,#0x0004
+ 000007BC  1A000000  BNE         L_9  ; Targ=0x7C4
+ 000007C0  E3844040  ORR         R4,R4,#0x0040 ; dbaud
+ 000007C4          L_9:
+ 000007C4  E3100001  TST         R0,#0x0001
+ 000007C8  0A000000  BEQ         L_10  ; Targ=0x7D0
+ 000007CC  E3844080  ORR         R4,R4,#0x0080 ; dbaud
+ 000007D0          L_10:
+ 000007D0  EBFFFF34  BL          cs_pin_low?A  ; Targ=0x4A8
+ 000007D4  E3A00002  MOV         R0,#0x2
+ 000007D8  EB000496  BL          SPI_char?A  ; Targ=0x1A38
+ 000007DC  E3A00029  MOV         R0,#0x29
+ 000007E0  EB000494  BL          SPI_char?A  ; Targ=0x1A38
+ 000007E4  E1A00004  MOV         R0,R4 ; dbaud
+ 000007E8  E1A00C00  MOV         R0,R0,LSL #24 ; dbaud
+ 000007EC  E1A00C20  MOV         R0,R0,LSR #24
+ 000007F0  EB000490  BL          SPI_char?A  ; Targ=0x1A38
+ 000007F4  EBFFFF2E  BL          cs_pin_high?A  ; Targ=0x4B4
+ 000007F8  E1A04005  MOV         R4,R5 ; PHSEG2
+ 000007FC  E28D0014  ADD         R0,R13,#0x0014
+ 00000800  E5D00000  LDRB        R0,[R0,#0x0] ; CAN_CONFIG_FLAGS
+ 00000804  E3100002  TST         R0,#0x0002
+ 00000808  0A000000  BEQ         L_11  ; Targ=0x810
+ 0000080C  E3844040  ORR         R4,R4,#0x0040 ; dbaud
+ 00000810          L_11:
+ 00000810  EBFFFF24  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000814  E3A00002  MOV         R0,#0x2
+ 00000818  EB000486  BL          SPI_char?A  ; Targ=0x1A38
+ 0000081C  E3A00028  MOV         R0,#0x28
+ 00000820  EB000484  BL          SPI_char?A  ; Targ=0x1A38
+ 00000824  E1A00004  MOV         R0,R4 ; dbaud
+ 00000828  E1A00C00  MOV         R0,R0,LSL #24 ; dbaud
+ 0000082C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000830  EB000480  BL          SPI_char?A  ; Targ=0x1A38
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 14
+
+
+ 00000834  EBFFFF1E  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000838            ; SCOPE-END
+ 00000838  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 0000083C            ; END 'CANSPISetBaudRate?A'
+
+
+*** Disassembly of Segment '?PR?CANSPISetMask?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 0000083C          CANSPISetMask?A:  ; FUNCTION START
+ 0000083C  E92D4030  STMDB       R13!,{R4-R5,LR}
+ 00000840  E1A05002  MOV         R5,R2 ; CAN_CONFIG_FLAGS
+ 00000844  ---- Variable 'CAN_CONFIG_FLAGS' assigned to Register 'R5' ----
+ 00000844  E1A04001  MOV         R4,R1 ; val
+ 00000848  ---- Variable 'val' assigned to Register 'R4' ----
+ 00000848  E1A01000  MOV         R1,R0 ; CAN_MASK
+ 0000084C  ---- Variable 'CAN_MASK' assigned to Register 'R1' ----
+ 0000084C  E1A00001  MOV         R0,R1 ; CAN_MASK
+ 00000850  E1A00C00  MOV         R0,R0,LSL #24 ; CAN_MASK
+ 00000854  E1A00C20  MOV         R0,R0,LSR #24
+ 00000858  E3500000  CMP         R0,#0x0000
+ 0000085C  1A000006  BNE         L_12  ; Targ=0x87C
+ 00000860  E1A00005  MOV         R0,R5 ; CAN_CONFIG_FLAGS
+ 00000864  E1A02C00  MOV         R2,R0,LSL #24 ; CAN_CONFIG_FLAGS
+ 00000868  E1A02C22  MOV         R2,R2,LSR #24
+ 0000086C  E1A01004  MOV         R1,R4 ; val
+ 00000870  E3A00020  MOV         R0,#0x20
+ 00000874  EBFFFF11  BL          CANSPIIDToRegs?A  ; Targ=0x4C0
+ 00000878  EA000005  B           L_13  ; Targ=0x894
+ 0000087C          L_12:
+ 0000087C  E1A00005  MOV         R0,R5 ; CAN_CONFIG_FLAGS
+ 00000880  E1A02C00  MOV         R2,R0,LSL #24 ; CAN_CONFIG_FLAGS
+ 00000884  E1A02C22  MOV         R2,R2,LSR #24
+ 00000888  E1A01004  MOV         R1,R4 ; val
+ 0000088C  E3A00024  MOV         R0,#0x24
+ 00000890  EBFFFF0A  BL          CANSPIIDToRegs?A  ; Targ=0x4C0
+ 00000894          L_13:
+ 00000894  E8BD8030  LDMIA       R13!,{R4-R5,PC}
+ 00000898            ; END 'CANSPISetMask?A'
+
+
+*** Disassembly of Segment '?PR?CANSPISetFilter?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 00000898          CANSPISetFilter?A:  ; FUNCTION START
+ 00000898  E92D4010  STMDB       R13!,{R4,LR}
+ 0000089C  ---- Variable 'CAN_CONFIG_FLAGS' assigned to Register 'R2' ----
+ 0000089C  E1A03001  MOV         R3,R1 ; val
+ 000008A0  ---- Variable 'val' assigned to Register 'R3' ----
+ 000008A0  E1A01000  MOV         R1,R0 ; CAN_FILTER
+ 000008A4  ---- Variable 'CAN_FILTER' assigned to Register 'R1' ----
+ 000008A4  ---- Variable 'dsfi' assigned to Register 'R4' ----
+ 000008A4            ; SCOPE-START
+ 000008A4  E1A00001  MOV         R0,R1 ; CAN_FILTER
+ 000008A8  E3500001  CMP         R0,#0x0001 ; CAN_FILTER
+ 000008AC  0A000009  BEQ         L_17  ; Targ=0x8D8
+ 000008B0  E3500002  CMP         R0,#0x0002 ; CAN_FILTER
+ 000008B4  0A000009  BEQ         L_18  ; Targ=0x8E0
+ 000008B8  E3500003  CMP         R0,#0x0003 ; CAN_FILTER
+ 000008BC  0A000009  BEQ         L_19  ; Targ=0x8E8
+ 000008C0  E3500004  CMP         R0,#0x0004 ; CAN_FILTER
+ 000008C4  0A000009  BEQ         L_20  ; Targ=0x8F0
+ 000008C8  E3500000  CMP         R0,#0x0000 ; CAN_FILTER
+ 000008CC  1A000009  BNE         L_16  ; Targ=0x8F8
+ 000008D0          L_15:
+ 000008D0  E3A04000  MOV         R4,#0x0
+ 000008D4  EA000008  B           L_14  ; Targ=0x8FC
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 15
+
+
+ 000008D8          L_17:
+ 000008D8  E3A04004  MOV         R4,#0x4
+ 000008DC  EA000006  B           L_14  ; Targ=0x8FC
+ 000008E0          L_18:
+ 000008E0  E3A04008  MOV         R4,#0x8
+ 000008E4  EA000004  B           L_14  ; Targ=0x8FC
+ 000008E8          L_19:
+ 000008E8  E3A04010  MOV         R4,#0x10
+ 000008EC  EA000002  B           L_14  ; Targ=0x8FC
+ 000008F0          L_20:
+ 000008F0  E3A04014  MOV         R4,#0x14
+ 000008F4  EA000000  B           L_14  ; Targ=0x8FC
+ 000008F8          L_16:
+ 000008F8  E3A04018  MOV         R4,#0x18
+ 000008FC          L_14:
+ 000008FC  E1A00004  MOV         R0,R4 ; dsfi
+ 00000900  E1A00C00  MOV         R0,R0,LSL #24 ; dsfi
+ 00000904  E1A00C20  MOV         R0,R0,LSR #24
+ 00000908  E1A01002  MOV         R1,R2 ; CAN_CONFIG_FLAGS
+ 0000090C  E1A02C01  MOV         R2,R1,LSL #24 ; CAN_CONFIG_FLAGS
+ 00000910  E1A02C22  MOV         R2,R2,LSR #24
+ 00000914  E1A01003  MOV         R1,R3 ; val
+ 00000918  EBFFFEE8  BL          CANSPIIDToRegs?A  ; Targ=0x4C0
+ 0000091C            ; SCOPE-END
+ 0000091C  E8BD8010  LDMIA       R13!,{R4,PC}
+ 00000920            ; END 'CANSPISetFilter?A'
+
+
+*** Disassembly of Segment '?PR?RegsToCANSPIID?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 00000920          RegsToCANSPIID?A:  ; FUNCTION START
+ 00000920  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 00000924  ---- Variable 'CAN_CONFIG_FLAGS' assigned to Register 'R1' ----
+ 00000924  E1A06000  MOV         R6,R0 ; ptr
+ 00000928  ---- Variable 'ptr' assigned to Register 'R6' ----
+ 00000928  ---- Variable 'r' assigned to Register 'R5' ----
+ 00000928  ---- Variable 'did' assigned to Register 'R4' ----
+ 00000928            ; SCOPE-START
+ 00000928  E1A00001  MOV         R0,R1 ; CAN_CONFIG_FLAGS
+ 0000092C  E1A00C00  MOV         R0,R0,LSL #24 ; CAN_CONFIG_FLAGS
+ 00000930  E1A00C20  MOV         R0,R0,LSR #24
+ 00000934  E3100008  TST         R0,#0x0008
+ 00000938  0A000021  BEQ         L_21  ; Targ=0x9C4
+ 0000093C  EBFFFED9  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000940  E3A00003  MOV         R0,#0x3
+ 00000944  EB00043B  BL          SPI_char?A  ; Targ=0x1A38
+ 00000948  E1A00006  MOV         R0,R6 ; ptr
+ 0000094C  E1A00C00  MOV         R0,R0,LSL #24 ; ptr
+ 00000950  E1A00C20  MOV         R0,R0,LSR #24
+ 00000954  EB000437  BL          SPI_char?A  ; Targ=0x1A38
+ 00000958  E3A00000  MOV         R0,#0x0
+ 0000095C  EB000435  BL          SPI_char?A  ; Targ=0x1A38
+ 00000960  E1A04000  MOV         R4,R0 ; did
+ 00000964  E1A00004  MOV         R0,R4 ; did
+ 00000968  E1A05C00  MOV         R5,R0,LSL #24 ; did
+ 0000096C  E1A05C25  MOV         R5,R5,LSR #24
+ 00000970  E1A052A5  MOV         R5,R5,LSR #5
+ 00000974  E1A05405  MOV         R5,R5,LSL #8 ; r
+ 00000978  E1A00004  MOV         R0,R4 ; did
+ 0000097C  E1A00C00  MOV         R0,R0,LSL #24 ; did
+ 00000980  E1A00C20  MOV         R0,R0,LSR #24
+ 00000984  E1A00180  MOV         R0,R0,LSL #3
+ 00000988  E1A00C00  MOV         R0,R0,LSL #24
+ 0000098C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000990  E1A00C00  MOV         R0,R0,LSL #24
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 16
+
+
+ 00000994  E1A00C20  MOV         R0,R0,LSR #24
+ 00000998  E1855000  ORR         R5,R5,R0 ; r
+ 0000099C  E3A00000  MOV         R0,#0x0
+ 000009A0  EB000424  BL          SPI_char?A  ; Targ=0x1A38
+ 000009A4  E1A04000  MOV         R4,R0 ; did
+ 000009A8  EBFFFEC1  BL          cs_pin_high?A  ; Targ=0x4B4
+ 000009AC  E1A00004  MOV         R0,R4 ; did
+ 000009B0  E1A00C00  MOV         R0,R0,LSL #24 ; did
+ 000009B4  E1A00C20  MOV         R0,R0,LSR #24
+ 000009B8  E1A002A0  MOV         R0,R0,LSR #5
+ 000009BC  E1855000  ORR         R5,R5,R0 ; r
+ 000009C0  EA000046  B           L_22  ; Targ=0xAE0
+ 000009C4          L_21:
+ 000009C4  E3A05000  MOV         R5,#0x0
+ 000009C8  EBFFFEB6  BL          cs_pin_low?A  ; Targ=0x4A8
+ 000009CC  E3A00003  MOV         R0,#0x3
+ 000009D0  EB000418  BL          SPI_char?A  ; Targ=0x1A38
+ 000009D4  E1A00006  MOV         R0,R6 ; ptr
+ 000009D8  E1A00C00  MOV         R0,R0,LSL #24 ; ptr
+ 000009DC  E1A00C20  MOV         R0,R0,LSR #24
+ 000009E0  EB000414  BL          SPI_char?A  ; Targ=0x1A38
+ 000009E4  E3A00000  MOV         R0,#0x0
+ 000009E8  EB000412  BL          SPI_char?A  ; Targ=0x1A38
+ 000009EC  E1A04000  MOV         R4,R0 ; did
+ 000009F0  E1A00004  MOV         R0,R4 ; did
+ 000009F4  E1A06C00  MOV         R6,R0,LSL #24 ; did
+ 000009F8  E1A06C26  MOV         R6,R6,LSR #24
+ 000009FC  E1A06286  MOV         R6,R6,LSL #5
+ 00000A00  E1A06C06  MOV         R6,R6,LSL #24
+ 00000A04  E1A06C26  MOV         R6,R6,LSR #24
+ 00000A08  ---- Variable 'temp' assigned to Register 'R6' ----
+ 00000A08  E1A00004  MOV         R0,R4 ; did
+ 00000A0C  E1A05C00  MOV         R5,R0,LSL #24 ; did
+ 00000A10  E1A05C25  MOV         R5,R5,LSR #24
+ 00000A14  E1A051A5  MOV         R5,R5,LSR #3
+ 00000A18  E1A05405  MOV         R5,R5,LSL #8 ; r
+ 00000A1C  E3A00000  MOV         R0,#0x0
+ 00000A20  EB000404  BL          SPI_char?A  ; Targ=0x1A38
+ 00000A24  E1A04000  MOV         R4,R0 ; did
+ 00000A28  E1A00004  MOV         R0,R4 ; did
+ 00000A2C  E1A00C00  MOV         R0,R0,LSL #24 ; did
+ 00000A30  E1A00C20  MOV         R0,R0,LSR #24
+ 00000A34  E2000003  AND         R0,R0,#0x0003
+ 00000A38  E1A01006  MOV         R1,R6 ; temp
+ 00000A3C  E1A06C01  MOV         R6,R1,LSL #24 ; temp
+ 00000A40  E1A06C26  MOV         R6,R6,LSR #24
+ 00000A44  E1806006  ORR         R6,R0,R6
+ 00000A48  E1A06C06  MOV         R6,R6,LSL #24
+ 00000A4C  E1A06C26  MOV         R6,R6,LSR #24
+ 00000A50  E1A00004  MOV         R0,R4 ; did
+ 00000A54  E1A00C00  MOV         R0,R0,LSL #24 ; did
+ 00000A58  E1A00C20  MOV         R0,R0,LSR #24
+ 00000A5C  E20000E0  AND         R0,R0,#0x00E0
+ 00000A60  E1A001A0  MOV         R0,R0,LSR #3
+ 00000A64  E1A00C00  MOV         R0,R0,LSL #24
+ 00000A68  E1A00C20  MOV         R0,R0,LSR #24
+ 00000A6C  E1A00C00  MOV         R0,R0,LSL #24
+ 00000A70  E1A00C20  MOV         R0,R0,LSR #24
+ 00000A74  E1A01006  MOV         R1,R6 ; temp
+ 00000A78  E1A06C01  MOV         R6,R1,LSL #24 ; temp
+ 00000A7C  E1A06C26  MOV         R6,R6,LSR #24
+ 00000A80  E1806006  ORR         R6,R0,R6
+ 00000A84  E1A06C06  MOV         R6,R6,LSL #24
+ 00000A88  E1A06C26  MOV         R6,R6,LSR #24
+ 00000A8C  E1A00006  MOV         R0,R6 ; temp
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 17
+
+
+ 00000A90  E1A00C00  MOV         R0,R0,LSL #24 ; temp
+ 00000A94  E1A00C20  MOV         R0,R0,LSR #24
+ 00000A98  E1855000  ORR         R5,R5,R0 ; r
+ 00000A9C  E1A05405  MOV         R5,R5,LSL #8 ; r
+ 00000AA0  E3A00000  MOV         R0,#0x0
+ 00000AA4  EB0003E3  BL          SPI_char?A  ; Targ=0x1A38
+ 00000AA8  E1A04000  MOV         R4,R0 ; did
+ 00000AAC  E1A00004  MOV         R0,R4 ; did
+ 00000AB0  E1A00C00  MOV         R0,R0,LSL #24 ; did
+ 00000AB4  E1A00C20  MOV         R0,R0,LSR #24
+ 00000AB8  E1855000  ORR         R5,R5,R0 ; r
+ 00000ABC  E1A05405  MOV         R5,R5,LSL #8 ; r
+ 00000AC0  E3A00000  MOV         R0,#0x0
+ 00000AC4  EB0003DB  BL          SPI_char?A  ; Targ=0x1A38
+ 00000AC8  E1A04000  MOV         R4,R0 ; did
+ 00000ACC  EBFFFE78  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000AD0  E1A00004  MOV         R0,R4 ; did
+ 00000AD4  E1A00C00  MOV         R0,R0,LSL #24 ; did
+ 00000AD8  E1A00C20  MOV         R0,R0,LSR #24
+ 00000ADC  E1855000  ORR         R5,R5,R0 ; r
+ 00000AE0          L_22:
+ 00000AE0  E1A00005  MOV         R0,R5 ; r
+ 00000AE4            ; SCOPE-END
+ 00000AE4  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 00000AE8            ; END 'RegsToCANSPIID?A'
+
+
+*** Disassembly of Segment '?PR?CANSPIWrite?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 00000AE8          CANSPIWrite?A:  ; FUNCTION START
+ 00000AE8  E92D40F0  STMDB       R13!,{R4-R7,LR}
+ 00000AEC  E1A08003  MOV         R8,R3 ; CAN_TX_MSG_FLAGS
+ 00000AF0  ---- Variable 'CAN_TX_MSG_FLAGS' assigned to Register 'R8' ----
+ 00000AF0  E1A07002  MOV         R7,R2 ; data_len
+ 00000AF4  ---- Variable 'data_len' assigned to Register 'R7' ----
+ 00000AF4  E1A06001  MOV         R6,R1 ; data
+ 00000AF8  ---- Variable 'data' assigned to Register 'R6' ----
+ 00000AF8  E1A09000  MOV         R9,R0 ; id
+ 00000AFC  ---- Variable 'id' assigned to Register 'R9' ----
+ 00000AFC            ; SCOPE-START
+ 00000AFC  EBFFFE69  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000B00  E3A00003  MOV         R0,#0x3
+ 00000B04  EB0003CB  BL          SPI_char?A  ; Targ=0x1A38
+ 00000B08  E3A00030  MOV         R0,#0x30
+ 00000B0C  EB0003C9  BL          SPI_char?A  ; Targ=0x1A38
+ 00000B10  E3A00000  MOV         R0,#0x0
+ 00000B14  EB0003C7  BL          SPI_char?A  ; Targ=0x1A38
+ 00000B18  E1A04000  MOV         R4,R0 ; dsend
+ 00000B1C  ---- Variable 'dsend' assigned to Register 'R4' ----
+ 00000B1C  EBFFFE64  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000B20  E1A00004  MOV         R0,R4 ; dsend
+ 00000B24  E1A00C00  MOV         R0,R0,LSL #24 ; dsend
+ 00000B28  E1A00C20  MOV         R0,R0,LSR #24
+ 00000B2C  E3100008  TST         R0,#0x0008
+ 00000B30  1A000001  BNE         L_24  ; Targ=0xB3C
+ 00000B34  E3A04000  MOV         R4,#0x0
+ 00000B38  EA000021  B           L_25  ; Targ=0xBC4
+ 00000B3C          L_24:
+ 00000B3C  EBFFFE59  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000B40  E3A00003  MOV         R0,#0x3
+ 00000B44  EB0003BB  BL          SPI_char?A  ; Targ=0x1A38
+ 00000B48  E3A00040  MOV         R0,#0x40
+ 00000B4C  EB0003B9  BL          SPI_char?A  ; Targ=0x1A38
+ 00000B50  E3A00000  MOV         R0,#0x0
+ 00000B54  EB0003B7  BL          SPI_char?A  ; Targ=0x1A38
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 18
+
+
+ 00000B58  E1A04000  MOV         R4,R0 ; dsend
+ 00000B5C  EBFFFE54  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000B60  E1A00004  MOV         R0,R4 ; dsend
+ 00000B64  E1A00C00  MOV         R0,R0,LSL #24 ; dsend
+ 00000B68  E1A00C20  MOV         R0,R0,LSR #24
+ 00000B6C  E3100008  TST         R0,#0x0008
+ 00000B70  1A000001  BNE         L_26  ; Targ=0xB7C
+ 00000B74  E3A04010  MOV         R4,#0x10
+ 00000B78  EA000011  B           L_25  ; Targ=0xBC4
+ 00000B7C          L_26:
+ 00000B7C  EBFFFE49  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000B80  E3A00003  MOV         R0,#0x3
+ 00000B84  EB0003AB  BL          SPI_char?A  ; Targ=0x1A38
+ 00000B88  E3A00050  MOV         R0,#0x50
+ 00000B8C  EB0003A9  BL          SPI_char?A  ; Targ=0x1A38
+ 00000B90  E3A00000  MOV         R0,#0x0
+ 00000B94  EB0003A7  BL          SPI_char?A  ; Targ=0x1A38
+ 00000B98  E1A04000  MOV         R4,R0 ; dsend
+ 00000B9C  EBFFFE44  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000BA0  E1A00004  MOV         R0,R4 ; dsend
+ 00000BA4  E1A00C00  MOV         R0,R0,LSL #24 ; dsend
+ 00000BA8  E1A00C20  MOV         R0,R0,LSR #24
+ 00000BAC  E3100008  TST         R0,#0x0008
+ 00000BB0  1A000001  BNE         L_28  ; Targ=0xBBC
+ 00000BB4  E3A04020  MOV         R4,#0x20
+ 00000BB8  EA000001  B           L_25  ; Targ=0xBC4
+ 00000BBC          L_28:
+ 00000BBC  E3A00000  MOV         R0,#0x0
+ 00000BC0  EA000065  B           L_30  ; Targ=0xD5C
+ 00000BC4          L_25:
+ 00000BC4  E2844030  ADD         R4,R4,#0x0030 ; dsend
+ 00000BC8  E20440FF  AND         R4,R4,#0x00FF
+ 00000BCC  EBFFFE35  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000BD0  E3A00002  MOV         R0,#0x2
+ 00000BD4  EB000397  BL          SPI_char?A  ; Targ=0x1A38
+ 00000BD8  E1A00004  MOV         R0,R4 ; dsend
+ 00000BDC  E1A00C00  MOV         R0,R0,LSL #24 ; dsend
+ 00000BE0  E1A00C20  MOV         R0,R0,LSR #24
+ 00000BE4  EB000393  BL          SPI_char?A  ; Targ=0x1A38
+ 00000BE8  E1A00008  MOV         R0,R8 ; CAN_TX_MSG_FLAGS
+ 00000BEC  E1A05C00  MOV         R5,R0,LSL #24 ; CAN_TX_MSG_FLAGS
+ 00000BF0  E1A05C25  MOV         R5,R5,LSR #24
+ 00000BF4  E2055003  AND         R5,R5,#0x0003
+ 00000BF8  E1A05C05  MOV         R5,R5,LSL #24
+ 00000BFC  E1A05C25  MOV         R5,R5,LSR #24
+ 00000C00  ---- Variable 'jooj' assigned to Register 'R5' ----
+ 00000C00  E1A00005  MOV         R0,R5 ; jooj
+ 00000C04  E1A00C00  MOV         R0,R0,LSL #24 ; jooj
+ 00000C08  E1A00C20  MOV         R0,R0,LSR #24
+ 00000C0C  EB000389  BL          SPI_char?A  ; Targ=0x1A38
+ 00000C10  EBFFFE27  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000C14  E1A00008  MOV         R0,R8 ; CAN_TX_MSG_FLAGS
+ 00000C18  E1A00C00  MOV         R0,R0,LSL #24 ; CAN_TX_MSG_FLAGS
+ 00000C1C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000C20  E3100008  TST         R0,#0x0008
+ 00000C24  1A000001  BNE         L_31  ; Targ=0xC30
+ 00000C28  E3A050F7  MOV         R5,#0xF7
+ 00000C2C  EA000000  B           L_32  ; Targ=0xC34
+ 00000C30          L_31:
+ 00000C30  E3A050FF  MOV         R5,#0xFF
+ 00000C34          L_32:
+ 00000C34  E1A00004  MOV         R0,R4 ; dsend
+ 00000C38  E1A00C00  MOV         R0,R0,LSL #24 ; dsend
+ 00000C3C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000C40  E2800001  ADD         R0,R0,#0x0001
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 19
+
+
+ 00000C44  E1A01005  MOV         R1,R5 ; jooj
+ 00000C48  E1A02C01  MOV         R2,R1,LSL #24 ; jooj
+ 00000C4C  E1A02C22  MOV         R2,R2,LSR #24
+ 00000C50  E1A01009  MOV         R1,R9 ; id
+ 00000C54  EBFFFE19  BL          CANSPIIDToRegs?A  ; Targ=0x4C0
+ 00000C58  E1A05007  MOV         R5,R7 ; data_len
+ 00000C5C  E1A00008  MOV         R0,R8 ; CAN_TX_MSG_FLAGS
+ 00000C60  E1A00C00  MOV         R0,R0,LSL #24 ; CAN_TX_MSG_FLAGS
+ 00000C64  E1A00C20  MOV         R0,R0,LSR #24
+ 00000C68  E3100040  TST         R0,#0x0040
+ 00000C6C  1A000000  BNE         L_33  ; Targ=0xC74
+ 00000C70  E3855040  ORR         R5,R5,#0x0040 ; jooj
+ 00000C74          L_33:
+ 00000C74  EBFFFE0B  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000C78  E3A00002  MOV         R0,#0x2
+ 00000C7C  EB00036D  BL          SPI_char?A  ; Targ=0x1A38
+ 00000C80  E1A00004  MOV         R0,R4 ; dsend
+ 00000C84  E1A00C00  MOV         R0,R0,LSL #24 ; dsend
+ 00000C88  E1A00C20  MOV         R0,R0,LSR #24
+ 00000C8C  E2800005  ADD         R0,R0,#0x0005
+ 00000C90  EB000368  BL          SPI_char?A  ; Targ=0x1A38
+ 00000C94  E1A00005  MOV         R0,R5 ; jooj
+ 00000C98  E1A00C00  MOV         R0,R0,LSL #24 ; jooj
+ 00000C9C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000CA0  EB000364  BL          SPI_char?A  ; Targ=0x1A38
+ 00000CA4  EBFFFE02  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000CA8  EBFFFDFE  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000CAC  E3A00002  MOV         R0,#0x2
+ 00000CB0  EB000360  BL          SPI_char?A  ; Targ=0x1A38
+ 00000CB4  E1A00004  MOV         R0,R4 ; dsend
+ 00000CB8  E1A00C00  MOV         R0,R0,LSL #24 ; dsend
+ 00000CBC  E1A00C20  MOV         R0,R0,LSR #24
+ 00000CC0  E2800006  ADD         R0,R0,#0x0006
+ 00000CC4  EB00035B  BL          SPI_char?A  ; Targ=0x1A38
+ 00000CC8  E3A05000  MOV         R5,#0x0
+ 00000CCC  ---- Variable 'i' assigned to Register 'R5' ----
+ 00000CCC  EA000007  B           L_36  ; Targ=0xCF0
+ 00000CD0          L_37:
+ 00000CD0  E1A00005  MOV         R0,R5 ; i
+ 00000CD4  E1A02C00  MOV         R2,R0,LSL #24 ; i
+ 00000CD8  E1A02C22  MOV         R2,R2,LSR #24
+ 00000CDC  E1A00006  MOV         R0,R6 ; data
+ 00000CE0  E7D00002  LDRB        R0,[R0,+R2]
+ 00000CE4  EB000353  BL          SPI_char?A  ; Targ=0x1A38
+ 00000CE8  E2855001  ADD         R5,R5,#0x0001 ; i
+ 00000CEC  E20550FF  AND         R5,R5,#0x00FF
+ 00000CF0          L_36:
+ 00000CF0  E1A00007  MOV         R0,R7 ; data_len
+ 00000CF4  E1A01C00  MOV         R1,R0,LSL #24 ; data_len
+ 00000CF8  E1A01C21  MOV         R1,R1,LSR #24
+ 00000CFC  E1A00005  MOV         R0,R5 ; i
+ 00000D00  E1A00C00  MOV         R0,R0,LSL #24 ; i
+ 00000D04  E1A00C20  MOV         R0,R0,LSR #24
+ 00000D08  E1500001  CMP         R0,R1
+ 00000D0C  3AFFFFEF  BCC         L_37  ; Targ=0xCD0
+ 00000D10  EBFFFDE7  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000D14  EBFFFDE3  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000D18  E1A00004  MOV         R0,R4 ; dsend
+ 00000D1C  E3500040  CMP         R0,#0x0040 ; dsend
+ 00000D20  0A000006  BEQ         L_41  ; Targ=0xD40
+ 00000D24  E3500050  CMP         R0,#0x0050 ; dsend
+ 00000D28  0A000007  BEQ         L_42  ; Targ=0xD4C
+ 00000D2C  E3500030  CMP         R0,#0x0030 ; dsend
+ 00000D30  1A000007  BNE         L_39  ; Targ=0xD54
+ 00000D34          L_40:
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 20
+
+
+ 00000D34  E3A00081  MOV         R0,#0x81
+ 00000D38  EB00033E  BL          SPI_char?A  ; Targ=0x1A38
+ 00000D3C  EA000004  B           L_39  ; Targ=0xD54
+ 00000D40          L_41:
+ 00000D40  E3A00082  MOV         R0,#0x82
+ 00000D44  EB00033B  BL          SPI_char?A  ; Targ=0x1A38
+ 00000D48  EA000001  B           L_39  ; Targ=0xD54
+ 00000D4C          L_42:
+ 00000D4C  E3A00083  MOV         R0,#0x83
+ 00000D50  EB000338  BL          SPI_char?A  ; Targ=0x1A38
+ 00000D54          L_39:
+ 00000D54  EBFFFDD6  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000D58  E3A000FF  MOV         R0,#0xFF
+ 00000D5C            ; SCOPE-END
+ 00000D5C          L_30:
+ 00000D5C  E8BD80F0  LDMIA       R13!,{R4-R7,PC}
+ 00000D60            ; END 'CANSPIWrite?A'
+
+
+*** Disassembly of Segment '?PR?CANSPIRead?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 00000D60          CANSPIRead?A:  ; FUNCTION START
+ 00000D60  E92D40F0  STMDB       R13!,{R4-R7,LR}
+ 00000D64  E1A0A003  MOV         R10,R3 ; CAN_RX_MSG_FLAGS
+ 00000D68  ---- Variable 'CAN_RX_MSG_FLAGS' assigned to Register 'R10' ----
+ 00000D68  E1A09002  MOV         R9,R2 ; data_len
+ 00000D6C  ---- Variable 'data_len' assigned to Register 'R9' ----
+ 00000D6C  E1A08001  MOV         R8,R1 ; data
+ 00000D70  ---- Variable 'data' assigned to Register 'R8' ----
+ 00000D70  E1A06000  MOV         R6,R0 ; id
+ 00000D74  ---- Variable 'id' assigned to Register 'R6' ----
+ 00000D74  ---- Variable 'jooj' assigned to Register 'R5' ----
+ 00000D74  ---- Variable 'lbIsItBuffer0' assigned to Register 'R4' ----
+ 00000D74            ; SCOPE-START
+ 00000D74  E3A01000  MOV         R1,#0x0
+ 00000D78  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000D7C  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000D80  EBFFFDC8  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000D84  E3A00003  MOV         R0,#0x3
+ 00000D88  EB00032A  BL          SPI_char?A  ; Targ=0x1A38
+ 00000D8C  E3A0002C  MOV         R0,#0x2C
+ 00000D90  EB000328  BL          SPI_char?A  ; Targ=0x1A38
+ 00000D94  E3A00000  MOV         R0,#0x0
+ 00000D98  EB000326  BL          SPI_char?A  ; Targ=0x1A38
+ 00000D9C  E1A07000  MOV         R7,R0 ; dreceive
+ 00000DA0  ---- Variable 'dreceive' assigned to Register 'R7' ----
+ 00000DA0  EBFFFDC3  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000DA4  E1A00007  MOV         R0,R7 ; dreceive
+ 00000DA8  E1A00C00  MOV         R0,R0,LSL #24 ; dreceive
+ 00000DAC  E1A00C20  MOV         R0,R0,LSR #24
+ 00000DB0  E3100001  TST         R0,#0x0001
+ 00000DB4  0A000045  BEQ         L_43  ; Targ=0xED0
+ 00000DB8  E3A040FF  MOV         R4,#0xFF
+ 00000DBC  EBFFFDB9  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000DC0  E3A00005  MOV         R0,#0x5
+ 00000DC4  EB00031B  BL          SPI_char?A  ; Targ=0x1A38
+ 00000DC8  E3A0002C  MOV         R0,#0x2C
+ 00000DCC  EB000319  BL          SPI_char?A  ; Targ=0x1A38
+ 00000DD0  E3A00001  MOV         R0,#0x1
+ 00000DD4  EB000317  BL          SPI_char?A  ; Targ=0x1A38
+ 00000DD8  E3A00000  MOV         R0,#0x0
+ 00000DDC  EB000315  BL          SPI_char?A  ; Targ=0x1A38
+ 00000DE0  EBFFFDB3  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000DE4  EBFFFDAF  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000DE8  E3A00003  MOV         R0,#0x3
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 21
+
+
+ 00000DEC  EB000311  BL          SPI_char?A  ; Targ=0x1A38
+ 00000DF0  E3A0002D  MOV         R0,#0x2D
+ 00000DF4  EB00030F  BL          SPI_char?A  ; Targ=0x1A38
+ 00000DF8  E3A00000  MOV         R0,#0x0
+ 00000DFC  EB00030D  BL          SPI_char?A  ; Targ=0x1A38
+ 00000E00  E1A07000  MOV         R7,R0 ; dreceive
+ 00000E04  EBFFFDAA  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000E08  E1A00007  MOV         R0,R7 ; dreceive
+ 00000E0C  E1A00C00  MOV         R0,R0,LSL #24 ; dreceive
+ 00000E10  E1A00C20  MOV         R0,R0,LSR #24
+ 00000E14  E3100080  TST         R0,#0x0080
+ 00000E18  0A00000E  BEQ         L_44  ; Targ=0xE58
+ 00000E1C  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000E20  E5D01000  LDRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000E24  E3811008  ORR         R1,R1,#0x0008
+ 00000E28  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000E2C  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000E30  EBFFFD9C  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000E34  E3A00005  MOV         R0,#0x5
+ 00000E38  EB0002FE  BL          SPI_char?A  ; Targ=0x1A38
+ 00000E3C  E3A0002D  MOV         R0,#0x2D
+ 00000E40  EB0002FC  BL          SPI_char?A  ; Targ=0x1A38
+ 00000E44  E3A00080  MOV         R0,#0x80
+ 00000E48  EB0002FA  BL          SPI_char?A  ; Targ=0x1A38
+ 00000E4C  E3A00000  MOV         R0,#0x0
+ 00000E50  EB0002F8  BL          SPI_char?A  ; Targ=0x1A38
+ 00000E54  EBFFFD96  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000E58          L_44:
+ 00000E58  EBFFFD92  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000E5C  E3A00003  MOV         R0,#0x3
+ 00000E60  EB0002F4  BL          SPI_char?A  ; Targ=0x1A38
+ 00000E64  E3A00060  MOV         R0,#0x60
+ 00000E68  EB0002F2  BL          SPI_char?A  ; Targ=0x1A38
+ 00000E6C  E3A00000  MOV         R0,#0x0
+ 00000E70  EB0002F0  BL          SPI_char?A  ; Targ=0x1A38
+ 00000E74  E1A07000  MOV         R7,R0 ; dreceive
+ 00000E78  EBFFFD8D  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000E7C  E1A00007  MOV         R0,R7 ; dreceive
+ 00000E80  E1A00C00  MOV         R0,R0,LSL #24 ; dreceive
+ 00000E84  E1A00C20  MOV         R0,R0,LSR #24
+ 00000E88  E3100004  TST         R0,#0x0004
+ 00000E8C  0A000067  BEQ         L_46  ; Targ=0x1030
+ 00000E90  E1A00007  MOV         R0,R7 ; dreceive
+ 00000E94  E1A02C00  MOV         R2,R0,LSL #24 ; dreceive
+ 00000E98  E1A02C22  MOV         R2,R2,LSR #24
+ 00000E9C  E2022007  AND         R2,R2,#0x0007
+ 00000EA0  E1A02C02  MOV         R2,R2,LSL #24
+ 00000EA4  E1A02C22  MOV         R2,R2,LSR #24
+ 00000EA8  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000EAC  E5D01000  LDRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000EB0  E1811002  ORR         R1,R1,R2
+ 00000EB4  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000EB8  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000EBC  E5D01000  LDRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000EC0  E2011001  AND         R1,R1,#0x0001
+ 00000EC4  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000EC8  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000ECC  EA000057  B           L_46  ; Targ=0x1030
+ 00000ED0          L_43:
+ 00000ED0  E3A01000  MOV         R1,#0x0
+ 00000ED4  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000ED8  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000EDC  EBFFFD71  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000EE0  E3A00003  MOV         R0,#0x3
+ 00000EE4  EB0002D3  BL          SPI_char?A  ; Targ=0x1A38
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 22
+
+
+ 00000EE8  E3A0002C  MOV         R0,#0x2C
+ 00000EEC  EB0002D1  BL          SPI_char?A  ; Targ=0x1A38
+ 00000EF0  E3A00000  MOV         R0,#0x0
+ 00000EF4  EB0002CF  BL          SPI_char?A  ; Targ=0x1A38
+ 00000EF8  E1A07000  MOV         R7,R0 ; dreceive
+ 00000EFC  EBFFFD6C  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000F00  E1A00007  MOV         R0,R7 ; dreceive
+ 00000F04  E1A00C00  MOV         R0,R0,LSL #24 ; dreceive
+ 00000F08  E1A00C20  MOV         R0,R0,LSR #24
+ 00000F0C  E3100002  TST         R0,#0x0002
+ 00000F10  0A000044  BEQ         L_47  ; Targ=0x1028
+ 00000F14  E3A04000  MOV         R4,#0x0
+ 00000F18  EBFFFD62  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000F1C  E3A00005  MOV         R0,#0x5
+ 00000F20  EB0002C4  BL          SPI_char?A  ; Targ=0x1A38
+ 00000F24  E3A0002C  MOV         R0,#0x2C
+ 00000F28  EB0002C2  BL          SPI_char?A  ; Targ=0x1A38
+ 00000F2C  E3A00002  MOV         R0,#0x2
+ 00000F30  EB0002C0  BL          SPI_char?A  ; Targ=0x1A38
+ 00000F34  E3A00000  MOV         R0,#0x0
+ 00000F38  EB0002BE  BL          SPI_char?A  ; Targ=0x1A38
+ 00000F3C  EBFFFD5C  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000F40  EBFFFD58  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000F44  E3A00003  MOV         R0,#0x3
+ 00000F48  EB0002BA  BL          SPI_char?A  ; Targ=0x1A38
+ 00000F4C  E3A0002D  MOV         R0,#0x2D
+ 00000F50  EB0002B8  BL          SPI_char?A  ; Targ=0x1A38
+ 00000F54  E3A00000  MOV         R0,#0x0
+ 00000F58  EB0002B6  BL          SPI_char?A  ; Targ=0x1A38
+ 00000F5C  E1A07000  MOV         R7,R0 ; dreceive
+ 00000F60  EBFFFD53  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000F64  E1A00007  MOV         R0,R7 ; dreceive
+ 00000F68  E1A00C00  MOV         R0,R0,LSL #24 ; dreceive
+ 00000F6C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000F70  E3100040  TST         R0,#0x0040
+ 00000F74  0A00000E  BEQ         L_48  ; Targ=0xFB4
+ 00000F78  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000F7C  E5D01000  LDRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000F80  E3811008  ORR         R1,R1,#0x0008
+ 00000F84  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000F88  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000F8C  EBFFFD45  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000F90  E3A00005  MOV         R0,#0x5
+ 00000F94  EB0002A7  BL          SPI_char?A  ; Targ=0x1A38
+ 00000F98  E3A0002D  MOV         R0,#0x2D
+ 00000F9C  EB0002A5  BL          SPI_char?A  ; Targ=0x1A38
+ 00000FA0  E3A00040  MOV         R0,#0x40
+ 00000FA4  EB0002A3  BL          SPI_char?A  ; Targ=0x1A38
+ 00000FA8  E3A00000  MOV         R0,#0x0
+ 00000FAC  EB0002A1  BL          SPI_char?A  ; Targ=0x1A38
+ 00000FB0  EBFFFD3F  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000FB4          L_48:
+ 00000FB4  EBFFFD3B  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00000FB8  E3A00003  MOV         R0,#0x3
+ 00000FBC  EB00029D  BL          SPI_char?A  ; Targ=0x1A38
+ 00000FC0  E3A00070  MOV         R0,#0x70
+ 00000FC4  EB00029B  BL          SPI_char?A  ; Targ=0x1A38
+ 00000FC8  E3A00000  MOV         R0,#0x0
+ 00000FCC  EB000299  BL          SPI_char?A  ; Targ=0x1A38
+ 00000FD0  E1A07000  MOV         R7,R0 ; dreceive
+ 00000FD4  EBFFFD36  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00000FD8  E1A00007  MOV         R0,R7 ; dreceive
+ 00000FDC  E1A02C00  MOV         R2,R0,LSL #24 ; dreceive
+ 00000FE0  E1A02C22  MOV         R2,R2,LSR #24
+ 00000FE4  E2022007  AND         R2,R2,#0x0007
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 23
+
+
+ 00000FE8  E1A02C02  MOV         R2,R2,LSL #24
+ 00000FEC  E1A02C22  MOV         R2,R2,LSR #24
+ 00000FF0  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00000FF4  E5D01000  LDRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00000FF8  E1811002  ORR         R1,R1,R2
+ 00000FFC  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00001000  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00001004  E5D00000  LDRB        R0,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00001008  E3500002  CMP         R0,#0x0002
+ 0000100C  AA000007  BGE         L_46  ; Targ=0x1030
+ 00001010  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00001014  E5D01000  LDRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00001018  E3811080  ORR         R1,R1,#0x0080
+ 0000101C  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00001020  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00001024  EA000001  B           L_46  ; Targ=0x1030
+ 00001028          L_47:
+ 00001028  E3A00000  MOV         R0,#0x0
+ 0000102C  EA00006A  B           L_51  ; Targ=0x11DC
+ 00001030          L_46:
+ 00001030  EBFFFD1C  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00001034  E3A00003  MOV         R0,#0x3
+ 00001038  EB00027E  BL          SPI_char?A  ; Targ=0x1A38
+ 0000103C  E1A00004  MOV         R0,R4 ; lbIsItBuffer0
+ 00001040  E3500000  CMP         R0,#0x0000 ; lbIsItBuffer0
+ 00001044  0A000005  BEQ         L_52  ; Targ=0x1060
+ 00001048  E3A00065  MOV         R0,#0x65
+ 0000104C  EB000279  BL          SPI_char?A  ; Targ=0x1A38
+ 00001050  E3A00000  MOV         R0,#0x0
+ 00001054  EB000277  BL          SPI_char?A  ; Targ=0x1A38
+ 00001058  E1A07000  MOV         R7,R0 ; dreceive
+ 0000105C  EA000004  B           L_53  ; Targ=0x1074
+ 00001060          L_52:
+ 00001060  E3A00075  MOV         R0,#0x75
+ 00001064  EB000273  BL          SPI_char?A  ; Targ=0x1A38
+ 00001068  E3A00000  MOV         R0,#0x0
+ 0000106C  EB000271  BL          SPI_char?A  ; Targ=0x1A38
+ 00001070  E1A07000  MOV         R7,R0 ; dreceive
+ 00001074          L_53:
+ 00001074  EBFFFD0E  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00001078  E1A01007  MOV         R1,R7 ; dreceive
+ 0000107C  E1A00009  MOV         R0,R9 ; data_len
+ 00001080  E5C01000  STRB        R1,[R0,#0x0] ; data_len
+ 00001084  E1A00007  MOV         R0,R7 ; dreceive
+ 00001088  E1A00C00  MOV         R0,R0,LSL #24 ; dreceive
+ 0000108C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001090  E3100040  TST         R0,#0x0040
+ 00001094  0A000004  BEQ         L_54  ; Targ=0x10AC
+ 00001098  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 0000109C  E5D01000  LDRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 000010A0  E3811040  ORR         R1,R1,#0x0040
+ 000010A4  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 000010A8  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 000010AC          L_54:
+ 000010AC  EBFFFCFD  BL          cs_pin_low?A  ; Targ=0x4A8
+ 000010B0  E3A00003  MOV         R0,#0x3
+ 000010B4  EB00025F  BL          SPI_char?A  ; Targ=0x1A38
+ 000010B8  E1A00004  MOV         R0,R4 ; lbIsItBuffer0
+ 000010BC  E3500000  CMP         R0,#0x0000 ; lbIsItBuffer0
+ 000010C0  0A000006  BEQ         L_55  ; Targ=0x10E0
+ 000010C4  E3A00062  MOV         R0,#0x62
+ 000010C8  EB00025A  BL          SPI_char?A  ; Targ=0x1A38
+ 000010CC  E3A00000  MOV         R0,#0x0
+ 000010D0  EB000258  BL          SPI_char?A  ; Targ=0x1A38
+ 000010D4  E1A07000  MOV         R7,R0 ; dreceive
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 24
+
+
+ 000010D8  E3A05061  MOV         R5,#0x61
+ 000010DC  EA000005  B           L_56  ; Targ=0x10F8
+ 000010E0          L_55:
+ 000010E0  E3A00072  MOV         R0,#0x72
+ 000010E4  EB000253  BL          SPI_char?A  ; Targ=0x1A38
+ 000010E8  E3A00000  MOV         R0,#0x0
+ 000010EC  EB000251  BL          SPI_char?A  ; Targ=0x1A38
+ 000010F0  E1A07000  MOV         R7,R0 ; dreceive
+ 000010F4  E3A05071  MOV         R5,#0x71
+ 000010F8          L_56:
+ 000010F8  EBFFFCED  BL          cs_pin_high?A  ; Targ=0x4B4
+ 000010FC  E1A00007  MOV         R0,R7 ; dreceive
+ 00001100  E1A00C00  MOV         R0,R0,LSL #24 ; dreceive
+ 00001104  E1A00C20  MOV         R0,R0,LSR #24
+ 00001108  E3100008  TST         R0,#0x0008
+ 0000110C  0A00000C  BEQ         L_57  ; Targ=0x1144
+ 00001110  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00001114  E5D01000  LDRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00001118  E3811020  ORR         R1,R1,#0x0020
+ 0000111C  E1A0000A  MOV         R0,R10 ; CAN_RX_MSG_FLAGS
+ 00001120  E5C01000  STRB        R1,[R0,#0x0] ; CAN_RX_MSG_FLAGS
+ 00001124  E1A00005  MOV         R0,R5 ; jooj
+ 00001128  E1A00C00  MOV         R0,R0,LSL #24 ; jooj
+ 0000112C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001130  E3A010F7  MOV         R1,#0xF7
+ 00001134  EBFFFDF9  BL          RegsToCANSPIID?A  ; Targ=0x920
+ 00001138  E1A01006  MOV         R1,R6 ; id
+ 0000113C  E5810000  STR         R0,[R1,#0x0] ; id
+ 00001140  EA000006  B           L_58  ; Targ=0x1160
+ 00001144          L_57:
+ 00001144  E1A00005  MOV         R0,R5 ; jooj
+ 00001148  E1A00C00  MOV         R0,R0,LSL #24 ; jooj
+ 0000114C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001150  E3A010FF  MOV         R1,#0xFF
+ 00001154  EBFFFDF1  BL          RegsToCANSPIID?A  ; Targ=0x920
+ 00001158  E1A01006  MOV         R1,R6 ; id
+ 0000115C  E5810000  STR         R0,[R1,#0x0] ; id
+ 00001160          L_58:
+ 00001160  E2855005  ADD         R5,R5,#0x0005 ; jooj
+ 00001164  E20550FF  AND         R5,R5,#0x00FF
+ 00001168  EBFFFCCE  BL          cs_pin_low?A  ; Targ=0x4A8
+ 0000116C  E3A00003  MOV         R0,#0x3
+ 00001170  EB000230  BL          SPI_char?A  ; Targ=0x1A38
+ 00001174  E1A00005  MOV         R0,R5 ; jooj
+ 00001178  E1A00C00  MOV         R0,R0,LSL #24 ; jooj
+ 0000117C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001180  EB00022C  BL          SPI_char?A  ; Targ=0x1A38
+ 00001184  E3A06000  MOV         R6,#0x0
+ 00001188  ---- Variable 'i' assigned to Register 'R6' ----
+ 00001188  EA00000A  B           L_61  ; Targ=0x11B8
+ 0000118C          L_62:
+ 0000118C  E3A00000  MOV         R0,#0x0
+ 00001190  EB000228  BL          SPI_char?A  ; Targ=0x1A38
+ 00001194  E1A07000  MOV         R7,R0 ; dreceive
+ 00001198  E1A00007  MOV         R0,R7 ; dreceive
+ 0000119C  E1A01006  MOV         R1,R6 ; i
+ 000011A0  E1A02C01  MOV         R2,R1,LSL #24 ; i
+ 000011A4  E1A02C22  MOV         R2,R2,LSR #24
+ 000011A8  E1A01008  MOV         R1,R8 ; data
+ 000011AC  E7C10002  STRB        R0,[R1,+R2]
+ 000011B0  E2866001  ADD         R6,R6,#0x0001 ; i
+ 000011B4  E20660FF  AND         R6,R6,#0x00FF
+ 000011B8          L_61:
+ 000011B8  E1A00009  MOV         R0,R9 ; data_len
+ 000011BC  E5D01000  LDRB        R1,[R0,#0x0] ; data_len
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 25
+
+
+ 000011C0  E1A00006  MOV         R0,R6 ; i
+ 000011C4  E1A00C00  MOV         R0,R0,LSL #24 ; i
+ 000011C8  E1A00C20  MOV         R0,R0,LSR #24
+ 000011CC  E1500001  CMP         R0,R1
+ 000011D0  3AFFFFED  BCC         L_62  ; Targ=0x118C
+ 000011D4  EBFFFCB6  BL          cs_pin_high?A  ; Targ=0x4B4
+ 000011D8  E3A000FF  MOV         R0,#0xFF
+ 000011DC            ; SCOPE-END
+ 000011DC          L_51:
+ 000011DC  E8BD80F0  LDMIA       R13!,{R4-R7,PC}
+ 000011E0            ; END 'CANSPIRead?A'
+
+
+*** Disassembly of Segment '?PR?CANSPIInitialize?A?CAN_SPIsw':
+ FILE: '..\CAN_SPIsw.c'
+ 000011E0          CANSPIInitialize?A:  ; FUNCTION START
+ 000011E0  E92D40F0  STMDB       R13!,{R4-R7,LR}
+ 000011E4  E1A06003  MOV         R6,R3 ; PHSEG2
+ 000011E8  ---- Variable 'PHSEG2' assigned to Register 'R6' ----
+ 000011E8  E1A07002  MOV         R7,R2 ; PHSEG1
+ 000011EC  ---- Variable 'PHSEG1' assigned to Register 'R7' ----
+ 000011EC  E1A08001  MOV         R8,R1 ; BRP
+ 000011F0  ---- Variable 'BRP' assigned to Register 'R8' ----
+ 000011F0  E1A09000  MOV         R9,R0 ; SJW
+ 000011F4  ---- Variable 'SJW' assigned to Register 'R9' ----
+ 000011F4  ---- Variable 'FilterConfig1' assigned to Register 'R5' ----
+ 000011F4  ---- Variable 'FilterConfig2' assigned to Register 'R4' ----
+ 000011F4            ; SCOPE-START
+ 000011F4  E3A00080  MOV         R0,#0x80
+ 000011F8  E3A010FF  MOV         R1,#0xFF
+ 000011FC  EBFFFD1D  BL          CANSPISetOperationMode?A  ; Targ=0x678
+ 00001200  E28D0018  ADD         R0,R13,#0x0018
+ 00001204  E5D00000  LDRB        R0,[R0,#0x0] ; CAN_CONFIG_FLAGS
+ 00001208  E92D0001  STMDB       R13!,{R0}
+ 0000120C  E28D0018  ADD         R0,R13,#0x0018
+ 00001210  E5D00000  LDRB        R0,[R0,#0x0] ; PROPSEG
+ 00001214  E92D0001  STMDB       R13!,{R0}
+ 00001218  E1A00009  MOV         R0,R9 ; SJW
+ 0000121C  E1A00C00  MOV         R0,R0,LSL #24 ; SJW
+ 00001220  E1A00C20  MOV         R0,R0,LSR #24
+ 00001224  E1A01008  MOV         R1,R8 ; BRP
+ 00001228  E1A01C01  MOV         R1,R1,LSL #24 ; BRP
+ 0000122C  E1A01C21  MOV         R1,R1,LSR #24
+ 00001230  E1A02007  MOV         R2,R7 ; PHSEG1
+ 00001234  E1A02C02  MOV         R2,R2,LSL #24 ; PHSEG1
+ 00001238  E1A02C22  MOV         R2,R2,LSR #24
+ 0000123C  E1A03006  MOV         R3,R6 ; PHSEG2
+ 00001240  E1A03C03  MOV         R3,R3,LSL #24 ; PHSEG2
+ 00001244  E1A03C23  MOV         R3,R3,LSR #24
+ 00001248  EBFFFD2D  BL          CANSPISetBaudRate?A  ; Targ=0x704
+ 0000124C  E28DD008  ADD         R13,R13,#0x0008
+ 00001250  E28D0018  ADD         R0,R13,#0x0018
+ 00001254  E5D00000  LDRB        R0,[R0,#0x0] ; CAN_CONFIG_FLAGS
+ 00001258  E2006060  AND         R6,R0,#0x0060
+ 0000125C  E1A06C06  MOV         R6,R6,LSL #24
+ 00001260  E1A06C26  MOV         R6,R6,LSR #24
+ 00001264  ---- Variable 'dtemp' assigned to Register 'R6' ----
+ 00001264  E3100010  TST         R0,#0x0010
+ 00001268  0A000000  BEQ         L_64  ; Targ=0x1270
+ 0000126C  E3866004  ORR         R6,R6,#0x0004 ; dtemp
+ 00001270          L_64:
+ 00001270  EBFFFC8C  BL          cs_pin_low?A  ; Targ=0x4A8
+ 00001274  E3A00002  MOV         R0,#0x2
+ 00001278  EB0001EE  BL          SPI_char?A  ; Targ=0x1A38
+ 0000127C  E3A00060  MOV         R0,#0x60
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 26
+
+
+ 00001280  EB0001EC  BL          SPI_char?A  ; Targ=0x1A38
+ 00001284  E1A00006  MOV         R0,R6 ; dtemp
+ 00001288  E1A00C00  MOV         R0,R0,LSL #24 ; dtemp
+ 0000128C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001290  EB0001E8  BL          SPI_char?A  ; Targ=0x1A38
+ 00001294  EBFFFC86  BL          cs_pin_high?A  ; Targ=0x4B4
+ 00001298  EBFFFC82  BL          cs_pin_low?A  ; Targ=0x4A8
+ 0000129C  E3A00002  MOV         R0,#0x2
+ 000012A0  EB0001E4  BL          SPI_char?A  ; Targ=0x1A38
+ 000012A4  E3A00070  MOV         R0,#0x70
+ 000012A8  EB0001E2  BL          SPI_char?A  ; Targ=0x1A38
+ 000012AC  E1A00006  MOV         R0,R6 ; dtemp
+ 000012B0  E1A00C00  MOV         R0,R0,LSL #24 ; dtemp
+ 000012B4  E1A00C20  MOV         R0,R0,LSR #24
+ 000012B8  EB0001DE  BL          SPI_char?A  ; Targ=0x1A38
+ 000012BC  EBFFFC7C  BL          cs_pin_high?A  ; Targ=0x4B4
+ 000012C0  E3A00000  MOV         R0,#0x0
+ 000012C4  E3A01000  MOV         R1,#0x0
+ 000012C8  E3A020F7  MOV         R2,#0xF7
+ 000012CC  EBFFFD5A  BL          CANSPISetMask?A  ; Targ=0x83C
+ 000012D0  E3A00001  MOV         R0,#0x1
+ 000012D4  E3A01000  MOV         R1,#0x0
+ 000012D8  E3A020F7  MOV         R2,#0xF7
+ 000012DC  EBFFFD56  BL          CANSPISetMask?A  ; Targ=0x83C
+ 000012E0  E28D0018  ADD         R0,R13,#0x0018
+ 000012E4  E5D00000  LDRB        R0,[R0,#0x0] ; CAN_CONFIG_FLAGS
+ 000012E8  E2000060  AND         R0,R0,#0x0060
+ 000012EC  E3E01060  MVN         R1,#0x60
+ 000012F0  E1800001  ORR         R0,R0,R1
+ 000012F4  E35000BF  CMP         R0,#0x00BF
+ 000012F8  0A000004  BEQ         L_66  ; Targ=0x1310
+ 000012FC  E35000DF  CMP         R0,#0x00DF
+ 00001300  1A000005  BNE         L_67  ; Targ=0x131C
+ 00001304          L_68:
+ 00001304  E3A040F7  MOV         R4,#0xF7
+ 00001308  E1A05004  MOV         R5,R4 ; FilterConfig1
+ 0000130C  EA000004  B           L_65  ; Targ=0x1324
+ 00001310          L_66:
+ 00001310  E3A040FF  MOV         R4,#0xFF
+ 00001314  E1A05004  MOV         R5,R4 ; FilterConfig1
+ 00001318  EA000001  B           L_65  ; Targ=0x1324
+ 0000131C          L_67:
+ 0000131C  E3A050FF  MOV         R5,#0xFF
+ 00001320  E3A040F7  MOV         R4,#0xF7
+ 00001324          L_65:
+ 00001324  E1A00005  MOV         R0,R5 ; FilterConfig1
+ 00001328  E1A02C00  MOV         R2,R0,LSL #24 ; FilterConfig1
+ 0000132C  E1A02C22  MOV         R2,R2,LSR #24
+ 00001330  E3A00000  MOV         R0,#0x0
+ 00001334  E3A01000  MOV         R1,#0x0
+ 00001338  EBFFFD56  BL          CANSPISetFilter?A  ; Targ=0x898
+ 0000133C  E1A00005  MOV         R0,R5 ; FilterConfig1
+ 00001340  E1A02C00  MOV         R2,R0,LSL #24 ; FilterConfig1
+ 00001344  E1A02C22  MOV         R2,R2,LSR #24
+ 00001348  E3A00001  MOV         R0,#0x1
+ 0000134C  E3A01000  MOV         R1,#0x0
+ 00001350  EBFFFD50  BL          CANSPISetFilter?A  ; Targ=0x898
+ 00001354  E3A06002  MOV         R6,#0x2
+ 00001358  EA000009  B           L_71  ; Targ=0x1384
+ 0000135C          L_72:
+ 0000135C  E1A00006  MOV         R0,R6 ; dtemp
+ 00001360  E1A00C00  MOV         R0,R0,LSL #24 ; dtemp
+ 00001364  E1A00C20  MOV         R0,R0,LSR #24
+ 00001368  E1A01004  MOV         R1,R4 ; FilterConfig2
+ 0000136C  E1A02C01  MOV         R2,R1,LSL #24 ; FilterConfig2
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 27
+
+
+ 00001370  E1A02C22  MOV         R2,R2,LSR #24
+ 00001374  E3A01000  MOV         R1,#0x0
+ 00001378  EBFFFD46  BL          CANSPISetFilter?A  ; Targ=0x898
+ 0000137C  E2866001  ADD         R6,R6,#0x0001 ; dtemp
+ 00001380  E20660FF  AND         R6,R6,#0x00FF
+ 00001384          L_71:
+ 00001384  E1A00006  MOV         R0,R6 ; dtemp
+ 00001388  E1A00C00  MOV         R0,R0,LSL #24 ; dtemp
+ 0000138C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001390  E3500005  CMP         R0,#0x0005
+ 00001394  DAFFFFF0  BLE         L_72  ; Targ=0x135C
+ 00001398  E3A00000  MOV         R0,#0x0
+ 0000139C  E3A010FF  MOV         R1,#0xFF
+ 000013A0  EBFFFCB4  BL          CANSPISetOperationMode?A  ; Targ=0x678
+ 000013A4            ; SCOPE-END
+ 000013A4  E8BD80F0  LDMIA       R13!,{R4-R7,PC}
+ 000013A8            ; END 'CANSPIInitialize?A'
+
+
+*** Disassembly of Segment '?PR?SPI_init?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 000013A8          SPI_init?A:  ; FUNCTION START
+ 000013A8  E92D0070  STMDB       R13!,{R4-R6}
+ 000013AC  ---- Variable 'mosi_pin' assigned to Register 'R3' ----
+ 000013AC  ---- Variable 'miso_pin' assigned to Register 'R2' ----
+ 000013AC  ---- Variable 'cs_pin' assigned to Register 'R1' ----
+ 000013AC  E1A05000  MOV         R5,R0 ; spi_port
+ 000013B0  ---- Variable 'spi_port' assigned to Register 'R5' ----
+ 000013B0  E1A04005  MOV         R4,R5 ; spi_port
+ 000013B4  E59F01DC  LDR         R0,[PC,+476] ; PoolRef @0x1598 ; pSPIswPIN
+ 000013B8  E5804000  STR         R4,[R0,#0x0] ; pSPIswPIN
+ 000013BC  E59F41D8  LDR         R4,[PC,+472] ; PoolRef @0x159C
+ 000013C0  E59F01D0  LDR         R0,[PC,+464] ; PoolRef @0x1598 ; pSPIswPIN
+ 000013C4  E5900000  LDR         R0,[R0,#0x0] ; pSPIswPIN
+ 000013C8  E1500004  CMP         R0,R4
+ 000013CC  1A000006  BNE         L_1  ; Targ=0x13EC
+ 000013D0  E59F41C8  LDR         R4,[PC,+456] ; PoolRef @0x15A0
+ 000013D4  E59F51BC  LDR         R5,[PC,+444] ; PoolRef @0x1598 ; pSPIswPIN
+ 000013D8  E5854004  STR         R4,[R5,#0x4] ; pSPIswDIR
+ 000013DC  E59F41C0  LDR         R4,[PC,+448] ; PoolRef @0x15A4
+ 000013E0  E5854008  STR         R4,[R5,#0x8] ; pSPIswSET
+ 000013E4  E59F41BC  LDR         R4,[PC,+444] ; PoolRef @0x15A8
+ 000013E8  E585400C  STR         R4,[R5,#0xC] ; pSPIswCLR
+ 000013EC          L_1:
+ 000013EC  E59F41B8  LDR         R4,[PC,+440] ; PoolRef @0x15AC
+ 000013F0  E1500004  CMP         R0,R4
+ 000013F4  1A000006  BNE         L_2  ; Targ=0x1414
+ 000013F8  E59F01B0  LDR         R0,[PC,+432] ; PoolRef @0x15B0
+ 000013FC  E59F4194  LDR         R4,[PC,+404] ; PoolRef @0x1598 ; pSPIswPIN
+ 00001400  E5840004  STR         R0,[R4,#0x4] ; pSPIswDIR
+ 00001404  E59F01A8  LDR         R0,[PC,+424] ; PoolRef @0x15B4
+ 00001408  E5840008  STR         R0,[R4,#0x8] ; pSPIswSET
+ 0000140C  E59F01A4  LDR         R0,[PC,+420] ; PoolRef @0x15B8
+ 00001410  E584000C  STR         R0,[R4,#0xC] ; pSPIswCLR
+ 00001414          L_2:
+ 00001414  E1A00001  MOV         R0,R1 ; cs_pin
+ 00001418  E59F6178  LDR         R6,[PC,+376] ; PoolRef @0x1598 ; pSPIswPIN
+ 0000141C  E5C60030  STRB        R0,[R6,#0x30] ; posCS
+ 00001420  E28D000C  ADD         R0,R13,#0x000C
+ 00001424  E5D05000  LDRB        R5,[R0,#0x0] ; sck_pin
+ 00001428  E5C65031  STRB        R5,[R6,#0x31] ; posSCK
+ 0000142C  E1A00003  MOV         R0,R3 ; mosi_pin
+ 00001430  E5C60032  STRB        R0,[R6,#0x32] ; posMOSI
+ 00001434  E1A00002  MOV         R0,R2 ; miso_pin
+ 00001438  E5C60033  STRB        R0,[R6,#0x33] ; posMISO
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 28
+
+
+ 0000143C  E1A00001  MOV         R0,R1 ; cs_pin
+ 00001440  E1A04C00  MOV         R4,R0,LSL #24 ; cs_pin
+ 00001444  E1A04C24  MOV         R4,R4,LSR #24
+ 00001448  E3A00001  MOV         R0,#0x1
+ 0000144C  E1A01000  MOV         R1,R0
+ 00001450  E1A01411  MOV         R1,R1,LSL R4
+ 00001454  E5861014  STR         R1,[R6,#0x14] ; CSmask1
+ 00001458  E5964014  LDR         R4,[R6,#0x14] ; CSmask1
+ 0000145C  E1E01004  MVN         R1,R4
+ 00001460  E5861010  STR         R1,[R6,#0x10] ; CSmask0
+ 00001464  E1A01002  MOV         R1,R2 ; miso_pin
+ 00001468  E1A02C01  MOV         R2,R1,LSL #24 ; miso_pin
+ 0000146C  E1A02C22  MOV         R2,R2,LSR #24
+ 00001470  E1A01000  MOV         R1,R0
+ 00001474  E1A01211  MOV         R1,R1,LSL R2
+ 00001478  E586101C  STR         R1,[R6,#0x1C] ; MISOmask1
+ 0000147C  E596101C  LDR         R1,[R6,#0x1C] ; MISOmask1
+ 00001480  E1E01001  MVN         R1,R1
+ 00001484  E5861018  STR         R1,[R6,#0x18] ; MISOmask0
+ 00001488  E1A01003  MOV         R1,R3 ; mosi_pin
+ 0000148C  E1A02C01  MOV         R2,R1,LSL #24 ; mosi_pin
+ 00001490  E1A02C22  MOV         R2,R2,LSR #24
+ 00001494  E1A01000  MOV         R1,R0
+ 00001498  E1A01211  MOV         R1,R1,LSL R2
+ 0000149C  E5861024  STR         R1,[R6,#0x24] ; MOSImask1
+ 000014A0  E5963024  LDR         R3,[R6,#0x24] ; MOSImask1
+ 000014A4  E1E01003  MVN         R1,R3
+ 000014A8  E5861020  STR         R1,[R6,#0x20] ; MOSImask0
+ 000014AC  E1A01005  MOV         R1,R5
+ 000014B0  E1A00110  MOV         R0,R0,LSL R1
+ 000014B4  E586002C  STR         R0,[R6,#0x2C] ; SCKmask1
+ 000014B8  E596502C  LDR         R5,[R6,#0x2C] ; SCKmask1
+ 000014BC  E1E00005  MVN         R0,R5
+ 000014C0  E5860028  STR         R0,[R6,#0x28] ; SCKmask0
+ 000014C4  E3A00000  MOV         R0,#0x0
+ 000014C8  E5C60034  STRB        R0,[R6,#0x34] ; spiMode
+ 000014CC  E28D0014  ADD         R0,R13,#0x0014
+ 000014D0  E5D00000  LDRB        R0,[R0,#0x0] ; bCPHA
+ 000014D4  E3500000  CMP         R0,#0x0000
+ 000014D8  0A000004  BEQ         L_3  ; Targ=0x14F0
+ 000014DC  E59F00D8  LDR         R0,[PC,+216] ; PoolRef @0x15BC ; spiMode
+ 000014E0  E5D01000  LDRB        R1,[R0,#0x0] ; spiMode
+ 000014E4  E3811001  ORR         R1,R1,#0x0001
+ 000014E8  E59F00CC  LDR         R0,[PC,+204] ; PoolRef @0x15BC ; spiMode
+ 000014EC  E5C01000  STRB        R1,[R0,#0x0] ; spiMode
+ 000014F0          L_3:
+ 000014F0  E28D0010  ADD         R0,R13,#0x0010
+ 000014F4  E5D00000  LDRB        R0,[R0,#0x0] ; bCPOL
+ 000014F8  E3500000  CMP         R0,#0x0000
+ 000014FC  0A000008  BEQ         L_4  ; Targ=0x1524
+ 00001500  E59F0090  LDR         R0,[PC,+144] ; PoolRef @0x1598 ; pSPIswPIN
+ 00001504  E5D01034  LDRB        R1,[R0,#0x34] ; spiMode
+ 00001508  E3811002  ORR         R1,R1,#0x0002
+ 0000150C  E5C01034  STRB        R1,[R0,#0x34] ; spiMode
+ 00001510  E5900008  LDR         R0,[R0,#0x8] ; pSPIswSET
+ 00001514  E5901000  LDR         R1,[R0,#0x0]
+ 00001518  E1811005  ORR         R1,R1,R5
+ 0000151C  E5801000  STR         R1,[R0,#0x0]
+ 00001520  EA000004  B           L_5  ; Targ=0x1538
+ 00001524          L_4:
+ 00001524  E59F0094  LDR         R0,[PC,+148] ; PoolRef @0x15C0 ; pSPIswPIN+12
+ 00001528  E5900000  LDR         R0,[R0,#0x0] ; pSPIswCLR+12
+ 0000152C  E5901000  LDR         R1,[R0,#0x0]
+ 00001530  E1811005  ORR         R1,R1,R5
+ 00001534  E5801000  STR         R1,[R0,#0x0]
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 29
+
+
+ 00001538          L_5:
+ 00001538  E59F1058  LDR         R1,[PC,+88] ; PoolRef @0x1598 ; pSPIswPIN
+ 0000153C  E5910008  LDR         R0,[R1,#0x8] ; pSPIswSET
+ 00001540  E5902000  LDR         R2,[R0,#0x0]
+ 00001544  E1822003  ORR         R2,R2,R3
+ 00001548  E5802000  STR         R2,[R0,#0x0]
+ 0000154C  E5902000  LDR         R2,[R0,#0x0]
+ 00001550  E1822004  ORR         R2,R2,R4
+ 00001554  E5802000  STR         R2,[R0,#0x0]
+ 00001558  E5910004  LDR         R0,[R1,#0x4] ; pSPIswDIR
+ 0000155C  E5902000  LDR         R2,[R0,#0x0]
+ 00001560  E1822005  ORR         R2,R2,R5
+ 00001564  E5802000  STR         R2,[R0,#0x0]
+ 00001568  E5902000  LDR         R2,[R0,#0x0]
+ 0000156C  E1822003  ORR         R2,R2,R3
+ 00001570  E5802000  STR         R2,[R0,#0x0]
+ 00001574  E5902000  LDR         R2,[R0,#0x0]
+ 00001578  E1822004  ORR         R2,R2,R4
+ 0000157C  E5802000  STR         R2,[R0,#0x0]
+ 00001580  E5912018  LDR         R2,[R1,#0x18] ; MISOmask0
+ 00001584  E5901000  LDR         R1,[R0,#0x0]
+ 00001588  E0011002  AND         R1,R1,R2
+ 0000158C  E5801000  STR         R1,[R0,#0x0]
+ 00001590  E8BD0070  LDMIA       R13!,{R4-R6}
+ 00001594  E12FFF1E  BX          R14
+ 00001598            ; END 'SPI_init?A'
+
+ 00001598  400004A4  DD          pSPIswPIN		; POOL-Entry U=7
+ 0000159C  E0028000  DD          0xE0028000		; POOL-Entry U=1
+ 000015A0  E0028008  DD          0xE0028008		; POOL-Entry U=1
+ 000015A4  E0028004  DD          0xE0028004		; POOL-Entry U=1
+ 000015A8  E002800C  DD          0xE002800C		; POOL-Entry U=1
+ 000015AC  E0028010  DD          0xE0028010		; POOL-Entry U=1
+ 000015B0  E0028018  DD          0xE0028018		; POOL-Entry U=1
+ 000015B4  E0028014  DD          0xE0028014		; POOL-Entry U=1
+ 000015B8  E002801C  DD          0xE002801C		; POOL-Entry U=1
+ 000015BC  400004D8  DD          spiMode		; POOL-Entry U=2
+ 000015C0  400004B0  DD          pSPIswPIN + 0xC		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_enable?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 000015C4          SPI_enable?A:  ; FUNCTION START
+ 000015C4  E92D4000  STMDB       R13!,{LR}
+ 000015C8  E59F001C  LDR         R0,[PC,+28] ; PoolRef @0x15EC ; CSmask1
+ 000015CC  E5902000  LDR         R2,[R0,#0x0] ; CSmask1
+ 000015D0  E5100008  LDR         R0,[R0,#0xFFFFFFF8] ; pSPIswCLR
+ 000015D4  E5901000  LDR         R1,[R0,#0x0]
+ 000015D8  E1811002  ORR         R1,R1,R2
+ 000015DC  E5801000  STR         R1,[R0,#0x0]
+ 000015E0  E3A00003  MOV         R0,#0x3
+ 000015E4  EB000153  BL          delay_Nx10cyc?A  ; Targ=0x1B38
+ 000015E8  E8BD8000  LDMIA       R13!,{PC}
+ 000015EC            ; END 'SPI_enable?A'
+
+ 000015EC  400004B8  DD          CSmask1		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_disable?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 000015F0          SPI_disable?A:  ; FUNCTION START
+ 000015F0  E59F0014  LDR         R0,[PC,+20] ; PoolRef @0x160C ; CSmask1
+ 000015F4  E5902000  LDR         R2,[R0,#0x0] ; CSmask1
+ 000015F8  E510000C  LDR         R0,[R0,#0xFFFFFFF4] ; pSPIswSET
+ 000015FC  E5901000  LDR         R1,[R0,#0x0]
+ 00001600  E1811002  ORR         R1,R1,R2
+ 00001604  E5801000  STR         R1,[R0,#0x0]
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 30
+
+
+ 00001608  E12FFF1E  BX          R14
+ 0000160C            ; END 'SPI_disable?A'
+
+ 0000160C  400004B8  DD          CSmask1		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_charM0?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 00001610          SPI_charM0?A:  ; FUNCTION START
+ 00001610  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 00001614  E1A04000  MOV         R4,R0 ; chTx
+ 00001618  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 00001618            ; SCOPE-START
+ 00001618  E3A02000  MOV         R2,#0x0
+ 0000161C  ---- Variable 'c' assigned to Register 'R2' ----
+ 0000161C  E3A03008  MOV         R3,#0x8
+ 00001620  ---- Variable 'n' assigned to Register 'R3' ----
+ 00001620  EA000032  B           L_6  ; Targ=0x16F0
+ 00001624          L_8:
+ 00001624  E1A00004  MOV         R0,R4 ; chTx
+ 00001628  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 0000162C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001630  E3100080  TST         R0,#0x0080
+ 00001634  1A000006  BNE         L_10  ; Targ=0x1654
+ 00001638  E59F00D4  LDR         R0,[PC,+212] ; PoolRef @0x1714 ; MOSImask1
+ 0000163C  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1
+ 00001640  E5100018  LDR         R0,[R0,#0xFFFFFFE8] ; pSPIswCLR
+ 00001644  E5901000  LDR         R1,[R0,#0x0]
+ 00001648  E1811005  ORR         R1,R1,R5
+ 0000164C  E5801000  STR         R1,[R0,#0x0]
+ 00001650  EA000005  B           L_11  ; Targ=0x166C
+ 00001654          L_10:
+ 00001654  E59F00B8  LDR         R0,[PC,+184] ; PoolRef @0x1714 ; MOSImask1
+ 00001658  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1
+ 0000165C  E510001C  LDR         R0,[R0,#0xFFFFFFE4] ; pSPIswSET
+ 00001660  E5901000  LDR         R1,[R0,#0x0]
+ 00001664  E1811005  ORR         R1,R1,R5
+ 00001668  E5801000  STR         R1,[R0,#0x0]
+ 0000166C          L_11:
+ 0000166C  E3A0001D  MOV         R0,#0x1D
+ 00001670  EB000130  BL          delay_Nx10cyc?A  ; Targ=0x1B38
+ 00001674  E59F6098  LDR         R6,[PC,+152] ; PoolRef @0x1714 ; MOSImask1
+ 00001678  E5965008  LDR         R5,[R6,#0x8] ; SCKmask1
+ 0000167C  E516001C  LDR         R0,[R6,#0xFFFFFFE4] ; pSPIswSET
+ 00001680  E5901000  LDR         R1,[R0,#0x0]
+ 00001684  E1811005  ORR         R1,R1,R5
+ 00001688  E5801000  STR         R1,[R0,#0x0]
+ 0000168C  E1A02082  MOV         R2,R2,LSL #1 ; c
+ 00001690  E1A02C02  MOV         R2,R2,LSL #24
+ 00001694  E1A02C22  MOV         R2,R2,LSR #24
+ 00001698  E20220FE  AND         R2,R2,#0x00FE ; c
+ 0000169C  E5160024  LDR         R0,[R6,#0xFFFFFFDC] ; pSPIswPIN
+ 000016A0  E5900000  LDR         R0,[R0,#0x0]
+ 000016A4  E5161008  LDR         R1,[R6,#0xFFFFFFF8] ; MISOmask1
+ 000016A8  E0000001  AND         R0,R0,R1
+ 000016AC  E5D6100F  LDRB        R1,[R6,#0xF] ; posMISO
+ 000016B0  E1A00150  MOV         R0,R0,ASR R1
+ 000016B4  E1A00C00  MOV         R0,R0,LSL #24
+ 000016B8  E1A00C20  MOV         R0,R0,LSR #24
+ 000016BC  E1822000  ORR         R2,R2,R0 ; c
+ 000016C0  E3A0001D  MOV         R0,#0x1D
+ 000016C4  EB00011B  BL          delay_Nx10cyc?A  ; Targ=0x1B38
+ 000016C8  E5965008  LDR         R5,[R6,#0x8] ; SCKmask1
+ 000016CC  E5160018  LDR         R0,[R6,#0xFFFFFFE8] ; pSPIswCLR
+ 000016D0  E5901000  LDR         R1,[R0,#0x0]
+ 000016D4  E1811005  ORR         R1,R1,R5
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 31
+
+
+ 000016D8  E5801000  STR         R1,[R0,#0x0]
+ 000016DC  E1A04084  MOV         R4,R4,LSL #1 ; chTx
+ 000016E0  E1A04C04  MOV         R4,R4,LSL #24
+ 000016E4  E1A04C24  MOV         R4,R4,LSR #24
+ 000016E8  E2433001  SUB         R3,R3,#0x0001 ; n
+ 000016EC  E20330FF  AND         R3,R3,#0x00FF
+ 000016F0          L_6:
+ 000016F0  E1A00003  MOV         R0,R3 ; n
+ 000016F4  E1A00C00  MOV         R0,R0,LSL #24 ; n
+ 000016F8  E1A00C20  MOV         R0,R0,LSR #24
+ 000016FC  E3500000  CMP         R0,#0x0000
+ 00001700  CAFFFFC7  BGT         L_8  ; Targ=0x1624
+ 00001704  E1A00002  MOV         R0,R2 ; c
+ 00001708  E1A00C00  MOV         R0,R0,LSL #24 ; c
+ 0000170C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001710            ; SCOPE-END
+ 00001710  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 00001714            ; END 'SPI_charM0?A'
+
+ 00001714  400004C8  DD          MOSImask1		; POOL-Entry U=3
+
+*** Disassembly of Segment '?PR?SPI_charM1?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 00001718          SPI_charM1?A:  ; FUNCTION START
+ 00001718  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 0000171C  E1A04000  MOV         R4,R0 ; chTx
+ 00001720  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 00001720            ; SCOPE-START
+ 00001720  E3A02000  MOV         R2,#0x0
+ 00001724  ---- Variable 'c' assigned to Register 'R2' ----
+ 00001724  E3A03008  MOV         R3,#0x8
+ 00001728  ---- Variable 'n' assigned to Register 'R3' ----
+ 00001728  EA000032  B           L_13  ; Targ=0x17F8
+ 0000172C          L_15:
+ 0000172C  E59F00E8  LDR         R0,[PC,+232] ; PoolRef @0x181C ; SCKmask1
+ 00001730  E5905000  LDR         R5,[R0,#0x0] ; SCKmask1
+ 00001734  E5101024  LDR         R1,[R0,#0xFFFFFFDC] ; pSPIswSET
+ 00001738  E5910000  LDR         R0,[R1,#0x0]
+ 0000173C  E1800005  ORR         R0,R0,R5
+ 00001740  E5810000  STR         R0,[R1,#0x0]
+ 00001744  E1A00004  MOV         R0,R4 ; chTx
+ 00001748  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 0000174C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001750  E3100080  TST         R0,#0x0080
+ 00001754  1A000006  BNE         L_17  ; Targ=0x1774
+ 00001758  E59F00BC  LDR         R0,[PC,+188] ; PoolRef @0x181C ; SCKmask1
+ 0000175C  E5106008  LDR         R6,[R0,#0xFFFFFFF8] ; MOSImask1
+ 00001760  E5100020  LDR         R0,[R0,#0xFFFFFFE0] ; pSPIswCLR
+ 00001764  E5905000  LDR         R5,[R0,#0x0]
+ 00001768  E1855006  ORR         R5,R5,R6
+ 0000176C  E5805000  STR         R5,[R0,#0x0]
+ 00001770  EA000004  B           L_18  ; Targ=0x1788
+ 00001774          L_17:
+ 00001774  E59F00A4  LDR         R0,[PC,+164] ; PoolRef @0x1820 ; SCKmask1-8
+ 00001778  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1-8
+ 0000177C  E5910000  LDR         R0,[R1,#0x0]
+ 00001780  E1800005  ORR         R0,R0,R5
+ 00001784  E5810000  STR         R0,[R1,#0x0]
+ 00001788          L_18:
+ 00001788  E3A0001D  MOV         R0,#0x1D
+ 0000178C  EB0000E9  BL          delay_Nx10cyc?A  ; Targ=0x1B38
+ 00001790  E59F1084  LDR         R1,[PC,+132] ; PoolRef @0x181C ; SCKmask1
+ 00001794  E5916000  LDR         R6,[R1,#0x0] ; SCKmask1
+ 00001798  E5110020  LDR         R0,[R1,#0xFFFFFFE0] ; pSPIswCLR
+ 0000179C  E5905000  LDR         R5,[R0,#0x0]
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 32
+
+
+ 000017A0  E1855006  ORR         R5,R5,R6
+ 000017A4  E5805000  STR         R5,[R0,#0x0]
+ 000017A8  E1A02082  MOV         R2,R2,LSL #1 ; c
+ 000017AC  E1A02C02  MOV         R2,R2,LSL #24
+ 000017B0  E1A02C22  MOV         R2,R2,LSR #24
+ 000017B4  E20220FE  AND         R2,R2,#0x00FE ; c
+ 000017B8  E511002C  LDR         R0,[R1,#0xFFFFFFD4] ; pSPIswPIN
+ 000017BC  E5900000  LDR         R0,[R0,#0x0]
+ 000017C0  E5115010  LDR         R5,[R1,#0xFFFFFFF0] ; MISOmask1
+ 000017C4  E0000005  AND         R0,R0,R5
+ 000017C8  E5D11007  LDRB        R1,[R1,#0x7] ; posMISO
+ 000017CC  E1A00150  MOV         R0,R0,ASR R1
+ 000017D0  E1A00C00  MOV         R0,R0,LSL #24
+ 000017D4  E1A00C20  MOV         R0,R0,LSR #24
+ 000017D8  E1822000  ORR         R2,R2,R0 ; c
+ 000017DC  E3A0001D  MOV         R0,#0x1D
+ 000017E0  EB0000D4  BL          delay_Nx10cyc?A  ; Targ=0x1B38
+ 000017E4  E1A04084  MOV         R4,R4,LSL #1 ; chTx
+ 000017E8  E1A04C04  MOV         R4,R4,LSL #24
+ 000017EC  E1A04C24  MOV         R4,R4,LSR #24
+ 000017F0  E2433001  SUB         R3,R3,#0x0001 ; n
+ 000017F4  E20330FF  AND         R3,R3,#0x00FF
+ 000017F8          L_13:
+ 000017F8  E1A00003  MOV         R0,R3 ; n
+ 000017FC  E1A00C00  MOV         R0,R0,LSL #24 ; n
+ 00001800  E1A00C20  MOV         R0,R0,LSR #24
+ 00001804  E3500000  CMP         R0,#0x0000
+ 00001808  CAFFFFC7  BGT         L_15  ; Targ=0x172C
+ 0000180C  E1A00002  MOV         R0,R2 ; c
+ 00001810  E1A00C00  MOV         R0,R0,LSL #24 ; c
+ 00001814  E1A00C20  MOV         R0,R0,LSR #24
+ 00001818            ; SCOPE-END
+ 00001818  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 0000181C            ; END 'SPI_charM1?A'
+
+ 0000181C  400004D0  DD          SCKmask1		; POOL-Entry U=3
+ 00001820  400004C8  DD          SCKmask1 + 0xFFFFFFF8		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_charM2?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 00001824          SPI_charM2?A:  ; FUNCTION START
+ 00001824  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 00001828  E1A04000  MOV         R4,R0 ; chTx
+ 0000182C  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 0000182C            ; SCOPE-START
+ 0000182C  E3A02000  MOV         R2,#0x0
+ 00001830  ---- Variable 'c' assigned to Register 'R2' ----
+ 00001830  E3A03008  MOV         R3,#0x8
+ 00001834  ---- Variable 'n' assigned to Register 'R3' ----
+ 00001834  EA000032  B           L_20  ; Targ=0x1904
+ 00001838          L_22:
+ 00001838  E1A00004  MOV         R0,R4 ; chTx
+ 0000183C  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00001840  E1A00C20  MOV         R0,R0,LSR #24
+ 00001844  E3100080  TST         R0,#0x0080
+ 00001848  1A000006  BNE         L_24  ; Targ=0x1868
+ 0000184C  E59F00D4  LDR         R0,[PC,+212] ; PoolRef @0x1928 ; MOSImask1
+ 00001850  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1
+ 00001854  E5100018  LDR         R0,[R0,#0xFFFFFFE8] ; pSPIswCLR
+ 00001858  E5901000  LDR         R1,[R0,#0x0]
+ 0000185C  E1811005  ORR         R1,R1,R5
+ 00001860  E5801000  STR         R1,[R0,#0x0]
+ 00001864  EA000005  B           L_25  ; Targ=0x1880
+ 00001868          L_24:
+ 00001868  E59F00B8  LDR         R0,[PC,+184] ; PoolRef @0x1928 ; MOSImask1
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 33
+
+
+ 0000186C  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1
+ 00001870  E510001C  LDR         R0,[R0,#0xFFFFFFE4] ; pSPIswSET
+ 00001874  E5901000  LDR         R1,[R0,#0x0]
+ 00001878  E1811005  ORR         R1,R1,R5
+ 0000187C  E5801000  STR         R1,[R0,#0x0]
+ 00001880          L_25:
+ 00001880  E3A0001D  MOV         R0,#0x1D
+ 00001884  EB0000AB  BL          delay_Nx10cyc?A  ; Targ=0x1B38
+ 00001888  E59F6098  LDR         R6,[PC,+152] ; PoolRef @0x1928 ; MOSImask1
+ 0000188C  E5965008  LDR         R5,[R6,#0x8] ; SCKmask1
+ 00001890  E5160018  LDR         R0,[R6,#0xFFFFFFE8] ; pSPIswCLR
+ 00001894  E5901000  LDR         R1,[R0,#0x0]
+ 00001898  E1811005  ORR         R1,R1,R5
+ 0000189C  E5801000  STR         R1,[R0,#0x0]
+ 000018A0  E1A02082  MOV         R2,R2,LSL #1 ; c
+ 000018A4  E1A02C02  MOV         R2,R2,LSL #24
+ 000018A8  E1A02C22  MOV         R2,R2,LSR #24
+ 000018AC  E20220FE  AND         R2,R2,#0x00FE ; c
+ 000018B0  E5160024  LDR         R0,[R6,#0xFFFFFFDC] ; pSPIswPIN
+ 000018B4  E5900000  LDR         R0,[R0,#0x0]
+ 000018B8  E5161008  LDR         R1,[R6,#0xFFFFFFF8] ; MISOmask1
+ 000018BC  E0000001  AND         R0,R0,R1
+ 000018C0  E5D6100F  LDRB        R1,[R6,#0xF] ; posMISO
+ 000018C4  E1A00150  MOV         R0,R0,ASR R1
+ 000018C8  E1A00C00  MOV         R0,R0,LSL #24
+ 000018CC  E1A00C20  MOV         R0,R0,LSR #24
+ 000018D0  E1822000  ORR         R2,R2,R0 ; c
+ 000018D4  E3A0001D  MOV         R0,#0x1D
+ 000018D8  EB000096  BL          delay_Nx10cyc?A  ; Targ=0x1B38
+ 000018DC  E5965008  LDR         R5,[R6,#0x8] ; SCKmask1
+ 000018E0  E516001C  LDR         R0,[R6,#0xFFFFFFE4] ; pSPIswSET
+ 000018E4  E5901000  LDR         R1,[R0,#0x0]
+ 000018E8  E1811005  ORR         R1,R1,R5
+ 000018EC  E5801000  STR         R1,[R0,#0x0]
+ 000018F0  E1A04084  MOV         R4,R4,LSL #1 ; chTx
+ 000018F4  E1A04C04  MOV         R4,R4,LSL #24
+ 000018F8  E1A04C24  MOV         R4,R4,LSR #24
+ 000018FC  E2433001  SUB         R3,R3,#0x0001 ; n
+ 00001900  E20330FF  AND         R3,R3,#0x00FF
+ 00001904          L_20:
+ 00001904  E1A00003  MOV         R0,R3 ; n
+ 00001908  E1A00C00  MOV         R0,R0,LSL #24 ; n
+ 0000190C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001910  E3500000  CMP         R0,#0x0000
+ 00001914  CAFFFFC7  BGT         L_22  ; Targ=0x1838
+ 00001918  E1A00002  MOV         R0,R2 ; c
+ 0000191C  E1A00C00  MOV         R0,R0,LSL #24 ; c
+ 00001920  E1A00C20  MOV         R0,R0,LSR #24
+ 00001924            ; SCOPE-END
+ 00001924  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 00001928            ; END 'SPI_charM2?A'
+
+ 00001928  400004C8  DD          MOSImask1		; POOL-Entry U=3
+
+*** Disassembly of Segment '?PR?SPI_charM3?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 0000192C          SPI_charM3?A:  ; FUNCTION START
+ 0000192C  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 00001930  E1A04000  MOV         R4,R0 ; chTx
+ 00001934  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 00001934            ; SCOPE-START
+ 00001934  E3A02000  MOV         R2,#0x0
+ 00001938  ---- Variable 'c' assigned to Register 'R2' ----
+ 00001938  E3A03008  MOV         R3,#0x8
+ 0000193C  ---- Variable 'n' assigned to Register 'R3' ----
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 34
+
+
+ 0000193C  EA000032  B           L_27  ; Targ=0x1A0C
+ 00001940          L_29:
+ 00001940  E59F00E8  LDR         R0,[PC,+232] ; PoolRef @0x1A30 ; SCKmask1
+ 00001944  E5905000  LDR         R5,[R0,#0x0] ; SCKmask1
+ 00001948  E5101020  LDR         R1,[R0,#0xFFFFFFE0] ; pSPIswCLR
+ 0000194C  E5910000  LDR         R0,[R1,#0x0]
+ 00001950  E1800005  ORR         R0,R0,R5
+ 00001954  E5810000  STR         R0,[R1,#0x0]
+ 00001958  E1A00004  MOV         R0,R4 ; chTx
+ 0000195C  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00001960  E1A00C20  MOV         R0,R0,LSR #24
+ 00001964  E3100080  TST         R0,#0x0080
+ 00001968  1A000005  BNE         L_31  ; Targ=0x1984
+ 0000196C  E59F00C0  LDR         R0,[PC,+192] ; PoolRef @0x1A34 ; SCKmask1-8
+ 00001970  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1-8
+ 00001974  E5910000  LDR         R0,[R1,#0x0]
+ 00001978  E1800005  ORR         R0,R0,R5
+ 0000197C  E5810000  STR         R0,[R1,#0x0]
+ 00001980  EA000005  B           L_32  ; Targ=0x199C
+ 00001984          L_31:
+ 00001984  E59F00A4  LDR         R0,[PC,+164] ; PoolRef @0x1A30 ; SCKmask1
+ 00001988  E5105008  LDR         R5,[R0,#0xFFFFFFF8] ; MOSImask1
+ 0000198C  E5100024  LDR         R0,[R0,#0xFFFFFFDC] ; pSPIswSET
+ 00001990  E5901000  LDR         R1,[R0,#0x0]
+ 00001994  E1811005  ORR         R1,R1,R5
+ 00001998  E5801000  STR         R1,[R0,#0x0]
+ 0000199C          L_32:
+ 0000199C  E3A0001D  MOV         R0,#0x1D
+ 000019A0  EB000064  BL          delay_Nx10cyc?A  ; Targ=0x1B38
+ 000019A4  E59F1084  LDR         R1,[PC,+132] ; PoolRef @0x1A30 ; SCKmask1
+ 000019A8  E5916000  LDR         R6,[R1,#0x0] ; SCKmask1
+ 000019AC  E5110024  LDR         R0,[R1,#0xFFFFFFDC] ; pSPIswSET
+ 000019B0  E5905000  LDR         R5,[R0,#0x0]
+ 000019B4  E1855006  ORR         R5,R5,R6
+ 000019B8  E5805000  STR         R5,[R0,#0x0]
+ 000019BC  E1A02082  MOV         R2,R2,LSL #1 ; c
+ 000019C0  E1A02C02  MOV         R2,R2,LSL #24
+ 000019C4  E1A02C22  MOV         R2,R2,LSR #24
+ 000019C8  E20220FE  AND         R2,R2,#0x00FE ; c
+ 000019CC  E511002C  LDR         R0,[R1,#0xFFFFFFD4] ; pSPIswPIN
+ 000019D0  E5900000  LDR         R0,[R0,#0x0]
+ 000019D4  E5115010  LDR         R5,[R1,#0xFFFFFFF0] ; MISOmask1
+ 000019D8  E0000005  AND         R0,R0,R5
+ 000019DC  E5D11007  LDRB        R1,[R1,#0x7] ; posMISO
+ 000019E0  E1A00150  MOV         R0,R0,ASR R1
+ 000019E4  E1A00C00  MOV         R0,R0,LSL #24
+ 000019E8  E1A00C20  MOV         R0,R0,LSR #24
+ 000019EC  E1822000  ORR         R2,R2,R0 ; c
+ 000019F0  E3A0001D  MOV         R0,#0x1D
+ 000019F4  EB00004F  BL          delay_Nx10cyc?A  ; Targ=0x1B38
+ 000019F8  E1A04084  MOV         R4,R4,LSL #1 ; chTx
+ 000019FC  E1A04C04  MOV         R4,R4,LSL #24
+ 00001A00  E1A04C24  MOV         R4,R4,LSR #24
+ 00001A04  E2433001  SUB         R3,R3,#0x0001 ; n
+ 00001A08  E20330FF  AND         R3,R3,#0x00FF
+ 00001A0C          L_27:
+ 00001A0C  E1A00003  MOV         R0,R3 ; n
+ 00001A10  E1A00C00  MOV         R0,R0,LSL #24 ; n
+ 00001A14  E1A00C20  MOV         R0,R0,LSR #24
+ 00001A18  E3500000  CMP         R0,#0x0000
+ 00001A1C  CAFFFFC7  BGT         L_29  ; Targ=0x1940
+ 00001A20  E1A00002  MOV         R0,R2 ; c
+ 00001A24  E1A00C00  MOV         R0,R0,LSL #24 ; c
+ 00001A28  E1A00C20  MOV         R0,R0,LSR #24
+ 00001A2C            ; SCOPE-END
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 35
+
+
+ 00001A2C  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 00001A30            ; END 'SPI_charM3?A'
+
+ 00001A30  400004D0  DD          SCKmask1		; POOL-Entry U=3
+ 00001A34  400004C8  DD          SCKmask1 + 0xFFFFFFF8		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_char?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 00001A38          SPI_char?A:  ; FUNCTION START
+ 00001A38  E92D4010  STMDB       R13!,{R4,LR}
+ 00001A3C  E1A04000  MOV         R4,R0 ; chTx
+ 00001A40  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 00001A40  E59F00A0  LDR         R0,[PC,+160] ; PoolRef @0x1AE8 ; spiMode
+ 00001A44  E5D00000  LDRB        R0,[R0,#0x0] ; spiMode
+ 00001A48  E3500001  CMP         R0,#0x0001
+ 00001A4C  0A00000C  BEQ         L_37  ; Targ=0x1A84
+ 00001A50  E3500002  CMP         R0,#0x0002
+ 00001A54  0A000011  BEQ         L_38  ; Targ=0x1AA0
+ 00001A58  E3500003  CMP         R0,#0x0003
+ 00001A5C  0A000016  BEQ         L_39  ; Targ=0x1ABC
+ 00001A60  E3500000  CMP         R0,#0x0000
+ 00001A64  1A00001B  BNE         L_36  ; Targ=0x1AD8
+ 00001A68          L_35:
+ 00001A68  E1A00004  MOV         R0,R4 ; chTx
+ 00001A6C  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00001A70  E1A00C20  MOV         R0,R0,LSR #24
+ 00001A74  EBFFFEE5  BL          SPI_charM0?A  ; Targ=0x1610
+ 00001A78  E1A00C00  MOV         R0,R0,LSL #24 ; SPI_charM0?A
+ 00001A7C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001A80  EA000017  B           L_40  ; Targ=0x1AE4
+ 00001A84          L_37:
+ 00001A84  E1A00004  MOV         R0,R4 ; chTx
+ 00001A88  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00001A8C  E1A00C20  MOV         R0,R0,LSR #24
+ 00001A90  EBFFFF20  BL          SPI_charM1?A  ; Targ=0x1718
+ 00001A94  E1A00C00  MOV         R0,R0,LSL #24 ; SPI_charM1?A
+ 00001A98  E1A00C20  MOV         R0,R0,LSR #24
+ 00001A9C  EA000010  B           L_40  ; Targ=0x1AE4
+ 00001AA0          L_38:
+ 00001AA0  E1A00004  MOV         R0,R4 ; chTx
+ 00001AA4  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00001AA8  E1A00C20  MOV         R0,R0,LSR #24
+ 00001AAC  EBFFFF5C  BL          SPI_charM2?A  ; Targ=0x1824
+ 00001AB0  E1A00C00  MOV         R0,R0,LSL #24 ; SPI_charM2?A
+ 00001AB4  E1A00C20  MOV         R0,R0,LSR #24
+ 00001AB8  EA000009  B           L_40  ; Targ=0x1AE4
+ 00001ABC          L_39:
+ 00001ABC  E1A00004  MOV         R0,R4 ; chTx
+ 00001AC0  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00001AC4  E1A00C20  MOV         R0,R0,LSR #24
+ 00001AC8  EBFFFF97  BL          SPI_charM3?A  ; Targ=0x192C
+ 00001ACC  E1A00C00  MOV         R0,R0,LSL #24 ; SPI_charM3?A
+ 00001AD0  E1A00C20  MOV         R0,R0,LSR #24
+ 00001AD4  EA000002  B           L_40  ; Targ=0x1AE4
+ 00001AD8          L_36:
+ 00001AD8  E1A00004  MOV         R0,R4 ; chTx
+ 00001ADC  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00001AE0  E1A00C20  MOV         R0,R0,LSR #24
+ 00001AE4          L_40:
+ 00001AE4  E8BD8010  LDMIA       R13!,{R4,PC}
+ 00001AE8            ; END 'SPI_char?A'
+
+ 00001AE8  400004D8  DD          spiMode		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?Lo?A?Utility':
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 36
+
+
+ FILE: '..\Utility.c'
+ 00001AEC          Lo?A:  ; FUNCTION START
+ 00001AEC  E1A01000  MOV         R1,R0 ; val
+ 00001AF0  ---- Variable 'val' assigned to Register 'R1' ----
+ 00001AF0  E1A00001  MOV         R0,R1 ; val
+ 00001AF4  E20000FF  AND         R0,R0,#0x00FF ; val
+ 00001AF8  E12FFF1E  BX          R14
+ 00001AFC            ; END 'Lo?A'
+
+
+*** Disassembly of Segment '?PR?Hi?A?Utility':
+ FILE: '..\Utility.c'
+ 00001AFC          Hi?A:  ; FUNCTION START
+ 00001AFC  E1A01000  MOV         R1,R0 ; val
+ 00001B00  ---- Variable 'val' assigned to Register 'R1' ----
+ 00001B00  E1A00001  MOV         R0,R1 ; val
+ 00001B04  E1A00420  MOV         R0,R0,LSR #8 ; val
+ 00001B08  E20000FF  AND         R0,R0,#0x00FF
+ 00001B0C  E12FFF1E  BX          R14
+ 00001B10            ; END 'Hi?A'
+
+
+*** Disassembly of Segment '?PR?Higher?A?Utility':
+ FILE: '..\Utility.c'
+ 00001B10          Higher?A:  ; FUNCTION START
+ 00001B10  E1A01000  MOV         R1,R0 ; val
+ 00001B14  ---- Variable 'val' assigned to Register 'R1' ----
+ 00001B14  E1A00001  MOV         R0,R1 ; val
+ 00001B18  E1A00820  MOV         R0,R0,LSR #16 ; val
+ 00001B1C  E20000FF  AND         R0,R0,#0x00FF
+ 00001B20  E12FFF1E  BX          R14
+ 00001B24            ; END 'Higher?A'
+
+
+*** Disassembly of Segment '?PR?Highest?A?Utility':
+ FILE: '..\Utility.c'
+ 00001B24          Highest?A:  ; FUNCTION START
+ 00001B24  E1A01000  MOV         R1,R0 ; val
+ 00001B28  ---- Variable 'val' assigned to Register 'R1' ----
+ 00001B28  E1A00001  MOV         R0,R1 ; val
+ 00001B2C  E1A00C20  MOV         R0,R0,LSR #24 ; val
+ 00001B30  E20000FF  AND         R0,R0,#0x00FF
+ 00001B34  E12FFF1E  BX          R14
+ 00001B38            ; END 'Highest?A'
+
+
+*** Disassembly of Segment '?PR?delay_Nx10cyc?A?Utility':
+ FILE: '..\Utility.c'
+ 00001B38          delay_Nx10cyc?A:  ; FUNCTION START
+ 00001B38  ---- Variable 'cnt' assigned to Register 'R0' ----
+ 00001B38  EA000003  B           L_32  ; Targ=0x1B4C
+ 00001B3C          L_34:
+ 00001B3C  E1A00000  NOP       
+ 00001B40  E1A00000  NOP       
+ 00001B44  E1A00000  NOP       
+ 00001B48  E1A00000  NOP       
+ 00001B4C          L_32:
+ 00001B4C  E1A01000  MOV         R1,R0 ; cnt
+ 00001B50  E2410001  SUB         R0,R1,#0x0001 ; cnt
+ 00001B54  E3510000  CMP         R1,#0x0000 ; cnt
+ 00001B58  1AFFFFF7  BNE         L_34  ; Targ=0x1B3C
+ 00001B5C  E12FFF1E  BX          R14
+ 00001B60            ; END 'delay_Nx10cyc?A'
+
+
+LARM LINKER/LOCATER V2.53                                                             04/15/2016  17:53:42  PAGE 37
+
+
+*** Disassembly of Segment '?C?FIQ':
+ FILE: 'fiq.s'
+ 00001B60            ; SCOPE-START
+ 00001B60  EAFFFFFE  B           $  ; Targ=0x1B60
+ 00001B64            ; SCOPE-END
+
+*** Disassembly of Segment '?C?IRQ':
+ FILE: 'irq.s'
+ 00001B64            ; SCOPE-START
+ 00001B64  EAFFFFFE  B           $  ; Targ=0x1B64
+ 00001B68            ; SCOPE-END
+
+*** Disassembly of Segment '?C?DABT':
+ FILE: 'dabt.s'
+ 00001B68            ; SCOPE-START
+ 00001B68  EAFFFFFE  B           $  ; Targ=0x1B68
+ 00001B6C            ; SCOPE-END
+
+*** Disassembly of Segment '?C?PABT':
+ FILE: 'pabt.s'
+ 00001B6C            ; SCOPE-START
+ 00001B6C  EAFFFFFE  B           $  ; Targ=0x1B6C
+ 00001B70            ; SCOPE-END
+
+*** Disassembly of Segment '?C?UNDEF':
+ FILE: 'swi.s'
+ 00001B70            ; SCOPE-START
+ 00001B70  EAFFFFFE  B           $  ; Targ=0x1B70
+ 00001B74            ; SCOPE-END
+ 00001B74            ; SCOPE-START
+ 00001B74  EAFFFFFE  B           $  ; Targ=0x1B74
+ 00001B78            ; SCOPE-END

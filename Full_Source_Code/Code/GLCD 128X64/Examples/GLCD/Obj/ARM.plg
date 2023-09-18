@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+C:\Documents and Settings\Administrator\My Documents\Downloads\Compressed\uni_ds3_arm_examples1\ARM Card for UNI-DS3 Examples\LPC2148\Examples\GLCD\Demo.uv2
+Project File Date:  03/06/2008
+
+<h2>Output:</h2>
+Build target 'LPC214X'
+assembling Startup.S...
+compiling Demo.c...
+compiling bmp_Maska.c...
+linking...
+Program Size: data=1273 const=1297 code=5332
+creating hex file from ".\Obj\ARM"...
+".\Obj\ARM" - 0 Error(s), 0 Warning(s).

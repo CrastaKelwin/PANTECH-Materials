@@ -1,0 +1,5 @@
+Dependencies for Project 'PS2_Keyboard2', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x4F5858F0)(--cpu ARM7TDMI -g --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
+F (.\PS2_Keyboard2.c)(0x562F4615)(-c --cpu ARM7TDMI -g -O0 --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips -o "ps2_keyboard2.o" --omf_browse "ps2_keyboard2.crf" --depend "ps2_keyboard2.d")
+I (C:\Keil4\ARM\Inc\Philips\lpc214x.h)(0x4F585AA4)
+I (C:\Keil4\ARM\RV31\Inc\stdio.h)(0x4F5858A4)

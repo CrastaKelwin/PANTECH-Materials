@@ -1,0 +1,4 @@
+Dependencies for Project 'LPC2148_UART0', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x4F5858F0)(--cpu ARM7TDMI -g --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
+F (.\LPC2148_UART0.C)(0x553A3CB8)(-c --cpu ARM7TDMI -g -O0 --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips -o "lpc2148_uart0.o" --omf_browse "lpc2148_uart0.crf" --depend "lpc2148_uart0.d")
+I (C:\Keil4\ARM\Inc\Philips\LPC214x.H)(0x4F585AA4)

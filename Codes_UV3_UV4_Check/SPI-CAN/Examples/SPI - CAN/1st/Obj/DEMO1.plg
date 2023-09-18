@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+F:\Temp\Codes\SPI-CAN\Examples\SPI - CAN\1st\Demo.uv2
+Project File Date:  04/13/2016
+
+<h2>Output:</h2>
+Build target 'LPC214X'
+assembling Startup.S...
+compiling Demo.c...
+linking...
+Program Size: data=1240 const=32 code=7024
+creating hex file from ".\Obj\DEMO1"...
+".\Obj\DEMO1" - 0 Error(s), 0 Warning(s).

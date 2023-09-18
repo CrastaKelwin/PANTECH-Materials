@@ -1,0 +1,1021 @@
+LARM LINKER/LOCATER V2.54a                                                              07/14/2010  16:33:38  PAGE 1
+
+
+
+
+
+ASSEMBLER CODE LISTING OF MODULE:  .\Obj\DEMO (STARTUP)
+
+
+
+*** Disassembly of Segment '?C_CLRSEG':
+ 00000120  40000490  DD          ?DT0?DEMO
+ 00000124  40000498  DD          ?DT0?DEMO + 0x8
+ 00000128  40000498  DD          ?DT0?SPIsw
+ 0000012C  400004CD  DD          ?DT0?SPIsw + 0x35
+ 00000130  00000000  DD          0x0
+ 00000134  00000000  DD          0x0
+
+*** Disassembly of Segment '?C_INITSEG':
+ 00000138  00000000  DD          0x0
+ 0000013C  00000000  DD          0x0
+
+*** Disassembly of Segment 'STACK':
+   70:         DS   (USR_Stack_Size+3)&~3  ; Stack for User/System Mode 
+ 40000000            DS          1024
+   71:         DS   (SVC_Stack_Size+3)&~3  ; Stack for Supervisor Mode
+ 40000400            DS          4
+   72:         DS   (IRQ_Stack_Size+3)&~3  ; Stack for Interrupt Mode
+ 40000404            DS          128
+   73:         DS   (FIQ_Stack_Size+3)&~3  ; Stack for Fast Interrupt Mode 
+ 40000484            DS          4
+   74:         DS   (ABT_Stack_Size+3)&~3  ; Stack for Abort Mode
+ 40000488            DS          4
+   75:         DS   (UND_Stack_Size+3)&~3  ; Stack for Undefined Mode
+ 4000048C            DS          4
+   76: Top_Stack:
+ 40000490          Top_Stack:
+
+*** Disassembly of Segment '?DT0?DEMO':
+   30: 	DACval,
+ 40000490            ALIGN       4
+ 40000490          DACval:
+ 40000490            DS          4
+   31: 	DACreg;
+ 40000494            ALIGN       4
+ 40000494          DACreg:
+ 40000494            DS          4
+
+*** Disassembly of Segment '?DT0?SPIsw':
+ 40000498            ALIGN       4
+ 40000498          pSPIswPIN:
+ 40000498            DS          4
+ 4000049C            ALIGN       4
+ 4000049C          pSPIswDIR:
+ 4000049C            DS          4
+ 400004A0            ALIGN       4
+ 400004A0          pSPIswSET:
+ 400004A0            DS          4
+ 400004A4            ALIGN       4
+ 400004A4          pSPIswCLR:
+ 400004A4            DS          4
+ 400004A8            ALIGN       4
+ 400004A8          CSmask0:
+ 400004A8            DS          4
+ 400004AC            ALIGN       4
+ 400004AC          CSmask1:
+ 400004AC            DS          4
+ 400004B0            ALIGN       4
+ 400004B0          MISOmask0:
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 2
+
+
+ 400004B0            DS          4
+ 400004B4            ALIGN       4
+ 400004B4          MISOmask1:
+ 400004B4            DS          4
+ 400004B8            ALIGN       4
+ 400004B8          MOSImask0:
+ 400004B8            DS          4
+ 400004BC            ALIGN       4
+ 400004BC          MOSImask1:
+ 400004BC            DS          4
+ 400004C0            ALIGN       4
+ 400004C0          SCKmask0:
+ 400004C0            DS          4
+ 400004C4            ALIGN       4
+ 400004C4          SCKmask1:
+ 400004C4            DS          4
+ 400004C8            ALIGN       1
+ 400004C8          posCS:
+ 400004C8            DS          1
+ 400004C9            ALIGN       1
+ 400004C9          posSCK:
+ 400004C9            DS          1
+ 400004CA            ALIGN       1
+ 400004CA          posMOSI:
+ 400004CA            DS          1
+ 400004CB            ALIGN       1
+ 400004CB          posMISO:
+ 400004CB            DS          1
+ 400004CC            ALIGN       1
+ 400004CC          spiMode:
+ 400004CC            DS          1
+
+*** Disassembly of Segment 'STARTUPCODE':
+ FILE: 'Startup.S'
+  170: __startup       PROC    CODE32
+ 00000000            ; SCOPE-START
+  185: Vectors:        LDR     PC,Reset_Addr         
+ 00000000          Vectors:
+ 00000000  E59FF018  LDR         R15,[R15,#Reset_Addr]
+  186:                 LDR     PC,Undef_Addr
+ 00000004  E59FF018  LDR         R15,[R15,#Undef_Addr]
+  187:                 LDR     PC,SWI_Addr
+ 00000008  E59FF018  LDR         R15,[R15,#SWI_Addr]
+  188:                 LDR     PC,PAbt_Addr
+ 0000000C  E59FF018  LDR         R15,[R15,#PAbt_Addr]
+  189:                 LDR     PC,DAbt_Addr
+ 00000010  E59FF018  LDR         R15,[R15,#DAbt_Addr]
+  190:                 NOP                            /* Reserved Vector */
+ 00000014  E1A00000  NOP       
+  192:                 LDR     PC,[PC, #-0x0FF0]      /* Vector from VicVectAddr */
+ 00000018  E51FFFF0  LDR         R15,[R15,#-0xFF0]
+  193:                 LDR     PC,FIQ_Addr
+ 0000001C  E59FF018  LDR         R15,[R15,#FIQ_Addr]
+  195: Reset_Addr:     DD      Reset_Handler
+ 00000020          Reset_Addr:
+ 00000020  00000040  DD          Reset_Handler
+  196: Undef_Addr:     DD      Undef_Handler?A
+ 00000024          Undef_Addr:
+ 00000024  000009D8  DD          Undef_Handler?A
+  197: SWI_Addr:       DD      SWI_Handler?A
+ 00000028          SWI_Addr:
+ 00000028  000009D4  DD          SWI_Handler?A
+  198: PAbt_Addr:      DD      PAbt_Handler?A
+ 0000002C          PAbt_Addr:
+ 0000002C  000009D0  DD          PAbt_Handler?A
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 3
+
+
+  199: DAbt_Addr:      DD      DAbt_Handler?A
+ 00000030          DAbt_Addr:
+ 00000030  000009CC  DD          DAbt_Handler?A
+  200:                 DD      0                      /* Reserved Address */
+ 00000034  00000000  DD          0x0
+  201: IRQ_Addr:       DD      IRQ_Handler?A
+ 00000038          IRQ_Addr:
+ 00000038  000009C8  DD          IRQ_Handler?A
+  202: FIQ_Addr:       DD      FIQ_Handler?A
+ 0000003C          FIQ_Addr:
+ 0000003C  000009C4  DD          FIQ_Handler?A
+  207: Reset_Handler:  
+ 00000040          Reset_Handler:
+  211:                 LDR     R0, =VPBDIV
+ 00000040  E59F00BC  LDR         R0,[PC,+188] ; PoolRef @0x104
+  212:                 LDR     R1, =VPBDIV_Val
+ 00000044  E3A01000  MOV         R1,#VPBDIV_Val
+  213:                 STR     R1, [R0]
+ 00000048  E5801000  STR         R1,[R0]
+  218:                 LDR     R0, =PLL_BASE
+ 0000004C  E59F00B4  LDR         R0,[PC,+180] ; PoolRef @0x108
+  219:                 MOV     R1, #0xAA
+ 00000050  E3A010AA  MOV         R1,#0x00AA
+  220:                 MOV     R2, #0x55
+ 00000054  E3A02055  MOV         R2,#0x0055
+  223:                 MOV     R3, #PLLCFG_Val
+ 00000058  E3A03024  MOV         R3,#0x0024
+  224:                 STR     R3, [R0, #PLLCFG_OFS] 
+ 0000005C  E5803004  STR         R3,[R0,#PLLCFG_OFS]
+  225:                 MOV     R3, #PLLCON_PLLE
+ 00000060  E3A03001  MOV         R3,#0x0001
+  226:                 STR     R3, [R0, #PLLCON_OFS]
+ 00000064  E5803000  STR         R3,[R0,#PLLCON_OFS]
+  227:                 STR     R1, [R0, #PLLFEED_OFS]
+ 00000068  E580100C  STR         R1,[R0,#PLLFEED_OFS]
+  228:                 STR     R2, [R0, #PLLFEED_OFS]
+ 0000006C  E580200C  STR         R2,[R0,#PLLFEED_OFS]
+  231: PLL_Loop:       LDR     R3, [R0, #PLLSTAT_OFS]
+ 00000070          PLL_Loop:
+ 00000070  E5903008  LDR         R3,[R0,#PLLSTAT_OFS]
+  232:                 ANDS    R3, R3, #PLLSTAT_PLOCK
+ 00000074  E2133B01  ANDS        R3,R3,#0x0400
+  233:                 BEQ     PLL_Loop
+ 00000078  0AFFFFFC  BEQ         PLL_Loop  ; Targ=0x70
+  236:                 MOV     R3, #(PLLCON_PLLE | PLLCON_PLLC)
+ 0000007C  E3A03003  MOV         R3,#0x0003
+  237:                 STR     R3, [R0, #PLLCON_OFS]
+ 00000080  E5803000  STR         R3,[R0,#PLLCON_OFS]
+  238:                 STR     R1, [R0, #PLLFEED_OFS]
+ 00000084  E580100C  STR         R1,[R0,#PLLFEED_OFS]
+  239:                 STR     R2, [R0, #PLLFEED_OFS]
+ 00000088  E580200C  STR         R2,[R0,#PLLFEED_OFS]
+  244:                 LDR     R0, =MAM_BASE
+ 0000008C  E59F0078  LDR         R0,[PC,+120] ; PoolRef @0x10C
+  245:                 MOV     R1, #MAMTIM_Val
+ 00000090  E3A01004  MOV         R1,#0x0004
+  246:                 STR     R1, [R0, #MAMTIM_OFS] 
+ 00000094  E5801004  STR         R1,[R0,#MAMTIM_OFS]
+  247:                 MOV     R1, #MAMCR_Val
+ 00000098  E3A01002  MOV         R1,#0x0002
+  248:                 STR     R1, [R0, #MAMCR_OFS] 
+ 0000009C  E5801000  STR         R1,[R0,#MAMCR_OFS]
+  269:                 LDR     R0, =Top_Stack
+ 000000A0  E59F0068  LDR         R0,[PC,+104] ; PoolRef @0x110
+  272:                 MSR     CPSR_c, #Mode_UND|I_Bit|F_Bit
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 4
+
+
+ 000000A4  E321F0DB  MSR         CPSR_c,#0xDB
+  273:                 MOV     SP, R0
+ 000000A8  E1A0D000  MOV         R13,R0
+  274:                 SUB     R0, R0, #UND_Stack_Size
+ 000000AC  E2400004  SUB         R0,R0,#0x0004
+  277:                 MSR     CPSR_c, #Mode_ABT|I_Bit|F_Bit
+ 000000B0  E321F0D7  MSR         CPSR_c,#0xD7
+  278:                 MOV     SP, R0
+ 000000B4  E1A0D000  MOV         R13,R0
+  279:                 SUB     R0, R0, #ABT_Stack_Size
+ 000000B8  E2400004  SUB         R0,R0,#0x0004
+  282:                 MSR     CPSR_c, #Mode_FIQ|I_Bit|F_Bit
+ 000000BC  E321F0D1  MSR         CPSR_c,#0xD1
+  283:                 MOV     SP, R0
+ 000000C0  E1A0D000  MOV         R13,R0
+  284:                 SUB     R0, R0, #FIQ_Stack_Size
+ 000000C4  E2400004  SUB         R0,R0,#0x0004
+  287:                 MSR     CPSR_c, #Mode_IRQ|I_Bit|F_Bit
+ 000000C8  E321F0D2  MSR         CPSR_c,#0xD2
+  288:                 MOV     SP, R0
+ 000000CC  E1A0D000  MOV         R13,R0
+  289:                 SUB     R0, R0, #IRQ_Stack_Size
+ 000000D0  E2400080  SUB         R0,R0,#0x0080
+  292:                 MSR     CPSR_c, #Mode_SVC|I_Bit|F_Bit
+ 000000D4  E321F0D3  MSR         CPSR_c,#0xD3
+  293:                 MOV     SP, R0
+ 000000D8  E1A0D000  MOV         R13,R0
+  294:                 SUB     R0, R0, #SVC_Stack_Size
+ 000000DC  E2400004  SUB         R0,R0,#0x0004
+  297:                 MSR     CPSR_c, #Mode_USR
+ 000000E0  E321F010  MSR         CPSR_c,#Mode_USR
+  298:                 MOV     SP, R0
+ 000000E4  E1A0D000  MOV         R13,R0
+  301:                 LDR     R0,=?C?INIT
+ 000000E8  E59F0024  LDR         R0,[PC,+36] ; PoolRef @0x114
+  302:                 TST     R0,#1       ; Bit-0 set: INIT is Thumb
+ 000000EC  E3100001  TST         R0,#0x0001
+  303:                 LDREQ   LR,=exit?A  ; ARM Mode
+ 000000F0  059FE020  LDREQ       R14,[PC,+32] ; PoolRef @0x118
+  304:                 LDRNE   LR,=exit?T  ; Thumb Mode
+ 000000F4  159FE020  LDRNE       R14,[PC,+32] ; PoolRef @0x11C
+  305:                 BX      R0
+ 000000F8  E12FFF10  BX          R0
+  306:                 ENDP
+ 000000FC            ; SCOPE-END
+  309: exit?A          PROC    CODE32
+ 000000FC            ; SCOPE-START
+  310:                 B       exit?A
+ 000000FC  EAFFFFFE  B           exit?A  ; Targ=0xFC
+  311:                 ENDP
+ 00000100            ; SCOPE-END
+  314: exit?T          PROC    CODE16
+ 00000100            ; SCOPE-START
+  315: exit:           B       exit?T
+ 00000100          exit:
+ 00000100  E7FE      B           exit?T  ; T=0x00000100
+  316:                 ENDP
+ 00000102            ; SCOPE-END
+ 00000102            ALIGN       4
+ 00000104  E01FC100  DD          VPBDIV		; POOL-Entry U=1
+ 00000108  E01FC080  DD          PLL_BASE		; POOL-Entry U=1
+ 0000010C  E01FC000  DD          MAM_BASE		; POOL-Entry U=1
+ 00000110  40000490  DD          Top_Stack		; POOL-Entry U=1
+ 00000114  00000140  DD          ?C?INIT		; POOL-Entry U=1
+ 00000118  000000FC  DD          exit?A		; POOL-Entry U=1
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 5
+
+
+ 0000011C  00000101  DD          exit?T		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?main?DEMO':
+ FILE: 'DEMO.c'
+ 00000140          ?C?INIT:  ; FUNCTION START
+ 00000140  E3A00E12  MOV         R0,#?C?CLRTAB ; ?C?CLRTAB
+ 00000144          L_86:
+ 00000144  E8B00006  LDMIA       R0!,{R1-R2}
+ 00000148  E1A03001  MOV         R3,R1
+ 0000014C  E1933002  ORRS        R3,R3,R2
+ 00000150  0A000005  BEQ         L_88  ; Targ=0x16C
+ 00000154  E3A03000  MOV         R3,#0x0000
+ 00000158          L_87:
+ 00000158  E5C13000  STRB        R3,[R1,#0x0]
+ 0000015C  E2811001  ADD         R1,R1,#0x0001
+ 00000160  E1510002  CMP         R1,R2
+ 00000164  1AFFFFFB  BNE         L_87  ; Targ=0x158
+ 00000168  EAFFFFF5  B           L_86  ; Targ=0x144
+ 0000016C          L_88:
+ 0000016C  E3A00F4E  MOV         R0,#?C?INITTAB ; ?C?INITTAB
+ 00000170          L_89:
+ 00000170  E2800003  ADD         R0,R0,#0x0003
+ 00000174  E3A03003  MOV         R3,#0x0003
+ 00000178  E1C00003  BIC         R0,R0,R3
+ 0000017C  E8B00006  LDMIA       R0!,{R1-R2}
+ 00000180  E1A03001  MOV         R3,R1
+ 00000184  E1933002  ORRS        R3,R3,R2
+ 00000188  0A000006  BEQ         L_91  ; Targ=0x1A8
+ 0000018C          L_90:
+ 0000018C  E5D03000  LDRB        R3,[R0,#0x0]
+ 00000190  E2800001  ADD         R0,R0,#0x0001
+ 00000194  E5C13000  STRB        R3,[R1,#0x0]
+ 00000198  E2811001  ADD         R1,R1,#0x0001
+ 0000019C  E1510002  CMP         R1,R2
+ 000001A0  1AFFFFF9  BNE         L_90  ; Targ=0x18C
+ 000001A4  EAFFFFF1  B           L_89  ; Targ=0x170
+ 000001A8          L_91:
+   35: int main (void)
+ 000001A8          main:
+ 000001A8  E92D4000  STMDB       R13!,{LR}
+   38: 	PINSEL0 = 0;
+ 000001AC  E3A01000  MOV         R1,#0x0
+ 000001B0  E59F0088  LDR         R0,[PC,+136] ; PoolRef @0x240
+ 000001B4  E5801000  STR         R1,[R0,#0x0]
+   39: 	PINSEL1 = 0;
+ 000001B8  E59F0084  LDR         R0,[PC,+132] ; PoolRef @0x244
+ 000001BC  E5801000  STR         R1,[R0,#0x0]
+   40: 	PINSEL2 &= 0x0000000C;
+ 000001C0  E59F0080  LDR         R0,[PC,+128] ; PoolRef @0x248
+ 000001C4  E5901000  LDR         R1,[R0,#0x0]
+ 000001C8  E201100C  AND         R1,R1,#0x000C
+ 000001CC  E5801000  STR         R1,[R0,#0x0]
+   42: 	SPI_init (&IOPIN0, 29/*CS*/, 5/*MISO*/, 6/*MOSI*/, 4/*SCK*/, 0/*CPOL*/, 0/*CPHA*/);
+ 000001D0  E3A00000  MOV         R0,#0x0
+ 000001D4  E92D0001  STMDB       R13!,{R0}
+ 000001D8  E92D0001  STMDB       R13!,{R0}
+ 000001DC  E3A00004  MOV         R0,#0x4
+ 000001E0  E92D0001  STMDB       R13!,{R0}
+ 000001E4  E59F0060  LDR         R0,[PC,+96] ; PoolRef @0x24C
+ 000001E8  E3A0101D  MOV         R1,#0x1D
+ 000001EC  E3A02005  MOV         R2,#0x5
+ 000001F0  E3A03006  MOV         R3,#0x6
+ 000001F4  EB000017  BL          SPI_init?A  ; Targ=0x258
+ 000001F8  E28DD00C  ADD         R13,R13,#0x000C
+   45: 	DACval = 2047;										// Range [0..4095]
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 6
+
+
+ 000001FC  E59F004C  LDR         R0,[PC,+76] ; PoolRef @0x250
+ 00000200  E59F404C  LDR         R4,[PC,+76] ; PoolRef @0x254 ; DACval
+ 00000204  E5840000  STR         R0,[R4,#0x0] ; DACval
+   46: 	DACreg = DACval | 0x7000;							// A#/B=0, BUF=1, GA#=1, SHDN#=1
+ 00000208  E5940000  LDR         R0,[R4,#0x0] ; DACval
+ 0000020C  E3800A07  ORR         R0,R0,#0x7000
+ 00000210  E5840004  STR         R0,[R4,#0x4] ; DACreg
+   48: 	SPI_enable ();
+ 00000214  EB000096  BL          SPI_enable?A  ; Targ=0x474
+   49: 	SPI_char ((DACreg >> 8) & 0x00FF);		// Write DAC registers
+ 00000218  E5940004  LDR         R0,[R4,#0x4] ; DACreg
+ 0000021C  E1A00420  MOV         R0,R0,LSR #8
+ 00000220  E20000FF  AND         R0,R0,#0x00FF
+ 00000224  EB0001AF  BL          SPI_char?A  ; Targ=0x8E8
+   50: 	SPI_char (DACreg & 0x00FF);
+ 00000228  E5940004  LDR         R0,[R4,#0x4] ; DACreg
+ 0000022C  E20000FF  AND         R0,R0,#0x00FF
+ 00000230  EB0001AC  BL          SPI_char?A  ; Targ=0x8E8
+   51: 	SPI_disable ();
+ 00000234  EB000099  BL          SPI_disable?A  ; Targ=0x4A0
+   54: 	while (1);
+ 00000238          L_1:
+ 00000238  EAFFFFFE  B           L_1  ; Targ=0x238
+   55: }
+ 0000023C  E8BD8000  LDMIA       R13!,{PC}
+ 00000240            ; END 'main'
+
+ 00000240  E002C000  DD          0xE002C000		; POOL-Entry U=1
+ 00000244  E002C004  DD          0xE002C004		; POOL-Entry U=1
+ 00000248  E002C014  DD          0xE002C014		; POOL-Entry U=1
+ 0000024C  E0028000  DD          0xE0028000		; POOL-Entry U=1
+ 00000250  000007FF  DD          0x7FF		; POOL-Entry U=1
+ 00000254  40000490  DD          DACval		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_init?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 00000258          SPI_init?A:  ; FUNCTION START
+ 00000258  E92D0070  STMDB       R13!,{R4-R6}
+ 0000025C  ---- Variable 'mosi_pin' assigned to Register 'R3' ----
+ 0000025C  ---- Variable 'miso_pin' assigned to Register 'R2' ----
+ 0000025C  ---- Variable 'cs_pin' assigned to Register 'R1' ----
+ 0000025C  E1A05000  MOV         R5,R0 ; spi_port
+ 00000260  ---- Variable 'spi_port' assigned to Register 'R5' ----
+ 00000260  E1A04005  MOV         R4,R5 ; spi_port
+ 00000264  E59F01DC  LDR         R0,[PC,+476] ; PoolRef @0x448 ; pSPIswPIN
+ 00000268  E5804000  STR         R4,[R0,#0x0] ; pSPIswPIN
+ 0000026C  E59F41D8  LDR         R4,[PC,+472] ; PoolRef @0x44C
+ 00000270  E59F01D0  LDR         R0,[PC,+464] ; PoolRef @0x448 ; pSPIswPIN
+ 00000274  E5900000  LDR         R0,[R0,#0x0] ; pSPIswPIN
+ 00000278  E1500004  CMP         R0,R4
+ 0000027C  1A000006  BNE         L_1  ; Targ=0x29C
+ 00000280  E59F41C8  LDR         R4,[PC,+456] ; PoolRef @0x450
+ 00000284  E59F51BC  LDR         R5,[PC,+444] ; PoolRef @0x448 ; pSPIswPIN
+ 00000288  E5854004  STR         R4,[R5,#0x4] ; pSPIswDIR
+ 0000028C  E59F41C0  LDR         R4,[PC,+448] ; PoolRef @0x454
+ 00000290  E5854008  STR         R4,[R5,#0x8] ; pSPIswSET
+ 00000294  E59F41BC  LDR         R4,[PC,+444] ; PoolRef @0x458
+ 00000298  E585400C  STR         R4,[R5,#0xC] ; pSPIswCLR
+ 0000029C          L_1:
+ 0000029C  E59F41B8  LDR         R4,[PC,+440] ; PoolRef @0x45C
+ 000002A0  E1500004  CMP         R0,R4
+ 000002A4  1A000006  BNE         L_2  ; Targ=0x2C4
+ 000002A8  E59F01B0  LDR         R0,[PC,+432] ; PoolRef @0x460
+ 000002AC  E59F4194  LDR         R4,[PC,+404] ; PoolRef @0x448 ; pSPIswPIN
+ 000002B0  E5840004  STR         R0,[R4,#0x4] ; pSPIswDIR
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 7
+
+
+ 000002B4  E59F01A8  LDR         R0,[PC,+424] ; PoolRef @0x464
+ 000002B8  E5840008  STR         R0,[R4,#0x8] ; pSPIswSET
+ 000002BC  E59F01A4  LDR         R0,[PC,+420] ; PoolRef @0x468
+ 000002C0  E584000C  STR         R0,[R4,#0xC] ; pSPIswCLR
+ 000002C4          L_2:
+ 000002C4  E1A00001  MOV         R0,R1 ; cs_pin
+ 000002C8  E59F6178  LDR         R6,[PC,+376] ; PoolRef @0x448 ; pSPIswPIN
+ 000002CC  E5C60030  STRB        R0,[R6,#0x30] ; posCS
+ 000002D0  E28D000C  ADD         R0,R13,#0x000C
+ 000002D4  E5D05000  LDRB        R5,[R0,#0x0] ; sck_pin
+ 000002D8  E5C65031  STRB        R5,[R6,#0x31] ; posSCK
+ 000002DC  E1A00003  MOV         R0,R3 ; mosi_pin
+ 000002E0  E5C60032  STRB        R0,[R6,#0x32] ; posMOSI
+ 000002E4  E1A00002  MOV         R0,R2 ; miso_pin
+ 000002E8  E5C60033  STRB        R0,[R6,#0x33] ; posMISO
+ 000002EC  E1A00001  MOV         R0,R1 ; cs_pin
+ 000002F0  E1A04C00  MOV         R4,R0,LSL #24 ; cs_pin
+ 000002F4  E1A04C24  MOV         R4,R4,LSR #24
+ 000002F8  E3A00001  MOV         R0,#0x1
+ 000002FC  E1A01000  MOV         R1,R0
+ 00000300  E1A01411  MOV         R1,R1,LSL R4
+ 00000304  E5861014  STR         R1,[R6,#0x14] ; CSmask1
+ 00000308  E5964014  LDR         R4,[R6,#0x14] ; CSmask1
+ 0000030C  E1E01004  MVN         R1,R4
+ 00000310  E5861010  STR         R1,[R6,#0x10] ; CSmask0
+ 00000314  E1A01002  MOV         R1,R2 ; miso_pin
+ 00000318  E1A02C01  MOV         R2,R1,LSL #24 ; miso_pin
+ 0000031C  E1A02C22  MOV         R2,R2,LSR #24
+ 00000320  E1A01000  MOV         R1,R0
+ 00000324  E1A01211  MOV         R1,R1,LSL R2
+ 00000328  E586101C  STR         R1,[R6,#0x1C] ; MISOmask1
+ 0000032C  E596101C  LDR         R1,[R6,#0x1C] ; MISOmask1
+ 00000330  E1E01001  MVN         R1,R1
+ 00000334  E5861018  STR         R1,[R6,#0x18] ; MISOmask0
+ 00000338  E1A01003  MOV         R1,R3 ; mosi_pin
+ 0000033C  E1A02C01  MOV         R2,R1,LSL #24 ; mosi_pin
+ 00000340  E1A02C22  MOV         R2,R2,LSR #24
+ 00000344  E1A01000  MOV         R1,R0
+ 00000348  E1A01211  MOV         R1,R1,LSL R2
+ 0000034C  E5861024  STR         R1,[R6,#0x24] ; MOSImask1
+ 00000350  E5963024  LDR         R3,[R6,#0x24] ; MOSImask1
+ 00000354  E1E01003  MVN         R1,R3
+ 00000358  E5861020  STR         R1,[R6,#0x20] ; MOSImask0
+ 0000035C  E1A01005  MOV         R1,R5
+ 00000360  E1A00110  MOV         R0,R0,LSL R1
+ 00000364  E586002C  STR         R0,[R6,#0x2C] ; SCKmask1
+ 00000368  E596502C  LDR         R5,[R6,#0x2C] ; SCKmask1
+ 0000036C  E1E00005  MVN         R0,R5
+ 00000370  E5860028  STR         R0,[R6,#0x28] ; SCKmask0
+ 00000374  E3A00000  MOV         R0,#0x0
+ 00000378  E5C60034  STRB        R0,[R6,#0x34] ; spiMode
+ 0000037C  E28D0014  ADD         R0,R13,#0x0014
+ 00000380  E5D00000  LDRB        R0,[R0,#0x0] ; bCPHA
+ 00000384  E3500000  CMP         R0,#0x0000
+ 00000388  0A000004  BEQ         L_3  ; Targ=0x3A0
+ 0000038C  E59F00D8  LDR         R0,[PC,+216] ; PoolRef @0x46C ; spiMode
+ 00000390  E5D01000  LDRB        R1,[R0,#0x0] ; spiMode
+ 00000394  E3811001  ORR         R1,R1,#0x0001
+ 00000398  E59F00CC  LDR         R0,[PC,+204] ; PoolRef @0x46C ; spiMode
+ 0000039C  E5C01000  STRB        R1,[R0,#0x0] ; spiMode
+ 000003A0          L_3:
+ 000003A0  E28D0010  ADD         R0,R13,#0x0010
+ 000003A4  E5D00000  LDRB        R0,[R0,#0x0] ; bCPOL
+ 000003A8  E3500000  CMP         R0,#0x0000
+ 000003AC  0A000008  BEQ         L_4  ; Targ=0x3D4
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 8
+
+
+ 000003B0  E59F0090  LDR         R0,[PC,+144] ; PoolRef @0x448 ; pSPIswPIN
+ 000003B4  E5D01034  LDRB        R1,[R0,#0x34] ; spiMode
+ 000003B8  E3811002  ORR         R1,R1,#0x0002
+ 000003BC  E5C01034  STRB        R1,[R0,#0x34] ; spiMode
+ 000003C0  E5900008  LDR         R0,[R0,#0x8] ; pSPIswSET
+ 000003C4  E5901000  LDR         R1,[R0,#0x0]
+ 000003C8  E1811005  ORR         R1,R1,R5
+ 000003CC  E5801000  STR         R1,[R0,#0x0]
+ 000003D0  EA000004  B           L_5  ; Targ=0x3E8
+ 000003D4          L_4:
+ 000003D4  E59F0094  LDR         R0,[PC,+148] ; PoolRef @0x470 ; pSPIswPIN+12
+ 000003D8  E5900000  LDR         R0,[R0,#0x0] ; pSPIswCLR+12
+ 000003DC  E5901000  LDR         R1,[R0,#0x0]
+ 000003E0  E1811005  ORR         R1,R1,R5
+ 000003E4  E5801000  STR         R1,[R0,#0x0]
+ 000003E8          L_5:
+ 000003E8  E59F1058  LDR         R1,[PC,+88] ; PoolRef @0x448 ; pSPIswPIN
+ 000003EC  E5910008  LDR         R0,[R1,#0x8] ; pSPIswSET
+ 000003F0  E5902000  LDR         R2,[R0,#0x0]
+ 000003F4  E1822003  ORR         R2,R2,R3
+ 000003F8  E5802000  STR         R2,[R0,#0x0]
+ 000003FC  E5902000  LDR         R2,[R0,#0x0]
+ 00000400  E1822004  ORR         R2,R2,R4
+ 00000404  E5802000  STR         R2,[R0,#0x0]
+ 00000408  E5910004  LDR         R0,[R1,#0x4] ; pSPIswDIR
+ 0000040C  E5902000  LDR         R2,[R0,#0x0]
+ 00000410  E1822005  ORR         R2,R2,R5
+ 00000414  E5802000  STR         R2,[R0,#0x0]
+ 00000418  E5902000  LDR         R2,[R0,#0x0]
+ 0000041C  E1822003  ORR         R2,R2,R3
+ 00000420  E5802000  STR         R2,[R0,#0x0]
+ 00000424  E5902000  LDR         R2,[R0,#0x0]
+ 00000428  E1822004  ORR         R2,R2,R4
+ 0000042C  E5802000  STR         R2,[R0,#0x0]
+ 00000430  E5912018  LDR         R2,[R1,#0x18] ; MISOmask0
+ 00000434  E5901000  LDR         R1,[R0,#0x0]
+ 00000438  E0011002  AND         R1,R1,R2
+ 0000043C  E5801000  STR         R1,[R0,#0x0]
+ 00000440  E8BD0070  LDMIA       R13!,{R4-R6}
+ 00000444  E12FFF1E  BX          R14
+ 00000448            ; END 'SPI_init?A'
+
+ 00000448  40000498  DD          pSPIswPIN		; POOL-Entry U=7
+ 0000044C  E0028000  DD          0xE0028000		; POOL-Entry U=1
+ 00000450  E0028008  DD          0xE0028008		; POOL-Entry U=1
+ 00000454  E0028004  DD          0xE0028004		; POOL-Entry U=1
+ 00000458  E002800C  DD          0xE002800C		; POOL-Entry U=1
+ 0000045C  E0028010  DD          0xE0028010		; POOL-Entry U=1
+ 00000460  E0028018  DD          0xE0028018		; POOL-Entry U=1
+ 00000464  E0028014  DD          0xE0028014		; POOL-Entry U=1
+ 00000468  E002801C  DD          0xE002801C		; POOL-Entry U=1
+ 0000046C  400004CC  DD          spiMode		; POOL-Entry U=2
+ 00000470  400004A4  DD          pSPIswPIN + 0xC		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_enable?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 00000474          SPI_enable?A:  ; FUNCTION START
+ 00000474  E92D4000  STMDB       R13!,{LR}
+ 00000478  E59F001C  LDR         R0,[PC,+28] ; PoolRef @0x49C ; CSmask1
+ 0000047C  E5902000  LDR         R2,[R0,#0x0] ; CSmask1
+ 00000480  E5100008  LDR         R0,[R0,#0xFFFFFFF8] ; pSPIswCLR
+ 00000484  E5901000  LDR         R1,[R0,#0x0]
+ 00000488  E1811002  ORR         R1,R1,R2
+ 0000048C  E5801000  STR         R1,[R0,#0x0]
+ 00000490  E3A00003  MOV         R0,#0x3
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 9
+
+
+ 00000494  EB000140  BL          delay_Nx10cyc?A  ; Targ=0x99C
+ 00000498  E8BD8000  LDMIA       R13!,{PC}
+ 0000049C            ; END 'SPI_enable?A'
+
+ 0000049C  400004AC  DD          CSmask1		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_disable?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 000004A0          SPI_disable?A:  ; FUNCTION START
+ 000004A0  E59F0014  LDR         R0,[PC,+20] ; PoolRef @0x4BC ; CSmask1
+ 000004A4  E5902000  LDR         R2,[R0,#0x0] ; CSmask1
+ 000004A8  E510000C  LDR         R0,[R0,#0xFFFFFFF4] ; pSPIswSET
+ 000004AC  E5901000  LDR         R1,[R0,#0x0]
+ 000004B0  E1811002  ORR         R1,R1,R2
+ 000004B4  E5801000  STR         R1,[R0,#0x0]
+ 000004B8  E12FFF1E  BX          R14
+ 000004BC            ; END 'SPI_disable?A'
+
+ 000004BC  400004AC  DD          CSmask1		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_charM0?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 000004C0          SPI_charM0?A:  ; FUNCTION START
+ 000004C0  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 000004C4  E1A04000  MOV         R4,R0 ; chTx
+ 000004C8  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 000004C8            ; SCOPE-START
+ 000004C8  E3A02000  MOV         R2,#0x0
+ 000004CC  ---- Variable 'c' assigned to Register 'R2' ----
+ 000004CC  E3A03008  MOV         R3,#0x8
+ 000004D0  ---- Variable 'n' assigned to Register 'R3' ----
+ 000004D0  EA000032  B           L_6  ; Targ=0x5A0
+ 000004D4          L_8:
+ 000004D4  E1A00004  MOV         R0,R4 ; chTx
+ 000004D8  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 000004DC  E1A00C20  MOV         R0,R0,LSR #24
+ 000004E0  E3100080  TST         R0,#0x0080
+ 000004E4  1A000006  BNE         L_10  ; Targ=0x504
+ 000004E8  E59F00D4  LDR         R0,[PC,+212] ; PoolRef @0x5C4 ; MOSImask1
+ 000004EC  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1
+ 000004F0  E5100018  LDR         R0,[R0,#0xFFFFFFE8] ; pSPIswCLR
+ 000004F4  E5901000  LDR         R1,[R0,#0x0]
+ 000004F8  E1811005  ORR         R1,R1,R5
+ 000004FC  E5801000  STR         R1,[R0,#0x0]
+ 00000500  EA000005  B           L_11  ; Targ=0x51C
+ 00000504          L_10:
+ 00000504  E59F00B8  LDR         R0,[PC,+184] ; PoolRef @0x5C4 ; MOSImask1
+ 00000508  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1
+ 0000050C  E510001C  LDR         R0,[R0,#0xFFFFFFE4] ; pSPIswSET
+ 00000510  E5901000  LDR         R1,[R0,#0x0]
+ 00000514  E1811005  ORR         R1,R1,R5
+ 00000518  E5801000  STR         R1,[R0,#0x0]
+ 0000051C          L_11:
+ 0000051C  E3A0001D  MOV         R0,#0x1D
+ 00000520  EB00011D  BL          delay_Nx10cyc?A  ; Targ=0x99C
+ 00000524  E59F6098  LDR         R6,[PC,+152] ; PoolRef @0x5C4 ; MOSImask1
+ 00000528  E5965008  LDR         R5,[R6,#0x8] ; SCKmask1
+ 0000052C  E516001C  LDR         R0,[R6,#0xFFFFFFE4] ; pSPIswSET
+ 00000530  E5901000  LDR         R1,[R0,#0x0]
+ 00000534  E1811005  ORR         R1,R1,R5
+ 00000538  E5801000  STR         R1,[R0,#0x0]
+ 0000053C  E1A02082  MOV         R2,R2,LSL #1 ; c
+ 00000540  E1A02C02  MOV         R2,R2,LSL #24
+ 00000544  E1A02C22  MOV         R2,R2,LSR #24
+ 00000548  E20220FE  AND         R2,R2,#0x00FE ; c
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 10
+
+
+ 0000054C  E5160024  LDR         R0,[R6,#0xFFFFFFDC] ; pSPIswPIN
+ 00000550  E5900000  LDR         R0,[R0,#0x0]
+ 00000554  E5161008  LDR         R1,[R6,#0xFFFFFFF8] ; MISOmask1
+ 00000558  E0000001  AND         R0,R0,R1
+ 0000055C  E5D6100F  LDRB        R1,[R6,#0xF] ; posMISO
+ 00000560  E1A00150  MOV         R0,R0,ASR R1
+ 00000564  E1A00C00  MOV         R0,R0,LSL #24
+ 00000568  E1A00C20  MOV         R0,R0,LSR #24
+ 0000056C  E1822000  ORR         R2,R2,R0 ; c
+ 00000570  E3A0001D  MOV         R0,#0x1D
+ 00000574  EB000108  BL          delay_Nx10cyc?A  ; Targ=0x99C
+ 00000578  E5965008  LDR         R5,[R6,#0x8] ; SCKmask1
+ 0000057C  E5160018  LDR         R0,[R6,#0xFFFFFFE8] ; pSPIswCLR
+ 00000580  E5901000  LDR         R1,[R0,#0x0]
+ 00000584  E1811005  ORR         R1,R1,R5
+ 00000588  E5801000  STR         R1,[R0,#0x0]
+ 0000058C  E1A04084  MOV         R4,R4,LSL #1 ; chTx
+ 00000590  E1A04C04  MOV         R4,R4,LSL #24
+ 00000594  E1A04C24  MOV         R4,R4,LSR #24
+ 00000598  E2433001  SUB         R3,R3,#0x0001 ; n
+ 0000059C  E20330FF  AND         R3,R3,#0x00FF
+ 000005A0          L_6:
+ 000005A0  E1A00003  MOV         R0,R3 ; n
+ 000005A4  E1A00C00  MOV         R0,R0,LSL #24 ; n
+ 000005A8  E1A00C20  MOV         R0,R0,LSR #24
+ 000005AC  E3500000  CMP         R0,#0x0000
+ 000005B0  CAFFFFC7  BGT         L_8  ; Targ=0x4D4
+ 000005B4  E1A00002  MOV         R0,R2 ; c
+ 000005B8  E1A00C00  MOV         R0,R0,LSL #24 ; c
+ 000005BC  E1A00C20  MOV         R0,R0,LSR #24
+ 000005C0            ; SCOPE-END
+ 000005C0  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 000005C4            ; END 'SPI_charM0?A'
+
+ 000005C4  400004BC  DD          MOSImask1		; POOL-Entry U=3
+
+*** Disassembly of Segment '?PR?SPI_charM1?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 000005C8          SPI_charM1?A:  ; FUNCTION START
+ 000005C8  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 000005CC  E1A04000  MOV         R4,R0 ; chTx
+ 000005D0  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 000005D0            ; SCOPE-START
+ 000005D0  E3A02000  MOV         R2,#0x0
+ 000005D4  ---- Variable 'c' assigned to Register 'R2' ----
+ 000005D4  E3A03008  MOV         R3,#0x8
+ 000005D8  ---- Variable 'n' assigned to Register 'R3' ----
+ 000005D8  EA000032  B           L_13  ; Targ=0x6A8
+ 000005DC          L_15:
+ 000005DC  E59F00E8  LDR         R0,[PC,+232] ; PoolRef @0x6CC ; SCKmask1
+ 000005E0  E5905000  LDR         R5,[R0,#0x0] ; SCKmask1
+ 000005E4  E5101024  LDR         R1,[R0,#0xFFFFFFDC] ; pSPIswSET
+ 000005E8  E5910000  LDR         R0,[R1,#0x0]
+ 000005EC  E1800005  ORR         R0,R0,R5
+ 000005F0  E5810000  STR         R0,[R1,#0x0]
+ 000005F4  E1A00004  MOV         R0,R4 ; chTx
+ 000005F8  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 000005FC  E1A00C20  MOV         R0,R0,LSR #24
+ 00000600  E3100080  TST         R0,#0x0080
+ 00000604  1A000006  BNE         L_17  ; Targ=0x624
+ 00000608  E59F00BC  LDR         R0,[PC,+188] ; PoolRef @0x6CC ; SCKmask1
+ 0000060C  E5106008  LDR         R6,[R0,#0xFFFFFFF8] ; MOSImask1
+ 00000610  E5100020  LDR         R0,[R0,#0xFFFFFFE0] ; pSPIswCLR
+ 00000614  E5905000  LDR         R5,[R0,#0x0]
+ 00000618  E1855006  ORR         R5,R5,R6
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 11
+
+
+ 0000061C  E5805000  STR         R5,[R0,#0x0]
+ 00000620  EA000004  B           L_18  ; Targ=0x638
+ 00000624          L_17:
+ 00000624  E59F00A4  LDR         R0,[PC,+164] ; PoolRef @0x6D0 ; SCKmask1-8
+ 00000628  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1-8
+ 0000062C  E5910000  LDR         R0,[R1,#0x0]
+ 00000630  E1800005  ORR         R0,R0,R5
+ 00000634  E5810000  STR         R0,[R1,#0x0]
+ 00000638          L_18:
+ 00000638  E3A0001D  MOV         R0,#0x1D
+ 0000063C  EB0000D6  BL          delay_Nx10cyc?A  ; Targ=0x99C
+ 00000640  E59F1084  LDR         R1,[PC,+132] ; PoolRef @0x6CC ; SCKmask1
+ 00000644  E5916000  LDR         R6,[R1,#0x0] ; SCKmask1
+ 00000648  E5110020  LDR         R0,[R1,#0xFFFFFFE0] ; pSPIswCLR
+ 0000064C  E5905000  LDR         R5,[R0,#0x0]
+ 00000650  E1855006  ORR         R5,R5,R6
+ 00000654  E5805000  STR         R5,[R0,#0x0]
+ 00000658  E1A02082  MOV         R2,R2,LSL #1 ; c
+ 0000065C  E1A02C02  MOV         R2,R2,LSL #24
+ 00000660  E1A02C22  MOV         R2,R2,LSR #24
+ 00000664  E20220FE  AND         R2,R2,#0x00FE ; c
+ 00000668  E511002C  LDR         R0,[R1,#0xFFFFFFD4] ; pSPIswPIN
+ 0000066C  E5900000  LDR         R0,[R0,#0x0]
+ 00000670  E5115010  LDR         R5,[R1,#0xFFFFFFF0] ; MISOmask1
+ 00000674  E0000005  AND         R0,R0,R5
+ 00000678  E5D11007  LDRB        R1,[R1,#0x7] ; posMISO
+ 0000067C  E1A00150  MOV         R0,R0,ASR R1
+ 00000680  E1A00C00  MOV         R0,R0,LSL #24
+ 00000684  E1A00C20  MOV         R0,R0,LSR #24
+ 00000688  E1822000  ORR         R2,R2,R0 ; c
+ 0000068C  E3A0001D  MOV         R0,#0x1D
+ 00000690  EB0000C1  BL          delay_Nx10cyc?A  ; Targ=0x99C
+ 00000694  E1A04084  MOV         R4,R4,LSL #1 ; chTx
+ 00000698  E1A04C04  MOV         R4,R4,LSL #24
+ 0000069C  E1A04C24  MOV         R4,R4,LSR #24
+ 000006A0  E2433001  SUB         R3,R3,#0x0001 ; n
+ 000006A4  E20330FF  AND         R3,R3,#0x00FF
+ 000006A8          L_13:
+ 000006A8  E1A00003  MOV         R0,R3 ; n
+ 000006AC  E1A00C00  MOV         R0,R0,LSL #24 ; n
+ 000006B0  E1A00C20  MOV         R0,R0,LSR #24
+ 000006B4  E3500000  CMP         R0,#0x0000
+ 000006B8  CAFFFFC7  BGT         L_15  ; Targ=0x5DC
+ 000006BC  E1A00002  MOV         R0,R2 ; c
+ 000006C0  E1A00C00  MOV         R0,R0,LSL #24 ; c
+ 000006C4  E1A00C20  MOV         R0,R0,LSR #24
+ 000006C8            ; SCOPE-END
+ 000006C8  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 000006CC            ; END 'SPI_charM1?A'
+
+ 000006CC  400004C4  DD          SCKmask1		; POOL-Entry U=3
+ 000006D0  400004BC  DD          SCKmask1 + 0xFFFFFFF8		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_charM2?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 000006D4          SPI_charM2?A:  ; FUNCTION START
+ 000006D4  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 000006D8  E1A04000  MOV         R4,R0 ; chTx
+ 000006DC  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 000006DC            ; SCOPE-START
+ 000006DC  E3A02000  MOV         R2,#0x0
+ 000006E0  ---- Variable 'c' assigned to Register 'R2' ----
+ 000006E0  E3A03008  MOV         R3,#0x8
+ 000006E4  ---- Variable 'n' assigned to Register 'R3' ----
+ 000006E4  EA000032  B           L_20  ; Targ=0x7B4
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 12
+
+
+ 000006E8          L_22:
+ 000006E8  E1A00004  MOV         R0,R4 ; chTx
+ 000006EC  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 000006F0  E1A00C20  MOV         R0,R0,LSR #24
+ 000006F4  E3100080  TST         R0,#0x0080
+ 000006F8  1A000006  BNE         L_24  ; Targ=0x718
+ 000006FC  E59F00D4  LDR         R0,[PC,+212] ; PoolRef @0x7D8 ; MOSImask1
+ 00000700  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1
+ 00000704  E5100018  LDR         R0,[R0,#0xFFFFFFE8] ; pSPIswCLR
+ 00000708  E5901000  LDR         R1,[R0,#0x0]
+ 0000070C  E1811005  ORR         R1,R1,R5
+ 00000710  E5801000  STR         R1,[R0,#0x0]
+ 00000714  EA000005  B           L_25  ; Targ=0x730
+ 00000718          L_24:
+ 00000718  E59F00B8  LDR         R0,[PC,+184] ; PoolRef @0x7D8 ; MOSImask1
+ 0000071C  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1
+ 00000720  E510001C  LDR         R0,[R0,#0xFFFFFFE4] ; pSPIswSET
+ 00000724  E5901000  LDR         R1,[R0,#0x0]
+ 00000728  E1811005  ORR         R1,R1,R5
+ 0000072C  E5801000  STR         R1,[R0,#0x0]
+ 00000730          L_25:
+ 00000730  E3A0001D  MOV         R0,#0x1D
+ 00000734  EB000098  BL          delay_Nx10cyc?A  ; Targ=0x99C
+ 00000738  E59F6098  LDR         R6,[PC,+152] ; PoolRef @0x7D8 ; MOSImask1
+ 0000073C  E5965008  LDR         R5,[R6,#0x8] ; SCKmask1
+ 00000740  E5160018  LDR         R0,[R6,#0xFFFFFFE8] ; pSPIswCLR
+ 00000744  E5901000  LDR         R1,[R0,#0x0]
+ 00000748  E1811005  ORR         R1,R1,R5
+ 0000074C  E5801000  STR         R1,[R0,#0x0]
+ 00000750  E1A02082  MOV         R2,R2,LSL #1 ; c
+ 00000754  E1A02C02  MOV         R2,R2,LSL #24
+ 00000758  E1A02C22  MOV         R2,R2,LSR #24
+ 0000075C  E20220FE  AND         R2,R2,#0x00FE ; c
+ 00000760  E5160024  LDR         R0,[R6,#0xFFFFFFDC] ; pSPIswPIN
+ 00000764  E5900000  LDR         R0,[R0,#0x0]
+ 00000768  E5161008  LDR         R1,[R6,#0xFFFFFFF8] ; MISOmask1
+ 0000076C  E0000001  AND         R0,R0,R1
+ 00000770  E5D6100F  LDRB        R1,[R6,#0xF] ; posMISO
+ 00000774  E1A00150  MOV         R0,R0,ASR R1
+ 00000778  E1A00C00  MOV         R0,R0,LSL #24
+ 0000077C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000780  E1822000  ORR         R2,R2,R0 ; c
+ 00000784  E3A0001D  MOV         R0,#0x1D
+ 00000788  EB000083  BL          delay_Nx10cyc?A  ; Targ=0x99C
+ 0000078C  E5965008  LDR         R5,[R6,#0x8] ; SCKmask1
+ 00000790  E516001C  LDR         R0,[R6,#0xFFFFFFE4] ; pSPIswSET
+ 00000794  E5901000  LDR         R1,[R0,#0x0]
+ 00000798  E1811005  ORR         R1,R1,R5
+ 0000079C  E5801000  STR         R1,[R0,#0x0]
+ 000007A0  E1A04084  MOV         R4,R4,LSL #1 ; chTx
+ 000007A4  E1A04C04  MOV         R4,R4,LSL #24
+ 000007A8  E1A04C24  MOV         R4,R4,LSR #24
+ 000007AC  E2433001  SUB         R3,R3,#0x0001 ; n
+ 000007B0  E20330FF  AND         R3,R3,#0x00FF
+ 000007B4          L_20:
+ 000007B4  E1A00003  MOV         R0,R3 ; n
+ 000007B8  E1A00C00  MOV         R0,R0,LSL #24 ; n
+ 000007BC  E1A00C20  MOV         R0,R0,LSR #24
+ 000007C0  E3500000  CMP         R0,#0x0000
+ 000007C4  CAFFFFC7  BGT         L_22  ; Targ=0x6E8
+ 000007C8  E1A00002  MOV         R0,R2 ; c
+ 000007CC  E1A00C00  MOV         R0,R0,LSL #24 ; c
+ 000007D0  E1A00C20  MOV         R0,R0,LSR #24
+ 000007D4            ; SCOPE-END
+ 000007D4  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 13
+
+
+ 000007D8            ; END 'SPI_charM2?A'
+
+ 000007D8  400004BC  DD          MOSImask1		; POOL-Entry U=3
+
+*** Disassembly of Segment '?PR?SPI_charM3?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 000007DC          SPI_charM3?A:  ; FUNCTION START
+ 000007DC  E92D4070  STMDB       R13!,{R4-R6,LR}
+ 000007E0  E1A04000  MOV         R4,R0 ; chTx
+ 000007E4  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 000007E4            ; SCOPE-START
+ 000007E4  E3A02000  MOV         R2,#0x0
+ 000007E8  ---- Variable 'c' assigned to Register 'R2' ----
+ 000007E8  E3A03008  MOV         R3,#0x8
+ 000007EC  ---- Variable 'n' assigned to Register 'R3' ----
+ 000007EC  EA000032  B           L_27  ; Targ=0x8BC
+ 000007F0          L_29:
+ 000007F0  E59F00E8  LDR         R0,[PC,+232] ; PoolRef @0x8E0 ; SCKmask1
+ 000007F4  E5905000  LDR         R5,[R0,#0x0] ; SCKmask1
+ 000007F8  E5101020  LDR         R1,[R0,#0xFFFFFFE0] ; pSPIswCLR
+ 000007FC  E5910000  LDR         R0,[R1,#0x0]
+ 00000800  E1800005  ORR         R0,R0,R5
+ 00000804  E5810000  STR         R0,[R1,#0x0]
+ 00000808  E1A00004  MOV         R0,R4 ; chTx
+ 0000080C  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00000810  E1A00C20  MOV         R0,R0,LSR #24
+ 00000814  E3100080  TST         R0,#0x0080
+ 00000818  1A000005  BNE         L_31  ; Targ=0x834
+ 0000081C  E59F00C0  LDR         R0,[PC,+192] ; PoolRef @0x8E4 ; SCKmask1-8
+ 00000820  E5905000  LDR         R5,[R0,#0x0] ; MOSImask1-8
+ 00000824  E5910000  LDR         R0,[R1,#0x0]
+ 00000828  E1800005  ORR         R0,R0,R5
+ 0000082C  E5810000  STR         R0,[R1,#0x0]
+ 00000830  EA000005  B           L_32  ; Targ=0x84C
+ 00000834          L_31:
+ 00000834  E59F00A4  LDR         R0,[PC,+164] ; PoolRef @0x8E0 ; SCKmask1
+ 00000838  E5105008  LDR         R5,[R0,#0xFFFFFFF8] ; MOSImask1
+ 0000083C  E5100024  LDR         R0,[R0,#0xFFFFFFDC] ; pSPIswSET
+ 00000840  E5901000  LDR         R1,[R0,#0x0]
+ 00000844  E1811005  ORR         R1,R1,R5
+ 00000848  E5801000  STR         R1,[R0,#0x0]
+ 0000084C          L_32:
+ 0000084C  E3A0001D  MOV         R0,#0x1D
+ 00000850  EB000051  BL          delay_Nx10cyc?A  ; Targ=0x99C
+ 00000854  E59F1084  LDR         R1,[PC,+132] ; PoolRef @0x8E0 ; SCKmask1
+ 00000858  E5916000  LDR         R6,[R1,#0x0] ; SCKmask1
+ 0000085C  E5110024  LDR         R0,[R1,#0xFFFFFFDC] ; pSPIswSET
+ 00000860  E5905000  LDR         R5,[R0,#0x0]
+ 00000864  E1855006  ORR         R5,R5,R6
+ 00000868  E5805000  STR         R5,[R0,#0x0]
+ 0000086C  E1A02082  MOV         R2,R2,LSL #1 ; c
+ 00000870  E1A02C02  MOV         R2,R2,LSL #24
+ 00000874  E1A02C22  MOV         R2,R2,LSR #24
+ 00000878  E20220FE  AND         R2,R2,#0x00FE ; c
+ 0000087C  E511002C  LDR         R0,[R1,#0xFFFFFFD4] ; pSPIswPIN
+ 00000880  E5900000  LDR         R0,[R0,#0x0]
+ 00000884  E5115010  LDR         R5,[R1,#0xFFFFFFF0] ; MISOmask1
+ 00000888  E0000005  AND         R0,R0,R5
+ 0000088C  E5D11007  LDRB        R1,[R1,#0x7] ; posMISO
+ 00000890  E1A00150  MOV         R0,R0,ASR R1
+ 00000894  E1A00C00  MOV         R0,R0,LSL #24
+ 00000898  E1A00C20  MOV         R0,R0,LSR #24
+ 0000089C  E1822000  ORR         R2,R2,R0 ; c
+ 000008A0  E3A0001D  MOV         R0,#0x1D
+ 000008A4  EB00003C  BL          delay_Nx10cyc?A  ; Targ=0x99C
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 14
+
+
+ 000008A8  E1A04084  MOV         R4,R4,LSL #1 ; chTx
+ 000008AC  E1A04C04  MOV         R4,R4,LSL #24
+ 000008B0  E1A04C24  MOV         R4,R4,LSR #24
+ 000008B4  E2433001  SUB         R3,R3,#0x0001 ; n
+ 000008B8  E20330FF  AND         R3,R3,#0x00FF
+ 000008BC          L_27:
+ 000008BC  E1A00003  MOV         R0,R3 ; n
+ 000008C0  E1A00C00  MOV         R0,R0,LSL #24 ; n
+ 000008C4  E1A00C20  MOV         R0,R0,LSR #24
+ 000008C8  E3500000  CMP         R0,#0x0000
+ 000008CC  CAFFFFC7  BGT         L_29  ; Targ=0x7F0
+ 000008D0  E1A00002  MOV         R0,R2 ; c
+ 000008D4  E1A00C00  MOV         R0,R0,LSL #24 ; c
+ 000008D8  E1A00C20  MOV         R0,R0,LSR #24
+ 000008DC            ; SCOPE-END
+ 000008DC  E8BD8070  LDMIA       R13!,{R4-R6,PC}
+ 000008E0            ; END 'SPI_charM3?A'
+
+ 000008E0  400004C4  DD          SCKmask1		; POOL-Entry U=3
+ 000008E4  400004BC  DD          SCKmask1 + 0xFFFFFFF8		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?SPI_char?A?SPIsw':
+ FILE: '..\SPIsw.c'
+ 000008E8          SPI_char?A:  ; FUNCTION START
+ 000008E8  E92D4010  STMDB       R13!,{R4,LR}
+ 000008EC  E1A04000  MOV         R4,R0 ; chTx
+ 000008F0  ---- Variable 'chTx' assigned to Register 'R4' ----
+ 000008F0  E59F00A0  LDR         R0,[PC,+160] ; PoolRef @0x998 ; spiMode
+ 000008F4  E5D00000  LDRB        R0,[R0,#0x0] ; spiMode
+ 000008F8  E3500001  CMP         R0,#0x0001
+ 000008FC  0A00000C  BEQ         L_37  ; Targ=0x934
+ 00000900  E3500002  CMP         R0,#0x0002
+ 00000904  0A000011  BEQ         L_38  ; Targ=0x950
+ 00000908  E3500003  CMP         R0,#0x0003
+ 0000090C  0A000016  BEQ         L_39  ; Targ=0x96C
+ 00000910  E3500000  CMP         R0,#0x0000
+ 00000914  1A00001B  BNE         L_36  ; Targ=0x988
+ 00000918          L_35:
+ 00000918  E1A00004  MOV         R0,R4 ; chTx
+ 0000091C  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00000920  E1A00C20  MOV         R0,R0,LSR #24
+ 00000924  EBFFFEE5  BL          SPI_charM0?A  ; Targ=0x4C0
+ 00000928  E1A00C00  MOV         R0,R0,LSL #24 ; SPI_charM0?A
+ 0000092C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000930  EA000017  B           L_40  ; Targ=0x994
+ 00000934          L_37:
+ 00000934  E1A00004  MOV         R0,R4 ; chTx
+ 00000938  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 0000093C  E1A00C20  MOV         R0,R0,LSR #24
+ 00000940  EBFFFF20  BL          SPI_charM1?A  ; Targ=0x5C8
+ 00000944  E1A00C00  MOV         R0,R0,LSL #24 ; SPI_charM1?A
+ 00000948  E1A00C20  MOV         R0,R0,LSR #24
+ 0000094C  EA000010  B           L_40  ; Targ=0x994
+ 00000950          L_38:
+ 00000950  E1A00004  MOV         R0,R4 ; chTx
+ 00000954  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00000958  E1A00C20  MOV         R0,R0,LSR #24
+ 0000095C  EBFFFF5C  BL          SPI_charM2?A  ; Targ=0x6D4
+ 00000960  E1A00C00  MOV         R0,R0,LSL #24 ; SPI_charM2?A
+ 00000964  E1A00C20  MOV         R0,R0,LSR #24
+ 00000968  EA000009  B           L_40  ; Targ=0x994
+ 0000096C          L_39:
+ 0000096C  E1A00004  MOV         R0,R4 ; chTx
+ 00000970  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00000974  E1A00C20  MOV         R0,R0,LSR #24
+LARM LINKER/LOCATER V2.54a                                                            07/14/2010  16:33:38  PAGE 15
+
+
+ 00000978  EBFFFF97  BL          SPI_charM3?A  ; Targ=0x7DC
+ 0000097C  E1A00C00  MOV         R0,R0,LSL #24 ; SPI_charM3?A
+ 00000980  E1A00C20  MOV         R0,R0,LSR #24
+ 00000984  EA000002  B           L_40  ; Targ=0x994
+ 00000988          L_36:
+ 00000988  E1A00004  MOV         R0,R4 ; chTx
+ 0000098C  E1A00C00  MOV         R0,R0,LSL #24 ; chTx
+ 00000990  E1A00C20  MOV         R0,R0,LSR #24
+ 00000994          L_40:
+ 00000994  E8BD8010  LDMIA       R13!,{R4,PC}
+ 00000998            ; END 'SPI_char?A'
+
+ 00000998  400004CC  DD          spiMode		; POOL-Entry U=1
+
+*** Disassembly of Segment '?PR?delay_Nx10cyc?A?Utility':
+ FILE: '..\Utility.c'
+ 0000099C          delay_Nx10cyc?A:  ; FUNCTION START
+ 0000099C  ---- Variable 'cnt' assigned to Register 'R0' ----
+ 0000099C  EA000003  B           L_32  ; Targ=0x9B0
+ 000009A0          L_34:
+ 000009A0  E1A00000  NOP       
+ 000009A4  E1A00000  NOP       
+ 000009A8  E1A00000  NOP       
+ 000009AC  E1A00000  NOP       
+ 000009B0          L_32:
+ 000009B0  E1A01000  MOV         R1,R0 ; cnt
+ 000009B4  E2410001  SUB         R0,R1,#0x0001 ; cnt
+ 000009B8  E3510000  CMP         R1,#0x0000 ; cnt
+ 000009BC  1AFFFFF7  BNE         L_34  ; Targ=0x9A0
+ 000009C0  E12FFF1E  BX          R14
+ 000009C4            ; END 'delay_Nx10cyc?A'
+
+
+*** Disassembly of Segment '?C?FIQ':
+ FILE: 'fiq.s'
+ 000009C4            ; SCOPE-START
+ 000009C4  EAFFFFFE  B           $  ; Targ=0x9C4
+ 000009C8            ; SCOPE-END
+
+*** Disassembly of Segment '?C?IRQ':
+ FILE: 'irq.s'
+ 000009C8            ; SCOPE-START
+ 000009C8  EAFFFFFE  B           $  ; Targ=0x9C8
+ 000009CC            ; SCOPE-END
+
+*** Disassembly of Segment '?C?DABT':
+ FILE: 'dabt.s'
+ 000009CC            ; SCOPE-START
+ 000009CC  EAFFFFFE  B           $  ; Targ=0x9CC
+ 000009D0            ; SCOPE-END
+
+*** Disassembly of Segment '?C?PABT':
+ FILE: 'pabt.s'
+ 000009D0            ; SCOPE-START
+ 000009D0  EAFFFFFE  B           $  ; Targ=0x9D0
+ 000009D4            ; SCOPE-END
+
+*** Disassembly of Segment '?C?UNDEF':
+ FILE: 'swi.s'
+ 000009D4            ; SCOPE-START
+ 000009D4  EAFFFFFE  B           $  ; Targ=0x9D4
+ 000009D8            ; SCOPE-END
+ 000009D8            ; SCOPE-START
+ 000009D8  EAFFFFFE  B           $  ; Targ=0x9D8
+ 000009DC            ; SCOPE-END

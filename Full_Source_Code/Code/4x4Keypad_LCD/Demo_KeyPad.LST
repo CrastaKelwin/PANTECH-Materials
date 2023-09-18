@@ -1,0 +1,358 @@
+ARM COMPILER V2.53,  Demo_KeyPad                                                           25/05/09  23:27:36  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE Demo_KeyPad
+OBJECT MODULE PLACED IN .\Out\Demo_KeyPad.obj
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe Demo_KeyPad.c THUMB DEBUG TABS(4) OBJECT(.\Out\Demo_KeyPad.obj) 
+
+stmt  level    source
+
+    1          /*
+    2          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    3          ^######################################################################^
+    4          ^##                                                                  ##^
+    5          ^## This Software Coding is the sole property of the company!        ##^
+    6          ^## Any unauthorized re-usage of this code is prohibitted..          ##^
+    7          ^## The removal of the object files may cause the code to crack!     ##^
+    8          ^##                                                                  ##^
+    9          ^##     © Pantech Solutions | All rights Reserved.                   ##^
+   10          ^##                                                                  ##^
+   11          ^######################################################################^
+   12          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   13          Title       :   KEYPAD Display Program.C
+   14          Status      :   Open to all...
+   15          Features    :   Displays the Key Press in both LCD and UART
+   16          
+   17          Company     :   © Pantech Solutions | All rights Reserved.
+   18          
+   19          Description :   The Keypad ports are user configurable....
+   20                          The coding is established for a generic approach to any ports
+   21                          *** P0.0 and P0.1 are not advised to use since UART is used ***
+   22          
+   23                          It is also adviced to use distinct port for both LCD and KeyPad
+   24          -----------------------------------------------------------------------------------*/
+   25          
+   26          #include <LPC213X.H>
+   27          
+   28          #include "ADBKEYPAD.H"
+   29          #include "LCD8.H"
+   30          
+   31          extern void Delay();
+   32          
+   33          unsigned char Row_Data, Col_Data;
+   34          unsigned char Pos = 0x80;
+   35          unsigned char Msg[4][4] =   { '0','1','2','3',
+   36                                        '4','5','6','7',
+   37                                        '8','9','A','B',
+   38                                        'C','D','E','F'
+   39                                      };
+   40          /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Delay Sub_Routine ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+   41          
+   42          void Delay(void)
+   43          {
+   44   1          unsigned int i,j;
+   45   1          for(i=0;i<35;i++)
+   46   1              for(j=0;j<1234;j++);
+   47   1      }
+   48          
+   49          /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Main Function ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+   50          
+   51          void main()
+   52          {
+   53   1      
+   54   1          U0LCR = 0x83;           //Serial Port Configuration to 9600 bps @ 12 MHz
+   55   1          U0DLL = 0x61;
+   56   1          U0LCR = 0x03;
+   57   1      
+   58   1          PINSEL0 |= 0x05;        //Pin Select for UART 0 and remaining GPIO
+   59   1          PINSEL1 = 0;
+ARM COMPILER V2.53,  Demo_KeyPad                                                           25/05/09  23:27:36  PAGE 2   
+
+   60   1          
+   61   1          /* ^^^^^^^^^^^^^^^ LCD Config Function ^^^^^^^^^^^^^^^^^^^^*/
+   62   1      
+   63   1          LCD_Config (&IOPIN0 /*LCD Data Port*/, 16 /* Data LSB D0*/);
+   64   1      
+   65   1          while(1)                //Loop From Here....
+   66   1          {
+   67   2              Delay();
+   68   2              Delay();
+   69   2      
+   70   2              KeyScan(&IOPIN1/*KeyPad Port*/,16/*Starting Data Pin D0*/,
+   71   2                      &Row_Data/*Addr of Row*/,&Col_Data/*Addr of Col*/);
+   72   2      
+   73   2              
+   74   2      
+   75   2              if (Row_Data < 4 && Col_Data < 4)
+   76   2              {
+   77   3                  U0THR = Msg[Row_Data][Col_Data];
+   78   3                  Delay();
+   79   3                  Delay();
+   80   3                  U0THR = '\n';
+   81   3                  if (Pos == 0x80)
+   82   3                  {
+   83   4                      lcd_cmd (&IOPIN0 /*LCD Data Port*/,16 /*Data LSB D0*/, 
+   84   4                               0x01 /*LCD Command*/);
+   85   4                  }
+   86   3                  if (Pos == 0x90)
+   87   3                  {
+   88   4                      Pos = 0xC0;
+   89   4                  }
+   90   3                  if (Pos > 0xCF)
+   91   3                  {
+   92   4                      Pos = 0x80;
+   93   4                  }
+   94   3                  lcd_cmd (&IOPIN0/*LCD Data Port*/,16/*Data LSB D0*/,
+   95   3                           Pos++/*Cursor Position*/);
+   96   3                  Delay();
+   97   3                  lcd_data (&IOPIN0/*LCD Data Port*/,16/*Data LSB D0*/,
+   98   3                            Msg[Row_Data][Col_Data]/*Data to be Displayed in LCD*/);
+   99   3              }
+  100   2          }
+  101   1      }
+ARM COMPILER V2.53,  Demo_KeyPad                                                           25/05/09  23:27:36  PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN CODE16 (KeyScan?T)
+ EXTERN CODE16 (lcd_cmd?T)
+ EXTERN CODE16 (lcd_data?T)
+ EXTERN CODE16 (LCD_Config?T)
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         Delay?T
+ PUBLIC         main
+ PUBLIC         Row_Data
+ PUBLIC         Col_Data
+ PUBLIC         Pos
+ PUBLIC         Msg
+
+
+
+*** DATA SEGMENT '?DT0?Demo_KeyPad':
+ 00000000          Row_Data:
+ 00000000            DS          1
+ 00000001          Col_Data:
+ 00000001            DS          1
+ 00000002          Pos:
+ 00000002           BEGIN_INIT
+ 00000002  80        DB          0x80
+ 00000003           END_INIT
+ 00000003          Msg:
+ 00000003           BEGIN_INIT
+ 00000003  30        DB          0x30
+ 00000004  31        DB          0x31
+ 00000005  32        DB          0x32
+ 00000006  33        DB          0x33
+ 00000007  34        DB          0x34
+ 00000008  35        DB          0x35
+ 00000009  36        DB          0x36
+ 0000000A  37        DB          0x37
+ 0000000B  38        DB          0x38
+ 0000000C  39        DB          0x39
+ 0000000D  41        DB          0x41
+ 0000000E  42        DB          0x42
+ 0000000F  43        DB          0x43
+ 00000010  44        DB          0x44
+ 00000011  45        DB          0x45
+ 00000012  46        DB          0x46
+ 00000013           END_INIT
+
+
+
+*** CODE SEGMENT '?PR?Delay?T?Demo_KeyPad':
+   43: {
+ 00000000            ; SCOPE-START
+   45:     for(i=0;i<35;i++)
+ 00000000  2000      MOV         R0,#0x0
+ 00000002  ---- Variable 'i' assigned to Register 'R0' ----
+   46:         for(j=0;j<1234;j++);
+ 00000002          L_10:
+ 00000002  2100      MOV         R1,#0x0
+ 00000004  ---- Variable 'j' assigned to Register 'R1' ----
+ 00000004          L_6:
+ 00000004  3101      ADD         R1,#0x1
+ 00000006  1C0A      MOV         R2,R1 ; j
+ 00000008  4800      LDR         R3,=0x4D2
+ 0000000A  429A      CMP         R2,R3 ; j
+ 0000000C  D3FA      BCC         L_6  ; T=0x00000004
+ 0000000E  3001      ADD         R0,#0x1
+ 00000010  1C01      MOV         R1,R0 ; i
+ 00000012  2923      CMP         R1,#0x23 ; i
+ARM COMPILER V2.53,  Demo_KeyPad                                                           25/05/09  23:27:36  PAGE 4   
+
+ 00000014  D3F5      BCC         L_10  ; T=0x00000002
+ 00000016            ; SCOPE-END
+   47: }
+ 00000016  4770      BX          R14
+ 00000018          ENDP ; 'Delay?T'
+
+
+*** CODE SEGMENT '?PR?main?Demo_KeyPad':
+   51: void main()
+ 00000000  B500      PUSH        {LR}
+   54:     U0LCR = 0x83;           //Serial Port Configuration to 9600 bps @ 12 MHz
+ 00000002  2183      MOV         R1,#0x83
+ 00000004  4800      LDR         R0,=0xE000C00C
+ 00000006  7001      STRB        R1,[R0,#0x0]
+   55:     U0DLL = 0x61;
+ 00000008  2161      MOV         R1,#0x61
+ 0000000A  4800      LDR         R0,=0xE000C000
+ 0000000C  7001      STRB        R1,[R0,#0x0]
+   56:     U0LCR = 0x03;
+ 0000000E  2103      MOV         R1,#0x3
+ 00000010  4800      LDR         R0,=0xE000C00C
+ 00000012  7001      STRB        R1,[R0,#0x0]
+   58:     PINSEL0 |= 0x05;        //Pin Select for UART 0 and remaining GPIO
+ 00000014  2205      MOV         R2,#0x5
+ 00000016  4800      LDR         R0,=0xE002C000
+ 00000018  6801      LDR         R1,[R0,#0x0]
+ 0000001A  4311      ORR         R1,R2
+ 0000001C  6001      STR         R1,[R0,#0x0]
+   59:     PINSEL1 = 0;
+ 0000001E  2100      MOV         R1,#0x0
+ 00000020  4800      LDR         R0,=0xE002C004
+ 00000022  6001      STR         R1,[R0,#0x0]
+   63:        LCD_Config (&IOPIN0 /*LCD Data Port*/, 16 /* Data LSB D0*/);
+ 00000024  4800      LDR         R0,=0xE0028000
+ 00000026  2110      MOV         R1,#0x10
+ 00000028  F7FF      BL          LCD_Config?T  ; T=0x0001  (1)
+ 0000002A  FFEA      BL          LCD_Config?T  ; T=0x0001  (2)
+   65:     while(1)                //Loop From Here....
+ 0000002C          L_13:
+   67:         Delay();
+ 0000002C  F7FF      BL          Delay?T  ; T=0x0001  (1)
+ 0000002E  FFE8      BL          Delay?T  ; T=0x0001  (2)
+   68:         Delay();
+ 00000030  F7FF      BL          Delay?T  ; T=0x0001  (1)
+ 00000032  FFE6      BL          Delay?T  ; T=0x0001  (2)
+   70:         KeyScan(&IOPIN1/*KeyPad Port*/,16/*Starting Data Pin D0*/,
+ 00000034  4800      LDR         R0,=0xE0028010
+ 00000036  4800      LDR         R2,=Row_Data ; Row_Data
+ 00000038  4800      LDR         R3,=Col_Data ; Col_Data
+ 0000003A  2110      MOV         R1,#0x10
+ 0000003C  F7FF      BL          KeyScan?T  ; T=0x0001  (1)
+ 0000003E  FFE0      BL          KeyScan?T  ; T=0x0001  (2)
+   75:         if (Row_Data < 4 && Col_Data < 4)
+ 00000040  4800      LDR         R0,=Row_Data ; Row_Data
+ 00000042  7800      LDRB        R0,[R0,#0x0] ; Row_Data
+ 00000044  2804      CMP         R0,#0x4
+ 00000046  DAF1      BGE         L_13  ; T=0x0000002C
+ 00000048  4800      LDR         R0,=Col_Data ; Col_Data
+ 0000004A  7800      LDRB        R0,[R0,#0x0] ; Col_Data
+ 0000004C  2804      CMP         R0,#0x4
+ 0000004E  DAED      BGE         L_13  ; T=0x0000002C
+   77:             U0THR = Msg[Row_Data][Col_Data];
+ 00000050  4800      LDR         R0,=Row_Data ; Row_Data
+ 00000052  7800      LDRB        R0,[R0,#0x0] ; Row_Data
+ 00000054  1C01      MOV         R1,R0
+ 00000056  0089      LSL         R1,R1,#0x2
+ 00000058  4800      LDR         R0,=Col_Data ; Col_Data
+ 0000005A  7800      LDRB        R0,[R0,#0x0] ; Col_Data
+ARM COMPILER V2.53,  Demo_KeyPad                                                           25/05/09  23:27:36  PAGE 5   
+
+ 0000005C  1809      ADD         R1,R0
+ 0000005E  4800      LDR         R0,=Msg ; Msg
+ 00000060  5C41      LDRB        R1,[R0,R1]
+ 00000062  4800      LDR         R0,=0xE000C000
+ 00000064  7001      STRB        R1,[R0,#0x0]
+   78:             Delay();
+ 00000066  F7FF      BL          Delay?T  ; T=0x0001  (1)
+ 00000068  FFCB      BL          Delay?T  ; T=0x0001  (2)
+   79:             Delay();
+ 0000006A  F7FF      BL          Delay?T  ; T=0x0001  (1)
+ 0000006C  FFC9      BL          Delay?T  ; T=0x0001  (2)
+   80:             U0THR = '\n';
+ 0000006E  210A      MOV         R1,#0xA
+ 00000070  4800      LDR         R0,=0xE000C000
+ 00000072  7001      STRB        R1,[R0,#0x0]
+   81:             if (Pos == 0x80)
+ 00000074  4800      LDR         R0,=Pos ; Pos
+ 00000076  7800      LDRB        R0,[R0,#0x0] ; Pos
+ 00000078  2880      CMP         R0,#0x80
+ 0000007A  D104      BNE         L_16  ; T=0x00000086
+   83:                 lcd_cmd (&IOPIN0 /*LCD Data Port*/,16 /*Data LSB D0*/, 
+ 0000007C  4800      LDR         R0,=0xE0028000
+ 0000007E  2110      MOV         R1,#0x10
+ 00000080  2201      MOV         R2,#0x1
+ 00000082  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 00000084  FFBD      BL          lcd_cmd?T  ; T=0x0001  (2)
+   85:             }
+ 00000086          L_16:
+   86:             if (Pos == 0x90)
+ 00000086  4800      LDR         R0,=Pos ; Pos
+ 00000088  7800      LDRB        R0,[R0,#0x0] ; Pos
+ 0000008A  2890      CMP         R0,#0x90
+ 0000008C  D102      BNE         L_17  ; T=0x00000094
+   88:                 Pos = 0xC0;
+ 0000008E  21C0      MOV         R1,#0xC0
+ 00000090  4800      LDR         R0,=Pos ; Pos
+ 00000092  7001      STRB        R1,[R0,#0x0] ; Pos
+   89:             }
+ 00000094          L_17:
+   90:             if (Pos > 0xCF)
+ 00000094  4800      LDR         R0,=Pos ; Pos
+ 00000096  7800      LDRB        R0,[R0,#0x0] ; Pos
+ 00000098  28CF      CMP         R0,#0xCF
+ 0000009A  DD02      BLE         L_18  ; T=0x000000A2
+   92:                 Pos = 0x80;
+ 0000009C  2180      MOV         R1,#0x80
+ 0000009E  4800      LDR         R0,=Pos ; Pos
+ 000000A0  7001      STRB        R1,[R0,#0x0] ; Pos
+   93:             }
+ 000000A2          L_18:
+   94:             lcd_cmd (&IOPIN0/*LCD Data Port*/,16/*Data LSB D0*/,
+ 000000A2  4800      LDR         R1,=Pos ; Pos
+ 000000A4  7808      LDRB        R0,[R1,#0x0] ; Pos
+ 000000A6  1C02      MOV         R2,R0
+ 000000A8  3201      ADD         R2,#0x1
+ 000000AA  700A      STRB        R2,[R1,#0x0] ; Pos
+ 000000AC  1C02      MOV         R2,R0
+ 000000AE  4800      LDR         R0,=0xE0028000
+ 000000B0  2110      MOV         R1,#0x10
+ 000000B2  F7FF      BL          lcd_cmd?T  ; T=0x0001  (1)
+ 000000B4  FFA5      BL          lcd_cmd?T  ; T=0x0001  (2)
+   96:             Delay();
+ 000000B6  F7FF      BL          Delay?T  ; T=0x0001  (1)
+ 000000B8  FFA3      BL          Delay?T  ; T=0x0001  (2)
+   97:             lcd_data (&IOPIN0/*LCD Data Port*/,16/*Data LSB D0*/,
+ 000000BA  4800      LDR         R0,=Row_Data ; Row_Data
+ARM COMPILER V2.53,  Demo_KeyPad                                                           25/05/09  23:27:36  PAGE 6   
+
+ 000000BC  7800      LDRB        R0,[R0,#0x0] ; Row_Data
+ 000000BE  1C01      MOV         R1,R0
+ 000000C0  0089      LSL         R1,R1,#0x2
+ 000000C2  4800      LDR         R0,=Col_Data ; Col_Data
+ 000000C4  7800      LDRB        R0,[R0,#0x0] ; Col_Data
+ 000000C6  1809      ADD         R1,R0
+ 000000C8  4800      LDR         R0,=Msg ; Msg
+ 000000CA  5C40      LDRB        R0,[R0,R1]
+ 000000CC  1C02      MOV         R2,R0
+ 000000CE  4800      LDR         R0,=0xE0028000
+ 000000D0  2110      MOV         R1,#0x10
+ 000000D2  F7FF      BL          lcd_data?T  ; T=0x0001  (1)
+ 000000D4  FF95      BL          lcd_data?T  ; T=0x0001  (2)
+  100:     }
+ 000000D6  E7A9      B           L_13  ; T=0x0000002C
+  101: }
+ 000000D8  BC08      POP         {R3}
+ 000000DA  4718      BX          R3
+ 000000DC          ENDP ; 'main'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =        19
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

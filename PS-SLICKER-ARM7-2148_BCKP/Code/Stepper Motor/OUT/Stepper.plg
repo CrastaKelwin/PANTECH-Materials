@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Admin\Desktop\PS-SLICKER-ARM7-2148\Code\Stepper Motor\Stepper Motor.uv2
+Project File Date:  02/19/2010
+
+<h2>Output:</h2>
+Build target 'Demo'
+assembling Startup.s...
+compiling Stepper Motor.c...
+linking...
+Program Size: data=1177 const=44 code=516
+creating hex file from ".\OUT\Stepper"...
+".\OUT\Stepper" - 0 Error(s), 0 Warning(s).

@@ -1,0 +1,6 @@
+".\OUt\Startup.obj",
+".\OUt\Relay_Buz_Toggle.obj" 
+TO ".\OUt\RLY_BUZ" 
+PRINT(".\RLY_BUZ.map") CASE 
+CLASSES (DATA (0x40000000-0x40007FFF), 
+CODE (0x0-0x7FFFF), CONST (0x0-0x7FFFF)) 

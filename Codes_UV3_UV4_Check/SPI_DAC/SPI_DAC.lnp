@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "startup.o" "spi_dac.o" --strict --scatter "SPI_DAC.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\SPI_DAC.map" -o SPI_DAC.axf

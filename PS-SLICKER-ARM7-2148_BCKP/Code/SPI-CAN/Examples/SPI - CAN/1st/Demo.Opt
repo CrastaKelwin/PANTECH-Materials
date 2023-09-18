@@ -1,0 +1,42 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.s*; *.src; *.a*)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt; *.h; *.inc)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (LPC214X), 0x0005 // Tools: ''
+GRPOPT 1,(Startup Code),1,0,0
+GRPOPT 2,(Source Code),1,0,0
+GRPOPT 3,(OBJ),1,0,0
+
+OPTFFF 1,1,2,0,0,0,0,0,<.\Startup.S><Startup.S> 
+OPTFFF 2,2,1,285212674,0,102,116,0,<.\Demo.c><Demo.c> { 44,0,0,0,2,0,0,0,3,0,0,0,255,255,255,255,255,255,255,255,248,255,255,255,226,255,255,255,0,0,0,0,0,0,0,0,86,4,0,0,131,1,0,0 }
+OPTFFF 3,3,3,0,0,0,0,0,<..\..\..\OBJ\CAN_SPIsw.obj><CAN_SPIsw.obj> 
+OPTFFF 3,4,3,0,0,0,0,0,<..\..\..\OBJ\SPIsw.obj><SPIsw.obj> 
+OPTFFF 3,5,3,0,0,0,0,0,<..\..\..\OBJ\Utility.obj><Utility.obj> 
+
+
+TARGOPT 1, (LPC214X)
+ KACLK=12000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\Lst\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,1,1
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTBL 0,(Data Sheet)<DATASHTS\PHILIPS\LPC2141_42_44_46_48.PDF>
+  OPTBL 1,(User Manual)<DATASHTS\PHILIPS\user_manual_LPC214x.pdf>
+  OPTDL (SARM.DLL)(-cLPC2100)(DARMP.DLL)(-pLPC2148)(SARM.DLL)()(TARMP.DLL)(-pLPC2148)
+  OPTDBG 48125,0,()()()()()()()()()() (BIN\UL2ARM.DLL)()()()
+  OPTDF 0x2
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

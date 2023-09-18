@@ -1,0 +1,178 @@
+LARM LINKER/LOCATER V2.53                                                               01/06/2009  10:48:00  PAGE 1
+
+
+LARM LINKER/LOCATER V2.53, INVOKED BY:
+C:\KEIL\ARM\BIN\LA.EXE .\Out\Startup.obj, .\Out\Serial.obj, .\Out\RTC_Alarm_altered.obj TO .\Out\RTC_ALARM_00 PRINT (.\R
+>> TC_ALARM_00.map) CASE CLASSES (DATA (0X40000000-0X40007FFF), CODE (0X0-0X7FFFF), CONST (0X0-0X7FFFF))
+
+
+CPU MODE: LITTLE ENDIAN
+
+
+INPUT MODULES INCLUDED:
+  .\Out\Startup.obj (STARTUP)
+         COMMENT TYPE 0: AA V2.50
+  .\Out\Serial.obj (Serial)
+         COMMENT TYPE 0: CARM V2.53
+  .\Out\RTC_Alarm_altered.obj (RTC_Alarm_altered)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (FIQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (IRQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (DABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (PABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (SWI)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UNDEF)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (atoi)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (isdigit)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (printf)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (isspace)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (prnfmt)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (strlen)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (?C?ICALL)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UDIV)
+         COMMENT TYPE 0: AA V2.50
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\Out\RTC_ALARM_00 (STARTUP)
+
+BASE       START      END        USED       MEMORY CLASS
+========================================================
+00000000H  40000000H  40007FFFH  00000492H  DATA
+00000000H  00000000H  0007FFFFH  00000CD4H  CODE
+00000000H  00000000H  0007FFFFH  0000016EH  CONST
+
+
+INTERRUPT FUNCTIONS
+
+TYPE  STACK SIZE    FUNCTION NAME
+=================================
+irq                 UART1_ISR?A
+irq                 RTC_ISR?A
+
+
+
+
+MEMORY MAP OF MODULE:  .\Out\RTC_ALARM_00 (STARTUP)
+
+LARM LINKER/LOCATER V2.53                                                             01/06/2009  10:48:00  PAGE 2
+
+
+START      STOP       LENGTH    ALIGN  RELOC  MEMORY CLASS   SEGMENT NAME
+=========================================================================
+00000000H  0000010FH  00000110H     4  AT..   CODE           STARTUPCODE
+00000110H  0000025EH  0000014FH     4  UNIT   CONST          ?CON?RTC_Alarm_altered
+0000025FH  0000025FH  00000001H   ---  ---    **GAP**
+00000260H  00000266H  00000007H     4  UNIT   CONST          ?CON?prnfmt
+00000267H  00000267H  00000001H   ---  ---    **GAP**
+00000268H  00000277H  00000010H     4  UNIT   CONST          ?C_CLRSEG
+00000278H  0000027FH  00000008H     4  UNIT   CONST          ?C_INITSEG
+00000280H  000002BBH  0000003CH     4  UNIT   CODE           ?PR?putchar?T?Serial
+000002BCH  0000033BH  00000080H     4  UNIT   CODE           ?PR?UART1_ISR?A?RTC_Alarm_altered
+0000033CH  0000038FH  00000054H     4  UNIT   CODE           ?PR?RTC_ISR?A?RTC_Alarm_altered
+00000390H  000003B3H  00000024H     4  UNIT   CODE           ?PR?DelayMs?T?RTC_Alarm_altered
+000003B4H  00000423H  00000070H     4  UNIT   CODE           ?PR?Initialize?T?RTC_Alarm_altered
+00000424H  00000497H  00000074H     4  UNIT   CODE           ?PR?RTC_Setup?T?RTC_Alarm_altered
+00000498H  000004B3H  0000001CH     4  UNIT   CODE           ?PR?Delay?T?RTC_Alarm_altered
+000004B4H  000004DBH  00000028H     4  UNIT   CODE           ?PR?Wait?T?RTC_Alarm_altered
+000004DCH  000004FFH  00000024H     4  UNIT   CODE           ?PR?Alarm?T?RTC_Alarm_altered
+00000500H  000007ABH  000002ACH     4  UNIT   CODE           ?PR?main?RTC_Alarm_altered
+000007ACH  000007AFH  00000004H     4  UNIT   CODE           ?C?FIQ
+000007B0H  000007B3H  00000004H     4  UNIT   CODE           ?C?IRQ
+000007B4H  000007B7H  00000004H     4  UNIT   CODE           ?C?DABT
+000007B8H  000007BBH  00000004H     4  UNIT   CODE           ?C?PABT
+000007BCH  000007C3H  00000008H     4  UNIT   CODE           ?C?UNDEF
+000007C4H  00000837H  00000074H     4  UNIT   CODE           ?PR?atoi?T?atoi
+00000838H  0000085BH  00000024H     4  UNIT   CODE           ?PR?isdigit?T?isdigit
+0000085CH  0000088FH  00000034H     4  UNIT   CODE           ?PR?printf?T?printf
+00000890H  000008B7H  00000028H     4  UNIT   CODE           ?PR?isspace?T?isspace
+000008B8H  000008E7H  00000030H     4  UNIT   CODE           ?PR?charout?T?prnfmt
+000008E8H  00000923H  0000003CH     4  UNIT   CODE           ?PR?numout?T?prnfmt
+00000924H  000009E3H  000000C0H     4  UNIT   CODE           ?PR?signout?T?prnfmt
+000009E4H  00000DCBH  000003E8H     4  UNIT   CODE           ?PR?__prnfmt?T?prnfmt
+00000DCCH  00000DEBH  00000020H     4  UNIT   CODE           ?PR?strlen?T?strlen
+00000DECH  00000DFBH  00000010H     4  UNIT   CODE           ?PR?C?ICALL
+00000DFCH  00000E43H  00000048H     4  UNIT   CODE           ?PR?C?UDIV
+00000E44H  3FFFFFFFH  3FFFF1BCH   ---  ---    **GAP**
+40000000H  4000048FH  00000490H     4  UNIT   DATA           STACK
+40000490H  40000491H  00000002H     4  UNIT   DATA           ?DT0?RTC_Alarm_altered
+
+
+
+REMOVED FUNCTIONS OF MODULE:  .\Out\RTC_ALARM_00 (STARTUP)
+
+      ATTRIBUTE  FUNCTION NAME
+      ========================
+       unused    getchar?T
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\Out\RTC_ALARM_00 (STARTUP)
+
+      VALUE      CLASS    TYPE      PUBLIC SYMBOL NAME
+      ================================================
+      00000268H  ---      ---       ?C?CLRTAB
+      00000DECH  CODE     ---       ?C?ICALL0?T
+      00000DEEH  CODE     ---       ?C?ICALL1?T
+      00000DF0H  CODE     ---       ?C?ICALL2?T
+      00000DF2H  CODE     ---       ?C?ICALL3?T
+      00000DF4H  CODE     ---       ?C?ICALL4?T
+      00000DF6H  CODE     ---       ?C?ICALL5?T
+      00000DF8H  CODE     ---       ?C?ICALL6?T
+      00000DFAH  CODE     ---       ?C?ICALL7?T
+      00000500H  ---      ---       ?C?INIT
+      00000278H  ---      ---       ?C?INITTAB
+      00000E00H  CODE     ---       ?C?UDIV?A
+LARM LINKER/LOCATER V2.53                                                             01/06/2009  10:48:00  PAGE 3
+
+
+      00000DFCH  CODE     ---       ?C?UDIV?T
+      000004DCH  CODE     ---       Alarm?T
+      000007B4H  CODE     ---       DAbt_Handler?A
+      00000498H  CODE     ---       Delay?T
+      00000390H  CODE     ---       DelayMs?T
+      000007ACH  CODE     ---       FIQ_Handler?A
+      40000490H  DATA     BYTE      Flag
+      000007B0H  CODE     ---       IRQ_Handler?A
+      000003B4H  CODE     ---       Initialize?T
+      40000491H  DATA     BYTE      Key
+      000007B8H  CODE     ---       PAbt_Handler?A
+      0000033CH  CODE     ---       RTC_ISR?A
+      00000424H  CODE     ---       RTC_Setup?T
+      000007BCH  CODE     ---       SWI_Handler?A
+      000002BCH  CODE     ---       UART1_ISR?A
+      000007C0H  CODE     ---       Undef_Handler?A
+      000004B4H  CODE     ---       Wait?T
+      000009E4H  CODE     ---       __prnfmt?A
+      000009F0H  CODE     ---       __prnfmt?T
+      00000000H  CODE     ---       __startup
+      000007C4H  CODE     ---       atoi?A
+      000007D0H  CODE     ---       atoi?T
+      000000F0H  CODE     ---       exit?A
+      000000F4H  CODE     ---       exit?T
+      00000000H  CODE     ---       getchar?T
+      00000838H  CODE     ---       isdigit?A
+      00000844H  CODE     ---       isdigit?T
+      00000890H  CODE     ---       isspace?A
+      0000089CH  CODE     ---       isspace?T
+      00000534H  CODE     ---       main
+      0000085CH  CODE     ---       printf?A
+      00000868H  CODE     ---       printf?T
+      00000280H  CODE     ---       putchar?T
+      00000DCCH  CODE     ---       strlen?A
+      00000DD8H  CODE     ---       strlen?T
+
+Program Size: data=1170 const=366 code=3284
+LARM RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

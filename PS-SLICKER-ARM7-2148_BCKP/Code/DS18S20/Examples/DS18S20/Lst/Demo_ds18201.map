@@ -1,0 +1,188 @@
+LARM LINKER/LOCATER V2.54a                                                              07/15/2010  16:40:25  PAGE 1
+
+
+LARM LINKER/LOCATER V2.54a, INVOKED BY:
+C:\KEIL\ARM\BIN\LA.EXE .\Obj\Startup.obj, .\Obj\Demo1.obj, ..\..\OBJ\OneWire.obj, ..\..\OBJ\Utility.obj, ..\..\OBJ\LCD8.
+>> obj TO .\Obj\Demo_ds18201 PRINT (.\Lst\Demo_ds18201.map) CASE CLASSES (DATA (0X40000000-0X40007FFF), CODE (0X0-0X7FFF
+>> F), CONST (0X0-0X7FFFF))
+
+
+CPU MODE: LITTLE ENDIAN
+
+
+INPUT MODULES INCLUDED:
+  .\Obj\Startup.obj (STARTUP)
+         COMMENT TYPE 0: AA V2.50
+  .\Obj\Demo1.obj (Demo1)
+         COMMENT TYPE 0: CARM V2.54a
+  ..\..\OBJ\OneWire.obj (OneWire)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\Utility.obj (Utility)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\LCD8.obj (LCD8)
+         COMMENT TYPE 0: CARM V2.51a
+  C:\KEIL\ARM\LIB\CAL.LIB (FIQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (IRQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (DABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (PABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (SWI)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UNDEF)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UDIV)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (SDIV)
+         COMMENT TYPE 0: AA V2.50
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\Obj\Demo_ds18201 (STARTUP)
+
+BASE       START      END        USED       MEMORY CLASS
+========================================================
+00000000H  40000000H  40007FFFH  00000505H  DATA
+00000000H  00000000H  0007FFFFH  0000096CH  CODE
+00000000H  00000000H  0007FFFFH  00000041H  CONST
+
+
+
+MEMORY MAP OF MODULE:  .\Obj\Demo_ds18201 (STARTUP)
+
+START      STOP       LENGTH    ALIGN  RELOC  MEMORY CLASS   SEGMENT NAME
+=========================================================================
+00000000H  0000011FH  00000120H     4  AT..   CODE           STARTUPCODE
+00000120H  00000138H  00000019H     4  UNIT   CONST          ?CON?Demo1
+00000139H  0000013BH  00000003H   ---  ---    **GAP**
+0000013CH  0000015BH  00000020H     4  UNIT   CONST          ?C_CLRSEG
+0000015CH  00000163H  00000008H     4  UNIT   CONST          ?C_INITSEG
+00000164H  000001C7H  00000064H     4  UNIT   CODE           ?PR?DS1820_read?T?Demo1
+000001C8H  0000034BH  00000184H     4  UNIT   CODE           ?PR?main?Demo1
+0000034CH  0000039FH  00000054H     4  UNIT   CODE           ?PR?ow_reset?T?OneWire
+000003A0H  000003E3H  00000044H     4  UNIT   CODE           ?PR?read_bit?T?OneWire
+000003E4H  0000042BH  00000048H     4  UNIT   CODE           ?PR?write_bit?T?OneWire
+0000042CH  0000046FH  00000044H     4  UNIT   CODE           ?PR?ow_read?T?OneWire
+00000470H  000004B3H  00000044H     4  UNIT   CODE           ?PR?ow_write?T?OneWire
+000004B4H  00000533H  00000080H     4  UNIT   CODE           ?PR?ow_init?T?OneWire
+00000534H  000005FBH  000000C8H     4  UNIT   CODE           ?PR?int2str?T?Utility
+LARM LINKER/LOCATER V2.54a                                                            07/15/2010  16:40:25  PAGE 2
+
+
+000005FCH  0000060FH  00000014H     4  UNIT   CODE           ?PR?delay_Nx10cyc?T?Utility
+00000610H  0000066BH  0000005CH     4  UNIT   CODE           ?PR?LCD8_SendCMD?T?LCD8
+0000066CH  000006C7H  0000005CH     4  UNIT   CODE           ?PR?LCD8_SendCHAR?T?LCD8
+000006C8H  000008AFH  000001E8H     4  UNIT   CODE           ?PR?LCD8_init?T?LCD8
+000008B0H  000008EFH  00000040H     4  UNIT   CODE           ?PR?LCD8_sendstr?T?LCD8
+000008F0H  000008F3H  00000004H     4  UNIT   CODE           ?C?FIQ
+000008F4H  000008F7H  00000004H     4  UNIT   CODE           ?C?IRQ
+000008F8H  000008FBH  00000004H     4  UNIT   CODE           ?C?DABT
+000008FCH  000008FFH  00000004H     4  UNIT   CODE           ?C?PABT
+00000900H  00000907H  00000008H     4  UNIT   CODE           ?C?UNDEF
+00000908H  0000094FH  00000048H     4  UNIT   CODE           ?PR?C?UDIV
+00000950H  000009AFH  00000060H     4  UNIT   CODE           ?PR?C?SDIV
+000009B0H  3FFFFFFFH  3FFFF650H   ---  ---    **GAP**
+40000000H  4000048FH  00000490H     4  UNIT   DATA           STACK
+40000490H  400004A7H  00000018H     4  UNIT   DATA           ?DT0?Demo1
+400004A8H  400004C0H  00000019H     4  UNIT   DATA           ?DT0?OneWire
+400004C1H  400004C3H  00000003H   ---  ---    **GAP**
+400004C4H  40000507H  00000044H     4  UNIT   DATA           ?DT0?LCD8
+
+
+
+REMOVED FUNCTIONS OF MODULE:  .\Obj\Demo_ds18201 (STARTUP)
+
+      ATTRIBUTE  FUNCTION NAME
+      ========================
+       unused    Lo?T
+       unused    Hi?T
+       unused    Higher?T
+       unused    Highest?T
+       unused    hex2str?T
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\Obj\Demo_ds18201 (STARTUP)
+
+      VALUE      CLASS    TYPE      PUBLIC SYMBOL NAME
+      ================================================
+      0000013CH  ---      ---       ?C?CLRTAB
+      000001C8H  ---      ---       ?C?INIT
+      0000015CH  ---      ---       ?C?INITTAB
+      00000954H  CODE     ---       ?C?SDIV?A
+      00000950H  CODE     ---       ?C?SDIV?T
+      0000090CH  CODE     ---       ?C?UDIV?A
+      00000908H  CODE     ---       ?C?UDIV?T
+      400004E4H  DATA     DWORD     DATAmask0
+      400004E8H  DATA     DWORD     DATAmask1
+      000008F8H  CODE     ---       DAbt_Handler?A
+      400004B8H  DATA     DWORD     DQmask0
+      400004BCH  DATA     DWORD     DQmask1
+      00000164H  CODE     ---       DS1820_read?T
+      40000494H  DATA     BYTE      DSMAG
+      40000495H  DATA     BYTE      DSSIGN
+      400004FCH  DATA     DWORD     Emask0
+      40000500H  DATA     DWORD     Emask1
+      000008F0H  CODE     ---       FIQ_Handler?A
+      00000000H  CODE     ---       Hi?T
+      00000000H  CODE     ---       Higher?T
+      00000000H  CODE     ---       Highest?T
+      000008F4H  CODE     ---       IRQ_Handler?A
+      0000066CH  CODE     ---       LCD8_SendCHAR?T
+      00000610H  CODE     ---       LCD8_SendCMD?T
+      000006C8H  CODE     ---       LCD8_init?T
+      000008B0H  CODE     ---       LCD8_sendstr?T
+      00000129H  CONST    ---       LCD_Message
+      00000000H  CODE     ---       Lo?T
+LARM LINKER/LOCATER V2.54a                                                            07/15/2010  16:40:25  PAGE 3
+
+
+      000008FCH  CODE     ---       PAbt_Handler?A
+      400004ECH  DATA     DWORD     RSmask0
+      400004F0H  DATA     DWORD     RSmask1
+      400004F4H  DATA     DWORD     RWmask0
+      400004F8H  DATA     DWORD     RWmask1
+      00000900H  CODE     ---       SWI_Handler?A
+      40000496H  DATA     ---       TEMPnum
+      40000490H  DATA     ---       Temperature
+      00000904H  CODE     ---       Undef_Handler?A
+      400004A6H  DATA     BYTE      Xpos
+      00000000H  CODE     ---       __startup
+      000005FCH  CODE     ---       delay_Nx10cyc?T
+      00000954H  CODE     ---       div?A
+      00000950H  CODE     ---       div?T
+      000000FCH  CODE     ---       exit?A
+      00000100H  CODE     ---       exit?T
+      00000000H  CODE     ---       hex2str?T
+      00000534H  CODE     ---       int2str?T
+      00000954H  CODE     ---       ldiv?A
+      00000950H  CODE     ---       ldiv?T
+      000001FCH  CODE     ---       main
+      000004B4H  CODE     ---       ow_init?T
+      0000042CH  CODE     ---       ow_read?T
+      0000034CH  CODE     ---       ow_reset?T
+      00000470H  CODE     ---       ow_write?T
+      400004D0H  DATA     ---       pCtrlCLR
+      400004C8H  DATA     ---       pCtrlDIR
+      400004C4H  DATA     ---       pCtrlPIN
+      400004CCH  DATA     ---       pCtrlSET
+      400004E0H  DATA     ---       pDataCLR
+      400004D8H  DATA     ---       pDataDIR
+      400004D4H  DATA     ---       pDataPIN
+      400004DCH  DATA     ---       pDataSET
+      400004B4H  DATA     ---       pOWCLR
+      400004ACH  DATA     ---       pOWDIR
+      400004A8H  DATA     ---       pOWPIN
+      400004B0H  DATA     ---       pOWSET
+      40000504H  DATA     BYTE      posD0
+      400004C0H  DATA     BYTE      posDQ
+      40000507H  DATA     BYTE      posE
+      40000505H  DATA     BYTE      posRS
+      40000506H  DATA     BYTE      posRW
+      000003A0H  CODE     ---       read_bit?T
+      400004A7H  DATA     BYTE      temp1
+      000003E4H  CODE     ---       write_bit?T
+
+Program Size: data=1285 const=65 code=2412
+LARM RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

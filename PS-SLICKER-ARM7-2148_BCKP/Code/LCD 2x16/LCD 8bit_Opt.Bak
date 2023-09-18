@@ -1,0 +1,38 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.s*; *.src; *.a*)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt; *.h; *.inc)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (Demo_LCD), 0x0005 // Tools: ''
+GRPOPT 1,(Start Up),0,0,0
+GRPOPT 2,(Source Group),1,0,0
+GRPOPT 3,(Obj),1,0,0
+
+OPTFFF 1,1,2,0,0,0,0,0,<.\Startup.s><Startup.s> 
+OPTFFF 2,2,1,1358954498,0,23,40,0,<.\LCD 8bit.c><LCD 8bit.c> { 44,0,0,0,2,0,0,0,3,0,0,0,255,255,255,255,255,255,255,255,248,255,255,255,226,255,255,255,0,0,0,0,0,0,0,0,86,4,0,0,131,1,0,0 }
+OPTFFF 3,3,3,0,0,0,0,0,<.\Out\LCD Utility.obj><LCD Utility.obj> 
+
+
+TARGOPT 1, (Demo_LCD)
+ KACLK=12000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 0,0,0,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTDL (SARM.DLL)(-cLPC2100)(DARMP.DLL)(-pLPC2138)(SARM.DLL)()(TARMP.DLL)(-pLPC2138)
+  OPTDBG 48125,-1,()()()()()()()()()() ()()()()
+  OPTDF 0x0
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

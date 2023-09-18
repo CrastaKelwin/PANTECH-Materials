@@ -1,0 +1,290 @@
+LARM LINKER/LOCATER V2.53                                                               04/25/2009  14:43:42  PAGE 1
+
+
+LARM LINKER/LOCATER V2.53, INVOKED BY:
+C:\KEIL\ARM\BIN\LA.EXE ..\..\..\..\..\..\..\..\Desktop\Startup.obj, ..\..\..\..\..\..\..\..\Desktop\DEMO.obj, ..\..\OBJ\
+>> c_ctype.obj, ..\..\OBJ\conv.obj, ..\..\OBJ\enc28j60.obj, ..\..\OBJ\SPIhw.obj, ..\..\OBJ\Utility.obj TO ..\..\..\..\..
+>> \..\..\..\Desktop\DEMO PRINT (.\Lst\DEMO.map) CODE (.\Lst\DEMO.cod) CASE CLASSES (DATA (0X40000000-0X40007FFF), CODE 
+>> (0X0-0X7FFFF), CONST (0X0-0X7FFFF))
+
+
+CPU MODE: LITTLE ENDIAN
+
+
+INPUT MODULES INCLUDED:
+  ..\..\..\..\..\..\..\..\Desktop\Startup.obj (STARTUP)
+         COMMENT TYPE 0: AA V2.50
+  ..\..\..\..\..\..\..\..\Desktop\DEMO.obj (DEMO)
+         COMMENT TYPE 0: CARM V2.53
+  ..\..\OBJ\c_ctype.obj (c_ctype)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\conv.obj (conv)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\enc28j60.obj (enc28j60)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\SPIhw.obj (SPIhw)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\OBJ\Utility.obj (Utility)
+         COMMENT TYPE 0: CARM V2.51a
+  C:\KEIL\ARM\LIB\CAL.LIB (FIQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (IRQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (DABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (PABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (SWI)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UNDEF)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (memcpy)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (memcmp)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (UDIV)
+         COMMENT TYPE 0: AA V2.50
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  ..\..\..\..\..\..\..\..\Desktop\DEMO (STARTUP)
+
+BASE       START      END        USED       MEMORY CLASS
+========================================================
+00000000H  40000000H  40007FFFH  0000052EH  DATA
+00000000H  00000000H  0007FFFFH  00002C2CH  CODE
+00000000H  00000000H  0007FFFFH  00000576H  CONST
+
+
+
+MEMORY MAP OF MODULE:  ..\..\..\..\..\..\..\..\Desktop\DEMO (STARTUP)
+
+START      STOP       LENGTH    ALIGN  RELOC  MEMORY CLASS   SEGMENT NAME
+=========================================================================
+00000000H  0000011FH  00000120H     4  AT..   CODE           STARTUPCODE
+00000120H  00000640H  00000521H     4  UNIT   CONST          ?CON?DEMO
+00000641H  00000643H  00000003H   ---  ---    **GAP**
+00000644H  0000064CH  00000009H     4  UNIT   CONST          ?CON?enc28j60
+0000064DH  0000064FH  00000003H   ---  ---    **GAP**
+00000650H  0000066FH  00000020H     4  UNIT   CONST          ?C_CLRSEG
+00000670H  0000069BH  0000002CH     4  UNIT   CONST          ?C_INITSEG
+LARM LINKER/LOCATER V2.53                                                             04/25/2009  14:43:42  PAGE 2
+
+
+0000069CH  000007C3H  00000128H     4  UNIT   CODE           ?PR?ENC28J60_userUDP?A?DEMO
+000007C4H  00000A97H  000002D4H     4  UNIT   CODE           ?PR?ENC28J60_userTCP?A?DEMO
+00000A98H  00000AD3H  0000003CH     4  UNIT   CODE           ?PR?putConstString?A?DEMO
+00000AD4H  00000B0FH  0000003CH     4  UNIT   CODE           ?PR?putString?A?DEMO
+00000B10H  00000C37H  00000128H     4  UNIT   CODE           ?PR?main?DEMO
+00000C38H  00000C73H  0000003CH     4  UNIT   CODE           ?PR?islower?A?c_ctype
+00000C74H  00000CAFH  0000003CH     4  UNIT   CODE           ?PR?isupper?A?c_ctype
+00000CB0H  00000CEBH  0000003CH     4  UNIT   CODE           ?PR?isdigit?A?c_ctype
+00000CECH  00000DDBH  000000F0H     4  UNIT   CODE           ?PR?ispunct?A?c_ctype
+00000DDCH  00000E1BH  00000040H     4  UNIT   CODE           ?PR?toupper?A?c_ctype
+00000E1CH  00000F27H  0000010CH     4  UNIT   CODE           ?PR?ByteToStr?A?conv
+00000F28H  00001057H  00000130H     4  UNIT   CODE           ?PR?WordToStr?A?conv
+00001058H  00001143H  000000ECH     4  UNIT   CODE           ?PR?IntToStr?A?conv
+00001144H  00001493H  00000350H     4  UNIT   CODE           ?PR?ENC28J60_Init?A?enc28j60
+00001494H  000014CFH  0000003CH     4  UNIT   CODE           ?PR?ENC28J60_doPacket?A?enc28j60
+000014D0H  00001533H  00000064H     4  UNIT   CODE           ?PR?ENC28J60_putByte?A?enc28j60
+00001534H  0000159BH  00000068H     4  UNIT   CODE           ?PR?ENC28J60_getByte?A?enc28j60
+0000159CH  0000162BH  00000090H     4  UNIT   CODE           ?PR?ENC28J60_memcpy?A?enc28j60
+0000162CH  000016DBH  000000B0H     4  UNIT   CODE           ?PR?ENC28J60_memcmp?A?enc28j60
+000016DCH  00001773H  00000098H     4  UNIT   CODE           ?PR?ENC28J60_writeMemory?A?enc28j60
+00001774H  000017E7H  00000074H     4  UNIT   CODE           ?PR?ENC28J60_readMem?A?enc28j60
+000017E8H  0000185BH  00000074H     4  UNIT   CODE           ?PR?ENC28J60_readReg?A?enc28j60
+0000185CH  000018D7H  0000007CH     4  UNIT   CODE           ?PR?ENC28J60_writeAddr?A?enc28j60
+000018D8H  0000194BH  00000074H     4  UNIT   CODE           ?PR?ENC28J60_writeReg?A?enc28j60
+0000194CH  000019BFH  00000074H     4  UNIT   CODE           ?PR?ENC28J60_setBitReg?A?enc28j60
+000019C0H  00001A33H  00000074H     4  UNIT   CODE           ?PR?ENC28J60_clearBitReg?A?enc28j60
+00001A34H  00002197H  00000764H     4  UNIT   CODE           ?PR?ENC28J60_doTCP?A?enc28j60
+00002198H  000024EBH  00000354H     4  UNIT   CODE           ?PR?ENC28J60_doUDP?A?enc28j60
+000024ECH  000024FFH  00000014H     4  UNIT   CODE           ?PR?ENC28J60_delay?A?enc28j60
+00002500H  0000257BH  0000007CH     4  UNIT   CODE           ?PR?ENC28J60_readPHY?A?enc28j60
+0000257CH  000025E3H  00000068H     4  UNIT   CODE           ?PR?ENC28J60_writePHY?A?enc28j60
+000025E4H  00002717H  00000134H     4  UNIT   CODE           ?PR?ENC28J60_RAMcopy?A?enc28j60
+00002718H  00002753H  0000003CH     4  UNIT   CODE           ?PR?ENC28J60_MACswap?A?enc28j60
+00002754H  0000278BH  00000038H     4  UNIT   CODE           ?PR?ENC28J60_IPswap?A?enc28j60
+0000278CH  000027FFH  00000074H     4  UNIT   CODE           ?PR?ENC28J60_TXpacket?A?enc28j60
+00002800H  00002CCFH  000004D0H     4  UNIT   CODE           ?PR?ENC28J60_readPacket?A?enc28j60
+00002CD0H  00002D27H  00000058H     4  UNIT   CODE           ?PR?ENC28J60_checksum?A?enc28j60
+00002D28H  00002ECFH  000001A8H     4  UNIT   CODE           ?PR?ENC28J60_Init2?A?enc28j60
+00002ED0H  0000305BH  0000018CH     4  UNIT   CODE           ?PR?SPI_init?A?SPIhw
+0000305CH  000030B3H  00000058H     4  UNIT   CODE           ?PR?SPI_char?A?SPIhw
+000030B4H  000030DBH  00000028H     4  UNIT   CODE           ?PR?delay_Nx10cyc?A?Utility
+000030DCH  000030DFH  00000004H     4  UNIT   CODE           ?C?FIQ
+000030E0H  000030E3H  00000004H     4  UNIT   CODE           ?C?IRQ
+000030E4H  000030E7H  00000004H     4  UNIT   CODE           ?C?DABT
+000030E8H  000030EBH  00000004H     4  UNIT   CODE           ?C?PABT
+000030ECH  000030F3H  00000008H     4  UNIT   CODE           ?C?UNDEF
+000030F4H  00003123H  00000030H     4  UNIT   CODE           ?PR?memcpy?T?memcpy
+00003124H  0000315FH  0000003CH     4  UNIT   CODE           ?PR?memcmp?T?memcmp
+00003160H  000031A7H  00000048H     4  UNIT   CODE           ?PR?C?UDIV
+000031A8H  3FFFFFFFH  3FFFCE58H   ---  ---    **GAP**
+40000000H  4000048FH  00000490H     4  UNIT   DATA           STACK
+40000490H  400004D5H  00000046H     4  UNIT   DATA           ?DT0?DEMO
+400004D6H  400004D7H  00000002H   ---  ---    **GAP**
+400004D8H  40000516H  0000003FH     4  UNIT   DATA           ?DT0?enc28j60
+40000517H  40000517H  00000001H   ---  ---    **GAP**
+40000518H  40000530H  00000019H     4  UNIT   DATA           ?DT0?SPIhw
+
+
+
+REMOVED FUNCTIONS OF MODULE:  ..\..\..\..\..\..\..\..\Desktop\DEMO (STARTUP)
+
+      ATTRIBUTE  FUNCTION NAME
+      ========================
+       unused    isalpha?A
+       unused    iscntrl?A
+LARM LINKER/LOCATER V2.53                                                             04/25/2009  14:43:42  PAGE 3
+
+
+       unused    isalnum?A
+       unused    isspace?A
+       unused    isgraph?A
+       unused    isxdigit?A
+       unused    tolower?A
+       unused    ShortToStr?A
+       unused    LongToStr?A
+       unused    Bcd2Dec?A
+       unused    Dec2Bcd?A
+       unused    Bcd2Dec16?A
+       unused    Dec2Bcd16?A
+       unused    rtrim?A
+       unused    SPI_enable?A
+       unused    SPI_disable?A
+       unused    Lo?A
+       unused    Hi?A
+       unused    Higher?A
+       unused    Highest?A
+       unused    hex2str?A
+       unused    int2str?A
+
+
+
+PUBLIC SYMBOLS OF MODULE:  ..\..\..\..\..\..\..\..\Desktop\DEMO (STARTUP)
+
+      VALUE      CLASS    TYPE      PUBLIC SYMBOL NAME
+      ================================================
+      00000650H  ---      ---       ?C?CLRTAB
+      00000B10H  ---      ---       ?C?INIT
+      00000670H  ---      ---       ?C?INITTAB
+      00003164H  CODE     ---       ?C?UDIV?A
+      00003160H  CODE     ---       ?C?UDIV?T
+      00000000H  CODE     ---       Bcd2Dec16?A
+      00000000H  CODE     ---       Bcd2Dec?A
+      00000E1CH  CODE     ---       ByteToStr?A
+      40000528H  DATA     DWORD     CSmask0
+      4000052CH  DATA     DWORD     CSmask1
+      000030E4H  CODE     ---       DAbt_Handler?A
+      00000000H  CODE     ---       Dec2Bcd16?A
+      00000000H  CODE     ---       Dec2Bcd?A
+      400004FCH  DATA     DWORD     ENC28J60_CSmask0
+      40000500H  DATA     DWORD     ENC28J60_CSmask1
+      00002754H  CODE     ---       ENC28J60_IPswap?A
+      00002D28H  CODE     ---       ENC28J60_Init2?A
+      00001144H  CODE     ---       ENC28J60_Init?A
+      00002718H  CODE     ---       ENC28J60_MACswap?A
+      000025E4H  CODE     ---       ENC28J60_RAMcopy?A
+      40000504H  DATA     DWORD     ENC28J60_RSTmask0
+      40000508H  DATA     DWORD     ENC28J60_RSTmask1
+      0000278CH  CODE     ---       ENC28J60_TXpacket?A
+      00002CD0H  CODE     ---       ENC28J60_checksum?A
+      000019C0H  CODE     ---       ENC28J60_clearBitReg?A
+      40000516H  DATA     BYTE      ENC28J60_closeTCP
+      000024ECH  CODE     ---       ENC28J60_delay?A
+      00001494H  CODE     ---       ENC28J60_doPacket?A
+      00001A34H  CODE     ---       ENC28J60_doTCP?A
+      00002198H  CODE     ---       ENC28J60_doUDP?A
+      00001534H  CODE     ---       ENC28J60_getByte?A
+      40000512H  DATA     ---       ENC28J60_ipAddr
+      4000050CH  DATA     ---       ENC28J60_macAddr
+      0000162CH  CODE     ---       ENC28J60_memcmp?A
+      0000159CH  CODE     ---       ENC28J60_memcpy?A
+      400004D8H  DATA     DWORD     ENC28J60_pktLen
+      000014D0H  CODE     ---       ENC28J60_putByte?A
+      00001774H  CODE     ---       ENC28J60_readMem?A
+LARM LINKER/LOCATER V2.53                                                             04/25/2009  14:43:42  PAGE 4
+
+
+      00002500H  CODE     ---       ENC28J60_readPHY?A
+      00002800H  CODE     ---       ENC28J60_readPacket?A
+      000017E8H  CODE     ---       ENC28J60_readReg?A
+      0000194CH  CODE     ---       ENC28J60_setBitReg?A
+      000007C4H  CODE     ---       ENC28J60_userTCP?A
+      0000069CH  CODE     ---       ENC28J60_userUDP?A
+      0000185CH  CODE     ---       ENC28J60_writeAddr?A
+      000016DCH  CODE     ---       ENC28J60_writeMemory?A
+      0000257CH  CODE     ---       ENC28J60_writePHY?A
+      000018D8H  CODE     ---       ENC28J60_writeReg?A
+      000030DCH  CODE     ---       FIQ_Handler?A
+      00000000H  CODE     ---       Hi?A
+      00000000H  CODE     ---       Higher?A
+      00000000H  CODE     ---       Highest?A
+      000030E0H  CODE     ---       IRQ_Handler?A
+      00001058H  CODE     ---       IntToStr?A
+      00000000H  CODE     ---       Lo?A
+      00000000H  CODE     ---       LongToStr?A
+      000030E8H  CODE     ---       PAbt_Handler?A
+      0000305CH  CODE     ---       SPI_char?A
+      00000000H  CODE     ---       SPI_disable?A
+      00000000H  CODE     ---       SPI_enable?A
+      00002ED0H  CODE     ---       SPI_init?A
+      000030ECH  CODE     ---       SWI_Handler?A
+      00000000H  CODE     ---       ShortToStr?A
+      000030F0H  CODE     ---       Undef_Handler?A
+      00000F28H  CODE     ---       WordToStr?A
+      00000000H  CODE     ---       __startup
+      000030B4H  CODE     ---       delay_Nx10cyc?A
+      400004B7H  DATA     ---       dyna
+      000000FCH  CODE     ---       exit?A
+      00000100H  CODE     ---       exit?T
+      400004A8H  DATA     ---       getRequest
+      00000000H  CODE     ---       hex2str?A
+      40000494H  DATA     DWORD     httpCounter
+      00000609H  CONST    ---       httpHeader
+      40000498H  DATA     ---       httpMethod
+      00000628H  CONST    ---       httpMimeTypeHTML
+      00000634H  CONST    ---       httpMimeTypeScript
+      40000490H  DATA     ---       indexPage
+      00000000H  CODE     ---       int2str?A
+      00000000H  CODE     ---       isalnum?A
+      00000000H  CODE     ---       isalpha?A
+      00000000H  CODE     ---       iscntrl?A
+      00000CB0H  CODE     ---       isdigit?A
+      00000000H  CODE     ---       isgraph?A
+      00000C38H  CODE     ---       islower?A
+      00000CECH  CODE     ---       ispunct?A
+      00000000H  CODE     ---       isspace?A
+      00000C74H  CODE     ---       isupper?A
+      00000000H  CODE     ---       isxdigit?A
+      00000B78H  CODE     ---       main
+      00003124H  CODE     ---       memcmp?A
+      00003130H  CODE     ---       memcmp?T
+      000030F4H  CODE     ---       memcpy?A
+      00003100H  CODE     ---       memcpy?T
+      400004A4H  DATA     ---       myIpAddr
+      4000049EH  DATA     ---       myMacAddr
+      400004E8H  DATA     ---       pENC28J60_csCLR
+      400004E0H  DATA     ---       pENC28J60_csDIR
+      400004DCH  DATA     ---       pENC28J60_csPIN
+      400004E4H  DATA     ---       pENC28J60_csSET
+      400004F8H  DATA     ---       pENC28J60_rstCLR
+      400004F0H  DATA     ---       pENC28J60_rstDIR
+      400004ECH  DATA     ---       pENC28J60_rstPIN
+LARM LINKER/LOCATER V2.53                                                             04/25/2009  14:43:42  PAGE 5
+
+
+      400004F4H  DATA     ---       pENC28J60_rstSET
+      40000524H  DATA     ---       pSPIswCLR
+      4000051CH  DATA     ---       pSPIswDIR
+      40000518H  DATA     ---       pSPIswPIN
+      40000520H  DATA     ---       pSPIswSET
+      40000530H  DATA     BYTE      posCS
+      00000A98H  CODE     ---       putConstString?A
+      00000AD4H  CODE     ---       putString?A
+      00000000H  CODE     ---       rtrim?A
+      00000000H  CODE     ---       tolower?A
+      00000DDCH  CODE     ---       toupper?A
+
+Program Size: data=1326 const=1398 code=11308
+LARM RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

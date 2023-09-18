@@ -1,0 +1,2 @@
+".\out\startup.o" ".\out\uart_utility.o" ".\out\i2c_eeprom.o" --strict --scatter ".\OUT\EEPROM.sct" 
+-o ".\OUT\EEPROM.axf"

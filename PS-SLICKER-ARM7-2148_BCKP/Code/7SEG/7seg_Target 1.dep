@@ -1,0 +1,7 @@
+Dependencies for Project '7seg', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x5209CE98)()
+F (.\segment.c)(0x5704FAA3)()
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C7DA6C)
+I (C:\Keil\ARM\Inc\Philips\LPC213x.H)(0x5209CD6C)
+I (7SEG.H)(0x5704F9F3)
+F (.\Obj\Seg_Utility.obj)(0x48B24AAE)()

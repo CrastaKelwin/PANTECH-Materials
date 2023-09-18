@@ -1,0 +1,7 @@
+".\Out\Startup.obj",
+".\Out\Demo_KeyPad.obj",
+".\Out\KeyPad.obj" 
+TO ".\Out\KeyPad" 
+PRINT(".\KeyPad.map") CASE 
+CLASSES (DATA (0x40000000-0x40007FFF), 
+CODE (0x0-0x7FFFF), CONST (0x0-0x7FFFF)) 

@@ -1,0 +1,10 @@
+".\Obj\Startup.obj",
+".\Obj\Demo.obj",
+".\Obj\bmp_Maska.obj",
+"..\..\OBJ\Glcd.obj",
+"..\..\OBJ\Utility.obj" 
+TO ".\Obj\GLCD1" 
+PRINT(".\Lst\GLCD1.map") CODE(".\Lst\GLCD1.cod") 
+CASE 
+CLASSES (DATA (0x40000000-0x40007FFF), 
+CODE (0x0-0x7FFFF), CONST (0x0-0x7FFFF)) 

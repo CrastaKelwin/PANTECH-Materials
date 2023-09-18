@@ -1,0 +1,17 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
+	
+					© Pantech Solutions | 2008 | All rights reserved.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+	This Project Demo file is used to display the Seven Segment LED as a counter.
+	The Program counts from 0 to 9999 and displays it in the Seven Segment.
+	The coding is configured in such a way that the user can configure the out put ports
+	provided if they select the pins excluding the control lines.....
+
+	For further details and shopping of our boards and for free demos...
+
+	www.pantechsolutions.net
+	www.pantechshop.in
+	www.pantechforum.com
+_________________________________________________________________________________________

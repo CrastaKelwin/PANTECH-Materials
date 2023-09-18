@@ -1,0 +1,181 @@
+LARM LINKER/LOCATER V2.53                                                               04/13/2016  17:45:06  PAGE 1
+
+
+LARM LINKER/LOCATER V2.53, INVOKED BY:
+C:\KEILUV3\ARM\BIN\LA.EXE .\Obj\Startup.obj, .\Obj\Demo.obj, ..\..\..\OBJ\CAN_SPIsw.obj, ..\..\..\OBJ\SPIsw.obj, ..\..\.
+>> .\OBJ\Utility.obj TO .\Obj\DEMO PRINT (.\Lst\DEMO.map) CODE (.\Lst\DEMO.cod) CASE CLASSES (DATA (0X40000000-0X40007FF
+>> F), CODE (0X0-0X7FFFF), CONST (0X0-0X7FFFF))
+
+
+CPU MODE: LITTLE ENDIAN
+
+
+INPUT MODULES INCLUDED:
+  .\Obj\Startup.obj (STARTUP)
+         COMMENT TYPE 0: AA V2.50
+  .\Obj\Demo.obj (Demo)
+         COMMENT TYPE 0: CARM V2.53
+  ..\..\..\OBJ\CAN_SPIsw.obj (CAN_SPIsw)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\..\OBJ\SPIsw.obj (SPIsw)
+         COMMENT TYPE 0: CARM V2.51a
+  ..\..\..\OBJ\Utility.obj (Utility)
+         COMMENT TYPE 0: CARM V2.51a
+  C:\KEILUV3\ARM\LIB\CAL.LIB (FIQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEILUV3\ARM\LIB\CAL.LIB (IRQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEILUV3\ARM\LIB\CAL.LIB (DABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEILUV3\ARM\LIB\CAL.LIB (PABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEILUV3\ARM\LIB\CAL.LIB (SWI)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEILUV3\ARM\LIB\CAL.LIB (UNDEF)
+         COMMENT TYPE 0: AA V2.50
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\Obj\DEMO (STARTUP)
+
+BASE       START      END        USED       MEMORY CLASS
+========================================================
+00000000H  40000000H  40007FFFH  000004D8H  DATA
+00000000H  00000000H  0007FFFFH  00001B58H  CODE
+00000000H  00000000H  0007FFFFH  00000020H  CONST
+
+
+
+MEMORY MAP OF MODULE:  .\Obj\DEMO (STARTUP)
+
+START      STOP       LENGTH    ALIGN  RELOC  MEMORY CLASS   SEGMENT NAME
+=========================================================================
+00000000H  0000011FH  00000120H     4  AT..   CODE           STARTUPCODE
+00000120H  00000137H  00000018H     4  UNIT   CONST          ?C_CLRSEG
+00000138H  0000013FH  00000008H     4  UNIT   CONST          ?C_INITSEG
+00000140H  000004A7H  00000368H     4  UNIT   CODE           ?PR?main?Demo
+000004A8H  000004B3H  0000000CH     4  UNIT   CODE           ?PR?cs_pin_low?A?CAN_SPIsw
+000004B4H  000004BFH  0000000CH     4  UNIT   CODE           ?PR?cs_pin_high?A?CAN_SPIsw
+000004C0H  00000677H  000001B8H     4  UNIT   CODE           ?PR?CANSPIIDToRegs?A?CAN_SPIsw
+00000678H  00000703H  0000008CH     4  UNIT   CODE           ?PR?CANSPISetOperationMode?A?CAN_SPIsw
+00000704H  0000083BH  00000138H     4  UNIT   CODE           ?PR?CANSPISetBaudRate?A?CAN_SPIsw
+0000083CH  00000897H  0000005CH     4  UNIT   CODE           ?PR?CANSPISetMask?A?CAN_SPIsw
+00000898H  0000091FH  00000088H     4  UNIT   CODE           ?PR?CANSPISetFilter?A?CAN_SPIsw
+00000920H  00000AE7H  000001C8H     4  UNIT   CODE           ?PR?RegsToCANSPIID?A?CAN_SPIsw
+00000AE8H  00000D5FH  00000278H     4  UNIT   CODE           ?PR?CANSPIWrite?A?CAN_SPIsw
+00000D60H  000011DFH  00000480H     4  UNIT   CODE           ?PR?CANSPIRead?A?CAN_SPIsw
+000011E0H  000013A7H  000001C8H     4  UNIT   CODE           ?PR?CANSPIInitialize?A?CAN_SPIsw
+000013A8H  000015C3H  0000021CH     4  UNIT   CODE           ?PR?SPI_init?A?SPIsw
+000015C4H  000015EFH  0000002CH     4  UNIT   CODE           ?PR?SPI_enable?A?SPIsw
+000015F0H  0000160FH  00000020H     4  UNIT   CODE           ?PR?SPI_disable?A?SPIsw
+LARM LINKER/LOCATER V2.53                                                             04/13/2016  17:45:06  PAGE 2
+
+
+00001610H  00001717H  00000108H     4  UNIT   CODE           ?PR?SPI_charM0?A?SPIsw
+00001718H  00001823H  0000010CH     4  UNIT   CODE           ?PR?SPI_charM1?A?SPIsw
+00001824H  0000192BH  00000108H     4  UNIT   CODE           ?PR?SPI_charM2?A?SPIsw
+0000192CH  00001A37H  0000010CH     4  UNIT   CODE           ?PR?SPI_charM3?A?SPIsw
+00001A38H  00001AEBH  000000B4H     4  UNIT   CODE           ?PR?SPI_char?A?SPIsw
+00001AECH  00001AFBH  00000010H     4  UNIT   CODE           ?PR?Lo?A?Utility
+00001AFCH  00001B0FH  00000014H     4  UNIT   CODE           ?PR?Hi?A?Utility
+00001B10H  00001B23H  00000014H     4  UNIT   CODE           ?PR?Higher?A?Utility
+00001B24H  00001B37H  00000014H     4  UNIT   CODE           ?PR?Highest?A?Utility
+00001B38H  00001B5FH  00000028H     4  UNIT   CODE           ?PR?delay_Nx10cyc?A?Utility
+00001B60H  00001B63H  00000004H     4  UNIT   CODE           ?C?FIQ
+00001B64H  00001B67H  00000004H     4  UNIT   CODE           ?C?IRQ
+00001B68H  00001B6BH  00000004H     4  UNIT   CODE           ?C?DABT
+00001B6CH  00001B6FH  00000004H     4  UNIT   CODE           ?C?PABT
+00001B70H  00001B77H  00000008H     4  UNIT   CODE           ?C?UNDEF
+00001B78H  3FFFFFFFH  3FFFE488H   ---  ---    **GAP**
+40000000H  4000048FH  00000490H     4  UNIT   DATA           STACK
+40000490H  400004A2H  00000013H     4  UNIT   DATA           ?DT0?Demo
+400004A3H  400004A3H  00000001H   ---  ---    **GAP**
+400004A4H  400004D8H  00000035H     4  UNIT   DATA           ?DT0?SPIsw
+
+
+
+REMOVED FUNCTIONS OF MODULE:  .\Obj\DEMO (STARTUP)
+
+      ATTRIBUTE  FUNCTION NAME
+      ========================
+       unused    CANSPIGetOperationMode?A
+       unused    hex2str?A
+       unused    int2str?A
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\Obj\DEMO (STARTUP)
+
+      VALUE      CLASS    TYPE      PUBLIC SYMBOL NAME
+      ================================================
+      00000120H  ---      ---       ?C?CLRTAB
+      00000140H  ---      ---       ?C?INIT
+      00000138H  ---      ---       ?C?INITTAB
+      00000000H  CODE     ---       CANSPIGetOperationMode?A
+      000004C0H  CODE     ---       CANSPIIDToRegs?A
+      000011E0H  CODE     ---       CANSPIInitialize?A
+      00000D60H  CODE     ---       CANSPIRead?A
+      00000704H  CODE     ---       CANSPISetBaudRate?A
+      00000898H  CODE     ---       CANSPISetFilter?A
+      0000083CH  CODE     ---       CANSPISetMask?A
+      00000678H  CODE     ---       CANSPISetOperationMode?A
+      00000AE8H  CODE     ---       CANSPIWrite?A
+      400004B4H  DATA     DWORD     CSmask0
+      400004B8H  DATA     DWORD     CSmask1
+      00001B68H  CODE     ---       DAbt_Handler?A
+      00001B60H  CODE     ---       FIQ_Handler?A
+      00001AFCH  CODE     ---       Hi?A
+      00001B10H  CODE     ---       Higher?A
+      00001B24H  CODE     ---       Highest?A
+      00001B64H  CODE     ---       IRQ_Handler?A
+      00001AECH  CODE     ---       Lo?A
+      400004BCH  DATA     DWORD     MISOmask0
+      400004C0H  DATA     DWORD     MISOmask1
+      400004C4H  DATA     DWORD     MOSImask0
+      400004C8H  DATA     DWORD     MOSImask1
+      00001B6CH  CODE     ---       PAbt_Handler?A
+      00000920H  CODE     ---       RegsToCANSPIID?A
+      400004CCH  DATA     DWORD     SCKmask0
+LARM LINKER/LOCATER V2.53                                                             04/13/2016  17:45:06  PAGE 3
+
+
+      400004D0H  DATA     DWORD     SCKmask1
+      00001A38H  CODE     ---       SPI_char?A
+      00001610H  CODE     ---       SPI_charM0?A
+      00001718H  CODE     ---       SPI_charM1?A
+      00001824H  CODE     ---       SPI_charM2?A
+      0000192CH  CODE     ---       SPI_charM3?A
+      000015F0H  CODE     ---       SPI_disable?A
+      000015C4H  CODE     ---       SPI_enable?A
+      000013A8H  CODE     ---       SPI_init?A
+      00001B70H  CODE     ---       SWI_Handler?A
+      00001B74H  CODE     ---       Undef_Handler?A
+      00000000H  CODE     ---       __startup
+      40000494H  DATA     BYTE      aa
+      40000495H  DATA     BYTE      aa1
+      40000496H  DATA     BYTE      aa2
+      40000499H  DATA     BYTE      cont
+      000004B4H  CODE     ---       cs_pin_high?A
+      000004A8H  CODE     ---       cs_pin_low?A
+      4000049BH  DATA     ---       data
+      00001B38H  CODE     ---       delay_Nx10cyc?A
+      000000FCH  CODE     ---       exit?A
+      00000100H  CODE     ---       exit?T
+      00000000H  CODE     ---       hex2str?A
+      40000490H  DATA     DWORD     id
+      00000000H  CODE     ---       int2str?A
+      40000497H  DATA     BYTE      len
+      000001A8H  CODE     ---       main
+      4000049AH  DATA     BYTE      oldstate
+      400004B0H  DATA     ---       pSPIswCLR
+      400004A8H  DATA     ---       pSPIswDIR
+      400004A4H  DATA     ---       pSPIswPIN
+      400004ACH  DATA     ---       pSPIswSET
+      400004D4H  DATA     BYTE      posCS
+      400004D7H  DATA     BYTE      posMISO
+      400004D6H  DATA     BYTE      posMOSI
+      400004D5H  DATA     BYTE      posSCK
+      400004D8H  DATA     BYTE      spiMode
+      40000498H  DATA     BYTE      zr
+
+Program Size: data=1240 const=32 code=7000
+LARM RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

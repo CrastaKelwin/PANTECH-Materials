@@ -1,0 +1,53 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.s*; *.src; *.a*)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt; *.h; *.inc)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (ULINK), 0x0005 // Tools: ''
+Target (Simulation), 0x0005 // Tools: ''
+GRPOPT 1,(C source code),1,0,0
+GRPOPT 2,(Assembler startup code),0,0,0
+
+OPTFFF 1,1,1,754974722,0,1,18,0,<.\main.c><main.c> { 44,0,0,0,2,0,0,0,3,0,0,0,255,255,255,255,255,255,255,255,252,255,255,255,226,255,255,255,0,0,0,0,0,0,0,0,86,4,0,0,135,1,0,0 }
+OPTFFF 2,2,2,0,0,0,0,0,<.\Startup.s><Startup.s> 
+
+
+TARGOPT 1, (ULINK)
+ KACLK=12000000
+  OPTTT 0,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,0
+  OPTDL (SARM.DLL)(-cLPC2100)(DARMP.DLL)(-pLPC21x9)(SARM.DLL)()(TARMP.DLL)(-pLPC21x9)
+  OPTDBG 44029,-1,()()()()()()()()()() (BIN\UL2ARM.DLL)()()()
+  OPTDF 0x0
+  OPTLE <>
+  OPTLC <>
+EndOpt
+
+TARGOPT 2, (Simulation)
+ KACLK=12000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\Out\>
+  OPTOX 16
+  OPTLT 0,0,0,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTDL (SARM.DLL)(-cLPC2100)(DARMP.DLL)(-pLPC2148)(SARM.DLL)()(TARMP.DLL)(-pLPC2148)
+  OPTDBG 44029,-1,()()()()()()()()()() (BIN\UL2ARM.DLL)()()()
+  OPTDF 0x0
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

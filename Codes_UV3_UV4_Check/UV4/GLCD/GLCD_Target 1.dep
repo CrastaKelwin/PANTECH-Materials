@@ -1,0 +1,4 @@
+Dependencies for Project 'GLCD', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x4F5858F0)(--cpu ARM7TDMI -g --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips --list "Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
+F (.\GLCD.c)(0x56331C65)(-c --cpu ARM7TDMI -g -O0 --apcs=interwork -I C:\Keil4\ARM\RV31\Inc -I C:\Keil4\ARM\CMSIS\Include -I C:\Keil4\ARM\Inc\Philips -o "glcd.o" --omf_browse "glcd.crf" --depend "glcd.d")
+I (C:\Keil4\ARM\Inc\Philips\LPC214X.H)(0x4F585AA4)

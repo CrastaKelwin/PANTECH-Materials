@@ -1,0 +1,27 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+E:\PRODUCTS\Embedded Products\ARM7_LPC2148_Primer Board\code\OTHERS & SYLLABUS CODE\Code\Code\On-chip RTC\RTC_ALARM.uv2
+Project File Date:  09/17/2010
+
+<h2>Output:</h2>
+Build target 'RTC'
+assembling Startup.s...
+compiling Serial.c...
+compiling RTC_Alarm_altered.c...
+linking...
+LARM LINKER/LOCATER V2.53 - SN: Eval Version
+COPYRIGHT KEIL ELEKTRONIK GmbH 2001 - 2006
+@.\Out\RTC_AL~2.LNP ".\Out\Startup.obj",
+".\Out\Serial.obj",
+".\Out\RTC_Alarm_altered.obj",
+".\Out\RTC_Utility.obj" 
+TO ".\Out\RTC_ALARM_xx" 
+PRINT(".\RTC_ALARM_xx.map") CASE 
+CLASSES (DATA (0x40000000-0x40007FFF), 
+CODE (0x0-0x7FFFF), CONST (0x0-0x7FFFF)) 
+*** ERROR L215: CHECKSUM ERROR
+    MODULE:  .\Out\RTC_Utility.obj (RTC_Utility)
+Target not created

@@ -1,0 +1,84 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+F:\Temp\Codes\4x4Keypad_LCD\KEYLCD.uvproj
+Project File Date:  04/08/2016
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+assembling Startup.s...
+Startup.s(1): error: A1167E: Invalid line start 
+Startup.s(2): error: A1163E: Unknown opcode This , expecting opcode or Macro
+Startup.s(3): error: A1163E: Unknown opcode Copyright , expecting opcode or Macro
+Startup.s(4): error: A1167E: Invalid line start 
+Startup.s(5): error: A1167E: Invalid line start 
+Startup.s(6): error: A1163E: Unknown opcode STARTUP.S: , expecting opcode or Macro
+Startup.s(7): error: A1167E: Invalid line start 
+Startup.s(8): error: A1167E: Invalid line start 
+Startup.s(11): error: A1167E: Invalid line start 
+Startup.s(12): error: A1167E: Invalid line start 
+Startup.s(16): error: A1167E: Invalid line start 
+Startup.s(17): error: A1159E: Label missing from line start
+Startup.s(18): error: A1159E: Label missing from line start
+Startup.s(19): error: A1159E: Label missing from line start
+Startup.s(20): error: A1159E: Label missing from line start
+Startup.s(21): error: A1159E: Label missing from line start
+Startup.s(22): error: A1159E: Label missing from line start
+Startup.s(23): error: A1159E: Label missing from line start
+Startup.s(24): error: A1159E: Label missing from line start
+Startup.s(25): error: A1159E: Label missing from line start
+Startup.s(26): error: A1159E: Label missing from line start
+Startup.s(27): error: A1159E: Label missing from line start
+Startup.s(28): error: A1159E: Label missing from line start
+Startup.s(29): error: A1159E: Label missing from line start
+Startup.s(30): error: A1159E: Label missing from line start
+Startup.s(31): error: A1159E: Label missing from line start
+Startup.s(32): error: A1159E: Label missing from line start
+Startup.s(33): error: A1159E: Label missing from line start
+Startup.s(34): error: A1159E: Label missing from line start
+Startup.s(35): error: A1137E: Unexpected characters at end of line
+Startup.s(38): error: A1163E: Unknown opcode Standard , expecting opcode or Macro
+Startup.s(40): error: A1163E: Unknown opcode Mode_USR , expecting opcode or Macro
+Startup.s(41): error: A1163E: Unknown opcode Mode_FIQ , expecting opcode or Macro
+Startup.s(42): error: A1163E: Unknown opcode Mode_IRQ , expecting opcode or Macro
+Startup.s(43): error: A1163E: Unknown opcode Mode_SVC , expecting opcode or Macro
+Startup.s(44): error: A1163E: Unknown opcode Mode_ABT , expecting opcode or Macro
+Startup.s(45): error: A1163E: Unknown opcode Mode_UND , expecting opcode or Macro
+Startup.s(46): error: A1163E: Unknown opcode Mode_SYS , expecting opcode or Macro
+Startup.s(48): error: A1163E: Unknown opcode I_Bit , expecting opcode or Macro
+Startup.s(49): error: A1163E: Unknown opcode F_Bit , expecting opcode or Macro
+Startup.s(53): error: A1167E: Invalid line start 
+Startup.s(54): error: A1167E: Invalid line start 
+Startup.s(55): error: A1167E: Invalid line start 
+Startup.s(56): error: A1167E: Invalid line start 
+Startup.s(57): error: A1167E: Invalid line start 
+Startup.s(58): error: A1167E: Invalid line start 
+Startup.s(59): error: A1167E: Invalid line start 
+Startup.s(60): error: A1167E: Invalid line start 
+Startup.s(62): error: A1163E: Unknown opcode UND_Stack_Size , expecting opcode or Macro
+Startup.s(63): error: A1163E: Unknown opcode SVC_Stack_Size , expecting opcode or Macro
+compiling Demo_KeyPad.c...
+LCD8.H(12): warning:  #1-D: last line of file ends without a newline
+  #endif
+Demo_KeyPad.c(31): warning:  #1295-D: Deprecated declaration Delay - give arg types
+  extern void Delay();
+Demo_KeyPad.c(51): warning:  #951-D: return type of function "main" must be "int"
+  void main()
+Demo_KeyPad.c(63): warning:  #167-D: argument of type "volatile unsigned long *" is incompatible with parameter of type "unsigned long *"
+        LCD_Config (&IOPIN0 /*LCD Data Port*/, 16 /* Data LSB D0*/);
+Demo_KeyPad.c(70): warning:  #167-D: argument of type "volatile unsigned long *" is incompatible with parameter of type "unsigned long *"
+                KeyScan(&IOPIN1/*KeyPad Port*/,16/*Starting Data Pin D0*/,
+Demo_KeyPad.c(83): warning:  #167-D: argument of type "volatile unsigned long *" is incompatible with parameter of type "unsigned long *"
+                                lcd_cmd (&IOPIN0 /*LCD Data Port*/,16 /*Data LSB D0*/, 
+Demo_KeyPad.c(94): warning:  #167-D: argument of type "volatile unsigned long *" is incompatible with parameter of type "unsigned long *"
+                        lcd_cmd (&IOPIN0/*LCD Data Port*/,16/*Data LSB D0*/,
+Demo_KeyPad.c(97): warning:  #167-D: argument of type "volatile unsigned long *" is incompatible with parameter of type "unsigned long *"
+                        lcd_data (&IOPIN0/*LCD Data Port*/,16/*Data LSB D0*/,
+Demo_KeyPad.c: 8 warnings, 0 errors
+".\KEYLCD.axf" - 50 Error(s), 8 Warning(s).
+Target not created
+</pre>
+</body>
+</html>

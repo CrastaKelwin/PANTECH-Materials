@@ -1,0 +1,246 @@
+ARM COMPILER V2.53,  RTC_Utility                                                           13/07/09  17:58:47  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE RTC_Utility
+OBJECT MODULE PLACED IN .\Out\RTC_Utility.obj
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe RTC_Utility.c THUMB BROWSE DEBUG TABS(4) OBJECT(.\Out\RTC_Utility.obj) 
+
+stmt  level    source
+
+    1          
+    2          #include <ctype.h>
+    3          #include <stdlib.h>
+    4          #include <stdio.h>
+    5          #include <LPC213x.h>
+    6          #include "UART.h"
+    7          extern char Key;
+    8          
+    9          void Initialize(void)
+   10          {
+   11   1          PLLCFG  =   0x24;           // M : 4  | P = 2  -> Fosc = 12MHz & CCLK = 60MHz
+   12   1          PLLFEED =   0xAA;           // Feed Process
+   13   1          PLLFEED =   0x55;
+   14   1      
+   15   1          PLLCON  =   0x01;
+   16   1          PLLFEED =   0xAA;           // Feed Process
+   17   1          PLLFEED =   0x55;
+   18   1      
+   19   1          while (!(PLLSTAT & 0x400)); //Wait untill PLL is Locked!
+   20   1      
+   21   1          PLLCON  =   0x03;           //Connect PLL as the Clock Source for Microcontroller
+   22   1          PLLFEED =   0xAA;           // Feed Process
+   23   1          PLLFEED =   0x55;
+   24   1      
+   25   1          MAMCR   =   0x02;           //Memory Accerleration Module Fully Enabled
+   26   1          MAMTIM  =   0x04;           //MAM fetch cycles are 4 CCLKs in duration
+   27   1      
+   28   1          VPBDIV  =   0x02;           //Divide Clock for PCLK = 30MHz
+   29   1      
+   30   1      }
+   31          
+   32          
+   33          void RTC_Setup(char *Buff)
+   34          {
+   35   1      
+   36   1          unsigned char TimE;
+   37   1          char i=0;
+   38   1      
+   39   1          for(i=0;i<2;i++)
+   40   1          {
+   41   2              while(!isdigit(Key));                   //Wait till Key = 0 to 9
+   42   2              if (i==0)
+   43   2              {
+   44   3                  TimE    =   10 * atoi( &Key );
+   45   3              }
+   46   2              if (i==1)
+   47   2              {
+   48   3                  TimE    +=  atoi( &Key );
+   49   3              }
+   50   2              putchar(Key);
+   51   2              Key     =   0;
+   52   2      
+   53   2          }
+   54   1      
+   55   1          *Buff   =   TimE;                           //Load Setup New Value
+   56   1      }
+   57          
+ARM COMPILER V2.53,  RTC_Utility                                                           13/07/09  17:58:47  PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN CODE16 (isdigit?T)
+ EXTERN CODE16 (atoi?T)
+ EXTERN CODE16 (putchar?T)
+ EXTERN DATA (Key)
+
+
+
+*** PUBLICS:
+ PUBLIC         Initialize?T
+ PUBLIC         RTC_Setup?T
+
+
+
+*** CODE SEGMENT '?PR?Initialize?T?RTC_Utility':
+   11:     PLLCFG  =   0x24;           // M : 4  | P = 2  -> Fosc = 12MHz & CCLK = 60MHz
+ 00000000  2124      MOV         R1,#0x24
+ 00000002  4800      LDR         R0,=0xE01FC084
+ 00000004  7001      STRB        R1,[R0,#0x0]
+   12:     PLLFEED =   0xAA;           // Feed Process
+ 00000006  22AA      MOV         R2,#0xAA
+ 00000008  4800      LDR         R0,=0xE01FC08C
+ 0000000A  7002      STRB        R2,[R0,#0x0]
+   13:     PLLFEED =   0x55;
+ 0000000C  2155      MOV         R1,#0x55
+ 0000000E  4800      LDR         R0,=0xE01FC08C
+ 00000010  7001      STRB        R1,[R0,#0x0]
+   15:     PLLCON  =   0x01;
+ 00000012  2301      MOV         R3,#0x1
+ 00000014  4800      LDR         R0,=0xE01FC080
+ 00000016  7003      STRB        R3,[R0,#0x0]
+   16:     PLLFEED =   0xAA;           // Feed Process
+ 00000018  4800      LDR         R0,=0xE01FC08C
+ 0000001A  7002      STRB        R2,[R0,#0x0]
+   17:     PLLFEED =   0x55;
+ 0000001C  4800      LDR         R0,=0xE01FC08C
+ 0000001E  7001      STRB        R1,[R0,#0x0]
+   19:     while (!(PLLSTAT & 0x400)); //Wait untill PLL is Locked!
+ 00000020          L_1:
+ 00000020  4800      LDR         R0,=0xE01FC088
+ 00000022  8800      LDRH        R0,[R0,#0x0]
+ 00000024  4800      LDR         R1,=0x400
+ 00000026  4208      TST         R0,R1
+ 00000028  D0FA      BEQ         L_1  ; T=0x00000020
+   21:     PLLCON  =   0x03;           //Connect PLL as the Clock Source for Microcontroller
+ 0000002A  2103      MOV         R1,#0x3
+ 0000002C  4800      LDR         R0,=0xE01FC080
+ 0000002E  7001      STRB        R1,[R0,#0x0]
+   22:     PLLFEED =   0xAA;           // Feed Process
+ 00000030  21AA      MOV         R1,#0xAA
+ 00000032  4800      LDR         R0,=0xE01FC08C
+ 00000034  7001      STRB        R1,[R0,#0x0]
+   23:     PLLFEED =   0x55;
+ 00000036  2155      MOV         R1,#0x55
+ 00000038  4800      LDR         R0,=0xE01FC08C
+ 0000003A  7001      STRB        R1,[R0,#0x0]
+   25:     MAMCR   =   0x02;           //Memory Accerleration Module Fully Enabled
+ 0000003C  2102      MOV         R1,#0x2
+ 0000003E  4800      LDR         R0,=0xE01FC000
+ 00000040  7001      STRB        R1,[R0,#0x0]
+   26:     MAMTIM  =   0x04;           //MAM fetch cycles are 4 CCLKs in duration
+ 00000042  2204      MOV         R2,#0x4
+ 00000044  4800      LDR         R0,=0xE01FC004
+ 00000046  7002      STRB        R2,[R0,#0x0]
+   28:     VPBDIV  =   0x02;           //Divide Clock for PCLK = 30MHz
+ 00000048  4800      LDR         R0,=0xE01FC100
+ 0000004A  7001      STRB        R1,[R0,#0x0]
+ARM COMPILER V2.53,  RTC_Utility                                                           13/07/09  17:58:47  PAGE 3   
+
+   30: }
+ 0000004C  4770      BX          R14
+ 0000004E          ENDP ; 'Initialize?T'
+
+
+*** CODE SEGMENT '?PR?RTC_Setup?T?RTC_Utility':
+   33: void RTC_Setup(char *Buff)
+ 00000000  B570      PUSH        {R4-R6,LR}
+ 00000002  1C05      MOV         R5,R0 ; Buff
+ 00000004  ---- Variable 'Buff' assigned to Register 'R5' ----
+ 00000004  ---- Variable 'TimE' assigned to Register 'R4' ----
+   34: {
+ 00000004            ; SCOPE-START
+   37:     char i=0;
+ 00000004  2000      MOV         R0,#0x0
+ 00000006  1C06      MOV         R6,R0 ; i
+ 00000008  ---- Variable 'i' assigned to Register 'R6' ----
+   39:     for(i=0;i<2;i++)
+ 00000008  1C06      MOV         R6,R0 ; i
+ 0000000A  E028      B           L_7  ; T=0x0000005E
+   41:         while(!isdigit(Key));                   //Wait till Key = 0 to 9
+ 0000000C          L_13:
+ 0000000C          L_10:
+ 0000000C  4800      LDR         R0,=Key ; Key
+ 0000000E  7800      LDRB        R0,[R0,#0x0] ; Key
+ 00000010  F7FF      BL          isdigit?T  ; T=0x0001  (1)
+ 00000012  FFF6      BL          isdigit?T  ; T=0x0001  (2)
+ 00000014  2800      CMP         R0,#0x0 ; isdigit?T
+ 00000016  D0F9      BEQ         L_10  ; T=0x0000000C
+   42:         if (i==0)
+ 00000018  1C30      MOV         R0,R6 ; i
+ 0000001A  0600      LSL         R0,R0,#0x18 ; i
+ 0000001C  0E00      LSR         R0,R0,#0x18
+ 0000001E  2800      CMP         R0,#0x0
+ 00000020  D106      BNE         L_14  ; T=0x00000030
+   44:             TimE    =   10 * atoi( &Key );
+ 00000022  4800      LDR         R0,=Key ; Key
+ 00000024  F7FF      BL          atoi?T  ; T=0x0001  (1)
+ 00000026  FFEC      BL          atoi?T  ; T=0x0001  (2)
+ 00000028  240A      MOV         R4,#0xA
+ 0000002A  4344      MUL         R4,R0 ; atoi?T
+ 0000002C  0624      LSL         R4,R4,#0x18
+ 0000002E  0E24      LSR         R4,R4,#0x18
+   45:         }
+ 00000030          L_14:
+   46:         if (i==1)
+ 00000030  1C30      MOV         R0,R6 ; i
+ 00000032  0600      LSL         R0,R0,#0x18 ; i
+ 00000034  0E00      LSR         R0,R0,#0x18
+ 00000036  2801      CMP         R0,#0x1
+ 00000038  D107      BNE         L_15  ; T=0x0000004A
+   48:             TimE    +=  atoi( &Key );
+ 0000003A  4800      LDR         R0,=Key ; Key
+ 0000003C  F7FF      BL          atoi?T  ; T=0x0001  (1)
+ 0000003E  FFE0      BL          atoi?T  ; T=0x0001  (2)
+ 00000040  0600      LSL         R0,R0,#0x18 ; atoi?T
+ 00000042  0E00      LSR         R0,R0,#0x18
+ 00000044  1824      ADD         R4,R0 ; TimE
+ 00000046  0624      LSL         R4,R4,#0x18
+ 00000048  0E24      LSR         R4,R4,#0x18
+   49:         }
+ 0000004A          L_15:
+   50:         putchar(Key);
+ 0000004A  4800      LDR         R0,=Key ; Key
+ 0000004C  7800      LDRB        R0,[R0,#0x0] ; Key
+ 0000004E  F7FF      BL          putchar?T  ; T=0x0001  (1)
+ 00000050  FFD7      BL          putchar?T  ; T=0x0001  (2)
+   51:         Key     =   0;
+ARM COMPILER V2.53,  RTC_Utility                                                           13/07/09  17:58:47  PAGE 4   
+
+ 00000052  2100      MOV         R1,#0x0
+ 00000054  4800      LDR         R0,=Key ; Key
+ 00000056  7001      STRB        R1,[R0,#0x0] ; Key
+   53:     }
+ 00000058  3601      ADD         R6,#0x1
+ 0000005A  0636      LSL         R6,R6,#0x18
+ 0000005C  0E36      LSR         R6,R6,#0x18
+ 0000005E          L_7:
+ 0000005E  1C30      MOV         R0,R6 ; i
+ 00000060  0600      LSL         R0,R0,#0x18 ; i
+ 00000062  0E00      LSR         R0,R0,#0x18
+ 00000064  2802      CMP         R0,#0x2
+ 00000066  DBD1      BLT         L_13  ; T=0x0000000C
+   55:     *Buff   =   TimE;                           //Load Setup New Value
+ 00000068  1C21      MOV         R1,R4 ; TimE
+ 0000006A  1C28      MOV         R0,R5 ; Buff
+ 0000006C  7001      STRB        R1,[R0,#0x0] ; Buff
+ 0000006E            ; SCOPE-END
+   56: }
+ 0000006E  BC70      POP         {R4-R6}
+ 00000070  BC08      POP         {R3}
+ 00000072  4718      BX          R3
+ 00000074          ENDP ; 'RTC_Setup?T'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =    ------
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

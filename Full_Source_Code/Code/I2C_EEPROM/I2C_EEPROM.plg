@@ -1,0 +1,73 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+D:\Server\Microcontrollers\ARM-7\PS-SLICKER-ARM7-2148\Code\I2C_EEPROM\I2C_EEPROM.uv2
+Project File Date:  02/10/2011
+
+<h2>Output:</h2>
+Build target 'Demo'
+assembling Startup.s...
+Startup.s(67): error A9: SYNTAX ERROR
+Startup.s(79): error A9: SYNTAX ERROR
+Startup.s(232): error A45: UNDEFINED SYMBOL
+Startup.s(233): error A45: UNDEFINED SYMBOL
+Startup.s(234): error A45: UNDEFINED SYMBOL
+Startup.s(235): error A45: UNDEFINED SYMBOL
+Startup.s(236): error A45: UNDEFINED SYMBOL
+Startup.s(240): error A45: UNDEFINED SYMBOL
+Startup.s(242): error A9: SYNTAX ERROR
+Startup.s(242): error A9: SYNTAX ERROR
+Startup.s(243): error A9: SYNTAX ERROR
+Startup.s(243): error A9: SYNTAX ERROR
+Startup.s(244): error A9: SYNTAX ERROR
+Startup.s(244): error A9: SYNTAX ERROR
+Startup.s(245): error A9: SYNTAX ERROR
+Startup.s(245): error A9: SYNTAX ERROR
+Startup.s(246): error A9: SYNTAX ERROR
+Startup.s(246): error A9: SYNTAX ERROR
+Startup.s(248): error A9: SYNTAX ERROR
+Startup.s(248): error A9: SYNTAX ERROR
+Startup.s(249): error A9: SYNTAX ERROR
+Startup.s(249): error A9: SYNTAX ERROR
+Startup.s(261): error A9: SYNTAX ERROR
+Startup.s(261): error A9: SYNTAX ERROR
+Startup.s(266): error A5: ILLEGAL USE OF A RESERVED WORD
+Startup.s(266): error A7: LABEL NOT PERMITTED
+Startup.s(266): error A9: SYNTAX ERROR
+Startup.s(328): error A7: LABEL NOT PERMITTED
+Startup.s(347): error A5: ILLEGAL USE OF A RESERVED WORD
+Startup.s(347): error A7: LABEL NOT PERMITTED
+Startup.s(347): error A9: SYNTAX ERROR
+Startup.s(349): error A5: ILLEGAL USE OF A RESERVED WORD
+Startup.s(349): error A7: LABEL NOT PERMITTED
+Startup.s(349): error A9: SYNTAX ERROR
+Startup.s(351): error A7: LABEL NOT PERMITTED
+Startup.s(369): error A7: LABEL NOT PERMITTED
+Startup.s(369): error A7: LABEL NOT PERMITTED
+Startup.s(374): error A7: LABEL NOT PERMITTED
+Startup.s(374): error A7: LABEL NOT PERMITTED
+Startup.s(379): error A7: LABEL NOT PERMITTED
+Startup.s(379): error A7: LABEL NOT PERMITTED
+Startup.s(384): error A7: LABEL NOT PERMITTED
+Startup.s(384): error A7: LABEL NOT PERMITTED
+Startup.s(389): error A7: LABEL NOT PERMITTED
+Startup.s(389): error A7: LABEL NOT PERMITTED
+Startup.s(401): error A9: SYNTAX ERROR
+Startup.s(401): error A9: SYNTAX ERROR
+Startup.s(402): error A45: UNDEFINED SYMBOL
+Startup.s(409): error A9: SYNTAX ERROR
+Startup.s(409): error A9: SYNTAX ERROR
+Startup.s(410): error A9: SYNTAX ERROR
+Startup.s(410): error A9: SYNTAX ERROR
+compiling UART_Utility.c...
+compiling I2C_EEPROM.c...
+I2C_EEPROM.C(86): warning C47: 'Slave_Addr': unreferenced parameter
+Target not created
+Build target 'Demo'
+assembling Startup.s...
+compiling UART_Utility.c...
+compiling I2C_EEPROM.c...
+linking...
+"I2C_EEPROM.axf" - 0 Error(s), 0 Warning(s).

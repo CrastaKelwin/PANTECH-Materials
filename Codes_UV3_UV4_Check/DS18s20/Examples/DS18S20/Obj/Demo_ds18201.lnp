@@ -1,0 +1,9 @@
+".\Obj\Startup.obj",
+".\Obj\Demo1.obj",
+"..\..\OBJ\OneWire.obj",
+"..\..\OBJ\Utility.obj",
+"..\..\OBJ\LCD8.obj" 
+TO ".\Obj\Demo_ds18201" 
+PRINT(".\Lst\Demo_ds18201.map") CASE 
+CLASSES (DATA (0x40000000-0x40007FFF), 
+CODE (0x0-0x7FFFF), CONST (0x0-0x7FFFF)) 

@@ -1,0 +1,362 @@
+ARM COMPILER V2.53,  KeyPad                                                                20/08/08  17:42:21  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE KeyPad
+OBJECT MODULE PLACED IN .\Out\KeyPad.obj
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe KeyPad.c THUMB DEBUG TABS(4) OBJECT(.\Out\KeyPad.obj) 
+
+stmt  level    source
+
+    1          #include <LPC213x.h>
+    2          
+    3          
+    4          unsigned char M,N;
+    5          
+    6          extern void Delay();
+    7          
+    8          /************************* Delay Sub_Routin *******************************/
+    9          
+   10          void DelayMs()
+   11          {
+   12   1          unsigned int i,j;
+   13   1          for(i=0;i<300;i++)
+   14   1              for(j=0;j<2000;j++);
+   15   1      }
+   16          
+   17          
+   18          
+   19          /************************ Key Scan Funtion ********************************/
+   20          
+   21          void KeyScan (unsigned long *KeysPort, unsigned char D0, unsigned char *R, unsigned char *C)
+   22          {
+   23   1      
+   24   1          Delay();
+   25   1          /*^^^^^^^^^^^^^^^^^^^^^ Scanning of Rows ^^^^^^^^^^^^^^^^^^^^^^^^^*/
+   26   1      
+   27   1          *(KeysPort+2) = (0x0F << D0);       // Configuring Rows as Input && Colum as OutPut
+   28   1          *(KeysPort) = (0xF0 << D0);         // Push Column Values to LOW so as to get ROW value
+   29   1      
+   30   1          while (((*KeysPort)>>D0) == 0xF0);
+   31   1          
+   32   1          M = (*KeysPort) >> D0;
+   33   1      
+   34   1          if (M == 0xE0)
+   35   1          {
+   36   2              *R = 0; 
+   37   2          }
+   38   1          else if (M == 0xD0)
+   39   1          {
+   40   2              *R = 1; 
+   41   2          }
+   42   1          else if (M == 0xB0)
+   43   1          {
+   44   2              *R = 2; 
+   45   2          }
+   46   1          else if (M == 0x70)
+   47   1          {
+   48   2              *R = 3; 
+   49   2          }
+   50   1          else
+   51   1              *R = 4; 
+   52   1      
+   53   1          Delay();
+   54   1          Delay();
+   55   1                  
+   56   1          /*^^^^^^^^^^^^^^^^^^^ Scanning of Column ^^^^^^^^^^^^^^^^^^^^^^^^^*/
+   57   1      
+   58   1          *(KeysPort+2) = (0xF0 << D0);       // Configure Column as Input and Rows as OutPut
+   59   1          
+ARM COMPILER V2.53,  KeyPad                                                                20/08/08  17:42:21  PAGE 2   
+
+   60   1          *(KeysPort) = (0x0F << D0);         // Push LOW to Rows to get the Column value of Key Press
+   61   1      
+   62   1          while (((*KeysPort)>>D0) == 0x0F);
+   63   1      
+   64   1          N = ((*KeysPort) >> D0);
+   65   1      
+   66   1          if (N == 0x0E)
+   67   1          {
+   68   2              *C = 0; 
+   69   2          }
+   70   1          else if (N == 0x0D)
+   71   1          {
+   72   2              *C = 1; 
+   73   2          }
+   74   1          else if (N == 0x0B)
+   75   1          {
+   76   2              *C = 2; 
+   77   2          }
+   78   1          else if (N == 0x07)
+   79   1          {
+   80   2              *C = 3; 
+   81   2          }
+   82   1          else
+   83   1              *C = 4; 
+   84   1      
+   85   1          DelayMs();
+   86   1          DelayMs();
+   87   1          
+   88   1      }
+ARM COMPILER V2.53,  KeyPad                                                                20/08/08  17:42:21  PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN CODE16 (Delay?T)
+
+
+
+*** PUBLICS:
+ PUBLIC         DelayMs?T
+ PUBLIC         KeyScan?T
+ PUBLIC         M
+ PUBLIC         N
+
+
+
+*** DATA SEGMENT '?DT0?KeyPad':
+ 00000000          M:
+ 00000000            DS          1
+ 00000001          N:
+ 00000001            DS          1
+
+
+
+*** CODE SEGMENT '?PR?DelayMs?T?KeyPad':
+   11: {
+ 00000000            ; SCOPE-START
+   13:     for(i=0;i<300;i++)
+ 00000000  2000      MOV         R0,#0x0
+ 00000002  ---- Variable 'i' assigned to Register 'R0' ----
+   14:         for(j=0;j<2000;j++);
+ 00000002          L_10:
+ 00000002  2100      MOV         R1,#0x0
+ 00000004  ---- Variable 'j' assigned to Register 'R1' ----
+ 00000004          L_6:
+ 00000004  3101      ADD         R1,#0x1
+ 00000006  1C0A      MOV         R2,R1 ; j
+ 00000008  4800      LDR         R3,=0x7D0
+ 0000000A  429A      CMP         R2,R3 ; j
+ 0000000C  D3FA      BCC         L_6  ; T=0x00000004
+ 0000000E  3001      ADD         R0,#0x1
+ 00000010  1C01      MOV         R1,R0 ; i
+ 00000012  4A4B      LDR         R2,=0x12C
+ 00000014  4291      CMP         R1,R2 ; i
+ 00000016  D3F4      BCC         L_10  ; T=0x00000002
+ 00000018            ; SCOPE-END
+   15: }
+ 00000018  4770      BX          R14
+ 0000001A          ENDP ; 'DelayMs?T'
+
+
+*** CODE SEGMENT '?PR?KeyScan?T?KeyPad':
+   21: void KeyScan (unsigned long *KeysPort, unsigned char D0, unsigned char *R, unsigned char *C)
+ 00000000  B5F0      PUSH        {R4-R7,LR}
+ 00000002  1C1C      MOV         R4,R3 ; C
+ 00000004  ---- Variable 'C' assigned to Register 'R4' ----
+ 00000004  1C17      MOV         R7,R2 ; R
+ 00000006  ---- Variable 'R' assigned to Register 'R7' ----
+ 00000006  1C0D      MOV         R5,R1 ; D0
+ 00000008  ---- Variable 'D0' assigned to Register 'R5' ----
+ 00000008  1C06      MOV         R6,R0 ; KeysPort
+ 0000000A  ---- Variable 'KeysPort' assigned to Register 'R6' ----
+   24:     Delay();
+ 0000000A  F7FF      BL          Delay?T  ; T=0x0001  (1)
+ 0000000C  FFF9      BL          Delay?T  ; T=0x0001  (2)
+   27:     *(KeysPort+2) = (0x0F << D0);       // Configuring Rows as Input && Colum as OutPut
+ 0000000E  1C28      MOV         R0,R5 ; D0
+ 00000010  0600      LSL         R0,R0,#0x18 ; D0
+ 00000012  0E00      LSR         R0,R0,#0x18
+ 00000014  210F      MOV         R1,#0xF
+ 00000016  4081      LSL         R1,R0
+ 00000018  1C30      MOV         R0,R6 ; KeysPort
+ 0000001A  6081      STR         R1,[R0,#0x8]
+   28:     *(KeysPort) = (0xF0 << D0);         // Push Column Values to LOW so as to get ROW value
+ARM COMPILER V2.53,  KeyPad                                                                20/08/08  17:42:21  PAGE 4   
+
+ 0000001C  1C28      MOV         R0,R5 ; D0
+ 0000001E  0600      LSL         R0,R0,#0x18 ; D0
+ 00000020  0E00      LSR         R0,R0,#0x18
+ 00000022  21F0      MOV         R1,#0xF0
+ 00000024  4081      LSL         R1,R0
+ 00000026  1C30      MOV         R0,R6 ; KeysPort
+ 00000028  6001      STR         R1,[R0,#0x0] ; KeysPort
+   30:     while (((*KeysPort)>>D0) == 0xF0);
+ 0000002A          L_11:
+ 0000002A  1C30      MOV         R0,R6 ; KeysPort
+ 0000002C  6801      LDR         R1,[R0,#0x0] ; KeysPort
+ 0000002E  1C28      MOV         R0,R5 ; D0
+ 00000030  0600      LSL         R0,R0,#0x18 ; D0
+ 00000032  0E00      LSR         R0,R0,#0x18
+ 00000034  40C1      LSR         R1,R0
+ 00000036  29F0      CMP         R1,#0xF0
+ 00000038  D0F7      BEQ         L_11  ; T=0x0000002A
+   32:     M = (*KeysPort) >> D0;
+ 0000003A  0609      LSL         R1,R1,#0x18
+ 0000003C  0E09      LSR         R1,R1,#0x18
+ 0000003E  4800      LDR         R0,=M ; M
+ 00000040  7001      STRB        R1,[R0,#0x0] ; M
+   34:     if (M == 0xE0)
+ 00000042  4800      LDR         R0,=M ; M
+ 00000044  7800      LDRB        R0,[R0,#0x0] ; M
+ 00000046  28E0      CMP         R0,#0xE0
+ 00000048  D103      BNE         L_15  ; T=0x00000052
+   36:         *R = 0; 
+ 0000004A  2300      MOV         R3,#0x0
+ 0000004C  1C39      MOV         R1,R7 ; R
+ 0000004E  700B      STRB        R3,[R1,#0x0] ; R
+   37:     }
+ 00000050  E018      B           L_16  ; T=0x00000084
+ 00000052          L_15:
+   38:     else if (M == 0xD0)
+ 00000052  28D0      CMP         R0,#0xD0
+ 00000054  D103      BNE         L_17  ; T=0x0000005E
+   40:         *R = 1; 
+ 00000056  2101      MOV         R1,#0x1
+ 00000058  1C38      MOV         R0,R7 ; R
+ 0000005A  7001      STRB        R1,[R0,#0x0] ; R
+   41:     }
+ 0000005C  E012      B           L_16  ; T=0x00000084
+ 0000005E          L_17:
+   42:     else if (M == 0xB0)
+ 0000005E  4800      LDR         R0,=M ; M
+ 00000060  7800      LDRB        R0,[R0,#0x0] ; M
+ 00000062  28B0      CMP         R0,#0xB0
+ 00000064  D103      BNE         L_19  ; T=0x0000006E
+   44:         *R = 2; 
+ 00000066  2102      MOV         R1,#0x2
+ 00000068  1C38      MOV         R0,R7 ; R
+ 0000006A  7001      STRB        R1,[R0,#0x0] ; R
+   45:     }
+ 0000006C  E00A      B           L_16  ; T=0x00000084
+ 0000006E          L_19:
+   46:     else if (M == 0x70)
+ 0000006E  4800      LDR         R0,=M ; M
+ 00000070  7800      LDRB        R0,[R0,#0x0] ; M
+ 00000072  2870      CMP         R0,#0x70
+ 00000074  D103      BNE         L_21  ; T=0x0000007E
+   48:         *R = 3; 
+ 00000076  2103      MOV         R1,#0x3
+ 00000078  1C38      MOV         R0,R7 ; R
+ 0000007A  7001      STRB        R1,[R0,#0x0] ; R
+   49:     }
+ARM COMPILER V2.53,  KeyPad                                                                20/08/08  17:42:21  PAGE 5   
+
+ 0000007C  E002      B           L_16  ; T=0x00000084
+ 0000007E          L_21:
+   51:         *R = 4; 
+ 0000007E  2104      MOV         R1,#0x4
+ 00000080  1C38      MOV         R0,R7 ; R
+ 00000082  7001      STRB        R1,[R0,#0x0] ; R
+ 00000084          L_16:
+   53:     Delay();
+ 00000084  F7FF      BL          Delay?T  ; T=0x0001  (1)
+ 00000086  FFBC      BL          Delay?T  ; T=0x0001  (2)
+   54:     Delay();
+ 00000088  F7FF      BL          Delay?T  ; T=0x0001  (1)
+ 0000008A  FFBA      BL          Delay?T  ; T=0x0001  (2)
+   58:     *(KeysPort+2) = (0xF0 << D0);       // Configure Column as Input and Rows as OutPut
+ 0000008C  1C28      MOV         R0,R5 ; D0
+ 0000008E  0600      LSL         R0,R0,#0x18 ; D0
+ 00000090  0E00      LSR         R0,R0,#0x18
+ 00000092  21F0      MOV         R1,#0xF0
+ 00000094  4081      LSL         R1,R0
+ 00000096  1C30      MOV         R0,R6 ; KeysPort
+ 00000098  6081      STR         R1,[R0,#0x8]
+   60:     *(KeysPort) = (0x0F << D0);         // Push LOW to Rows to get the Column value of Key Press
+ 0000009A  1C28      MOV         R0,R5 ; D0
+ 0000009C  0600      LSL         R0,R0,#0x18 ; D0
+ 0000009E  0E00      LSR         R0,R0,#0x18
+ 000000A0  210F      MOV         R1,#0xF
+ 000000A2  4081      LSL         R1,R0
+ 000000A4  1C30      MOV         R0,R6 ; KeysPort
+ 000000A6  6001      STR         R1,[R0,#0x0] ; KeysPort
+   62:     while (((*KeysPort)>>D0) == 0x0F);
+ 000000A8          L_23:
+ 000000A8  1C30      MOV         R0,R6 ; KeysPort
+ 000000AA  6801      LDR         R1,[R0,#0x0] ; KeysPort
+ 000000AC  1C28      MOV         R0,R5 ; D0
+ 000000AE  0600      LSL         R0,R0,#0x18 ; D0
+ 000000B0  0E00      LSR         R0,R0,#0x18
+ 000000B2  40C1      LSR         R1,R0
+ 000000B4  290F      CMP         R1,#0xF
+ 000000B6  D0F7      BEQ         L_23  ; T=0x000000A8
+   64:     N = ((*KeysPort) >> D0);
+ 000000B8  0609      LSL         R1,R1,#0x18
+ 000000BA  0E09      LSR         R1,R1,#0x18
+ 000000BC  4800      LDR         R0,=N ; N
+ 000000BE  7001      STRB        R1,[R0,#0x0] ; N
+   66:     if (N == 0x0E)
+ 000000C0  4800      LDR         R0,=N ; N
+ 000000C2  7800      LDRB        R0,[R0,#0x0] ; N
+ 000000C4  280E      CMP         R0,#0xE
+ 000000C6  D103      BNE         L_27  ; T=0x000000D0
+   68:         *C = 0; 
+ 000000C8  2200      MOV         R2,#0x0
+ 000000CA  1C21      MOV         R1,R4 ; C
+ 000000CC  700A      STRB        R2,[R1,#0x0] ; C
+   69:     }
+ 000000CE  E014      B           L_28  ; T=0x000000FA
+ 000000D0          L_27:
+   70:     else if (N == 0x0D)
+ 000000D0  280D      CMP         R0,#0xD
+ 000000D2  D103      BNE         L_29  ; T=0x000000DC
+   72:         *C = 1; 
+ 000000D4  2201      MOV         R2,#0x1
+ 000000D6  1C21      MOV         R1,R4 ; C
+ 000000D8  700A      STRB        R2,[R1,#0x0] ; C
+   73:     }
+ 000000DA  E00E      B           L_28  ; T=0x000000FA
+ 000000DC          L_29:
+ARM COMPILER V2.53,  KeyPad                                                                20/08/08  17:42:21  PAGE 6   
+
+   74:     else if (N == 0x0B)
+ 000000DC  280B      CMP         R0,#0xB
+ 000000DE  D103      BNE         L_31  ; T=0x000000E8
+   76:         *C = 2; 
+ 000000E0  2202      MOV         R2,#0x2
+ 000000E2  1C21      MOV         R1,R4 ; C
+ 000000E4  700A      STRB        R2,[R1,#0x0] ; C
+   77:     }
+ 000000E6  E008      B           L_28  ; T=0x000000FA
+ 000000E8          L_31:
+   78:     else if (N == 0x07)
+ 000000E8  2807      CMP         R0,#0x7
+ 000000EA  D103      BNE         L_33  ; T=0x000000F4
+   80:         *C = 3; 
+ 000000EC  2103      MOV         R1,#0x3
+ 000000EE  1C20      MOV         R0,R4 ; C
+ 000000F0  7001      STRB        R1,[R0,#0x0] ; C
+   81:     }
+ 000000F2  E002      B           L_28  ; T=0x000000FA
+ 000000F4          L_33:
+   83:         *C = 4; 
+ 000000F4  2104      MOV         R1,#0x4
+ 000000F6  1C20      MOV         R0,R4 ; C
+ 000000F8  7001      STRB        R1,[R0,#0x0] ; C
+ 000000FA          L_28:
+   85:     DelayMs();
+ 000000FA  F7FF      BL          DelayMs?T  ; T=0x0001  (1)
+ 000000FC  FF81      BL          DelayMs?T  ; T=0x0001  (2)
+   86:     DelayMs();
+ 000000FE  F7FF      BL          DelayMs?T  ; T=0x0001  (1)
+ 00000100  FF7F      BL          DelayMs?T  ; T=0x0001  (2)
+   88: }
+ 00000102  BCF0      POP         {R4-R7}
+ 00000104  BC08      POP         {R3}
+ 00000106  4718      BX          R3
+ 00000108          ENDP ; 'KeyScan?T'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =         2
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
