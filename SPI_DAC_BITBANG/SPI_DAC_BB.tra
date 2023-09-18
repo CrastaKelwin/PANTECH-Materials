@@ -1,0 +1,20 @@
+*** Creating Trace Output File 'SPI_DAC_BB.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup.o"'
+### List of Objects: adding '"spi_dac_bb.o"'
+### ADS-LD Command completed:
+"startup.o" "spi_dac_bb.o" --strict --scatter "SPI_DAC_BB.sct" 
+--map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\SPI_DAC_BB.map" -o "SPI_DAC_BB.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'SPI_DAC_BB.axf'
+### ADS-LD Command File: 'SPI_DAC_BB.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'SPI_DAC_BB.lnp', Handle=0x000006D0
+### Writing '.lnp' file
+### ADS-LD Command file 'SPI_DAC_BB.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

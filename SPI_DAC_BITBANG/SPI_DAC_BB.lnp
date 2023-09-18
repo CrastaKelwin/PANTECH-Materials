@@ -1,0 +1,4 @@
+"startup.o" "spi_dac_bb.o" --strict --scatter "SPI_DAC_BB.sct" 
+--map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\SPI_DAC_BB.map" -o "SPI_DAC_BB.axf"
