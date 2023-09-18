@@ -1,0 +1,956 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+<title>Static Call Graph - [C:\Documents and Settings\ADMIN\Desktop\TEST RTOS_1\LED.axf]</title></head>
+<body><HR>
+<H1>Static Call Graph for image C:\Documents and Settings\ADMIN\Desktop\TEST RTOS_1\LED.axf</H1><HR>
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, RVCT3.1 [Build 919]: Last Updated: Mon May 27 15:20:46 2013
+<BR><P>
+<H3>Maximum Stack Usage =        136 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+Call chain for Maximum Stack Depth:</H3>
+main &rArr; OSInit &rArr; OS_InitTaskIdle &rArr; OSTaskCreateExt &rArr; OS_TCBInit
+<P>
+<H3>
+Functions with no stack information
+</H3><UL>
+ <LI><a href="#[ae19c0]">IRQ_Handler</a>
+ <LI><a href="#[ae1930]">Timer0_Handler</a>
+ <LI><a href="#[ae32d8]">SoftwareInterrupt</a>
+ <LI><a href="#[ae1220]">OSIntCtxSw</a>
+ <LI><a href="#[adf210]">__OSStartHighRdy</a>
+ <LI><a href="#[ae3290]">Reset</a>
+ <LI><a href="#[ae3200]">__user_initial_stackheap</a>
+ <LI><a href="#[ae3248]">__rt_div0</a>
+ <LI><a href="#[ae37e8]">Undefined</a>
+ <LI><a href="#[ae37a0]">PrefetchAbort</a>
+ <LI><a href="#[ae3758]">DataAbort</a>
+ <LI><a href="#[ae3560]">ResetInit</a>
+ <LI><a href="#[ae3518]">FIQ_Handler</a>
+</UL>
+</UL>
+<P>
+<H3>
+Mutually Recursive functions
+</H3> <LI><a href="#[ae37e8]">Undefined</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[ae37e8]">Undefined</a><BR>
+ <LI><a href="#[ae37a0]">PrefetchAbort</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[ae37a0]">PrefetchAbort</a><BR>
+ <LI><a href="#[ae3758]">DataAbort</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[ae3758]">DataAbort</a><BR>
+</UL>
+<P>
+<H3>
+Function Pointers
+</H3><UL>
+ <LI><a href="#[155e6a8]">__ARM_get_argv</a>
+ <LI><a href="#[ae19c0]">IRQ_Handler</a>
+ <LI><a href="#[ae1930]">Timer0_Handler</a>
+ <LI><a href="#[adf618]">main</a>
+ <LI><a href="#[155f680]">__I_use_semihosting</a>
+ <LI><a href="#[ae1220]">OSIntCtxSw</a>
+ <LI><a href="#[ae1220]">OSIntCtxSw</a>
+ <LI><a href="#[adf210]">__OSStartHighRdy</a>
+ <LI><a href="#[ae3560]">ResetInit</a>
+ <LI><a href="#[ae37e8]">Undefined</a>
+ <LI><a href="#[ae32d8]">SoftwareInterrupt</a>
+ <LI><a href="#[ae37a0]">PrefetchAbort</a>
+ <LI><a href="#[ae3758]">DataAbort</a>
+ <LI><a href="#[ae3518]">FIQ_Handler</a>
+</UL>
+<P>
+<H3>
+Global Symbols
+</H3>
+<P><STRONG><a name="[1561a08]"></a>__main</STRONG> (ARM, 8 bytes, Stack size 0 bytes, __main.o(!!!main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
+<LI>Call Chain = __main &rArr; __rt_entry &rArr; __rt_lib_init &rArr; _fp_init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[155bd48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+<LI><a href="#[1561748]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae3560]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResetInit
+</UL>
+
+<P><STRONG><a name="[155bd48]"></a>__scatterload</STRONG> (ARM, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter))
+<BR><BR>[Called By]<UL><LI><a href="#[1561a08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+</UL>
+
+<P><STRONG><a name="[155bd00]"></a>__scatterload_rt2</STRONG> (ARM, 52 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[1561748]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[155bcb8]"></a>__scatterload_null</STRONG> (ARM, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+
+<P><STRONG><a name="[155ba78]"></a>__scatterload_zeroinit</STRONG> (ARM, 44 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
+
+<P><STRONG><a name="[1560588]"></a>__ARM_argv_veneer</STRONG> (ARM, 16 bytes, Stack size 0 bytes, lib_init.o(.emb_text))
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+</UL>
+
+<P><STRONG><a name="[ae1b70]"></a>IRQ_Exception</STRONG> (ARM, 8 bytes, Stack size 0 bytes, target.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[ae19c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRQ_Handler
+</UL>
+
+<P><STRONG><a name="[ae33b0]"></a>FIQ_Exception</STRONG> (ARM, 8 bytes, Stack size 0 bytes, target.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[ae3518]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FIQ_Handler
+</UL>
+
+<P><STRONG><a name="[ae1b28]"></a>Timer0_Exception</STRONG> (ARM, 36 bytes, Stack size 8 bytes, target.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Timer0_Exception &rArr; OSTimeTick
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ae1978]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeTick
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae1930]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0_Handler
+</UL>
+
+<P><STRONG><a name="[ae1ae0]"></a>Timer0Init</STRONG> (ARM, 48 bytes, Stack size 0 bytes, target.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ae1a50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TargetInit
+</UL>
+
+<P><STRONG><a name="[ae1a98]"></a>VICInit</STRONG> (ARM, 48 bytes, Stack size 0 bytes, target.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ae1a50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TargetInit
+</UL>
+
+<P><STRONG><a name="[ae1a50]"></a>TargetInit</STRONG> (ARM, 36 bytes, Stack size 8 bytes, target.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[ad3b98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;srand (via Veneer)
+<LI><a href="#[ae1a98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;VICInit
+<LI><a href="#[ae1ae0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0Init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adf660]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task0
+</UL>
+
+<P><STRONG><a name="[ae1a08]"></a>InitialiseUART0</STRONG> (ARM, 148 bytes, Stack size 16 bytes, target.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
+<LI>Call Chain = InitialiseUART0
+</UL>
+<BR>[Calls]<UL><LI><a href="#[1562670]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae3320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TargetResetInit
+</UL>
+
+<P><STRONG><a name="[ae3320]"></a>TargetResetInit</STRONG> (ARM, 264 bytes, Stack size 8 bytes, target.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
+<LI>Call Chain = TargetResetInit &rArr; InitialiseUART0
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ae1a08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitialiseUART0
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae3560]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResetInit
+</UL>
+
+<P><STRONG><a name="[adf858]"></a>Task7</STRONG> (ARM, 64 bytes, Stack size 8 bytes, led.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+</UL>
+
+<P><STRONG><a name="[adf810]"></a>Task6</STRONG> (ARM, 64 bytes, Stack size 8 bytes, led.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+</UL>
+
+<P><STRONG><a name="[adf7c8]"></a>Task5</STRONG> (ARM, 64 bytes, Stack size 8 bytes, led.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+</UL>
+
+<P><STRONG><a name="[adf780]"></a>Task4</STRONG> (ARM, 64 bytes, Stack size 8 bytes, led.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+</UL>
+
+<P><STRONG><a name="[adf738]"></a>Task3</STRONG> (ARM, 64 bytes, Stack size 8 bytes, led.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+</UL>
+
+<P><STRONG><a name="[adf6f0]"></a>Task2</STRONG> (ARM, 64 bytes, Stack size 8 bytes, led.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+</UL>
+
+<P><STRONG><a name="[adf6a8]"></a>Task1</STRONG> (ARM, 64 bytes, Stack size 8 bytes, led.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+</UL>
+
+<P><STRONG><a name="[adf660]"></a>Task0</STRONG> (ARM, 76 bytes, Stack size 16 bytes, led.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+<LI><a href="#[ae1a50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TargetInit
+</UL>
+
+<P><STRONG><a name="[adf618]"></a>main</STRONG> (ARM, 212 bytes, Stack size 8 bytes, led.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = main &rArr; OSInit &rArr; OS_InitTaskIdle &rArr; OSTaskCreateExt &rArr; OS_TCBInit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[adf540]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreate
+<LI><a href="#[adf588]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSStart
+<LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> kernel.o(.text)
+</UL>
+<P><STRONG><a name="[addb10]"></a>OSTaskStkInit</STRONG> (ARM, 232 bytes, Stack size 8 bytes, os_cpu_c.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = OSTaskStkInit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adbe58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreateExt
+<LI><a href="#[adf540]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreate
+</UL>
+
+<P><STRONG><a name="[adf0a8]"></a>SWI_Exception</STRONG> (ARM, 336 bytes, Stack size 4 bytes, os_cpu_c.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = SWI_Exception
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae32d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SoftwareInterrupt
+</UL>
+
+<P><STRONG><a name="[addac8]"></a>OSStartHighRdy</STRONG> (ARM, 16 bytes, Stack size 8 bytes, os_cpu_c.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = OSStartHighRdy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adf588]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSStart
+</UL>
+
+<P><STRONG><a name="[adda80]"></a>OSInitHookBegin</STRONG> (ARM, 4 bytes, Stack size 0 bytes, os_cpu_c.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[adda38]"></a>OSInitHookEnd</STRONG> (ARM, 4 bytes, Stack size 0 bytes, os_cpu_c.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[add9f0]"></a>OSTaskCreateHook</STRONG> (ARM, 8 bytes, Stack size 0 bytes, os_cpu_c.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adbea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_TCBInit
+</UL>
+
+<P><STRONG><a name="[add9a8]"></a>OSTaskDelHook</STRONG> (ARM, 8 bytes, Stack size 0 bytes, os_cpu_c.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ad5ec0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskDel
+</UL>
+
+<P><STRONG><a name="[adf0f0]"></a>OSTaskSwHook</STRONG> (ARM, 4 bytes, Stack size 0 bytes, os_cpu_c.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__OSStartHighRdy
+<LI><a href="#[ae1220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntCtxSw
+</UL>
+
+<P><STRONG><a name="[add960]"></a>OSTaskStatHook</STRONG> (ARM, 4 bytes, Stack size 0 bytes, os_cpu_c.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[adc248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_TaskStat
+</UL>
+
+<P><STRONG><a name="[add918]"></a>OSTCBInitHook</STRONG> (ARM, 8 bytes, Stack size 0 bytes, os_cpu_c.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adbea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_TCBInit
+</UL>
+
+<P><STRONG><a name="[add8d0]"></a>OSTimeTickHook</STRONG> (ARM, 4 bytes, Stack size 0 bytes, os_cpu_c.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[ae1978]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeTick
+</UL>
+
+<P><STRONG><a name="[add888]"></a>OSTaskIdleHook</STRONG> (ARM, 4 bytes, Stack size 0 bytes, os_cpu_c.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[adc200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_TaskIdle
+</UL>
+
+<P><STRONG><a name="[adc248]"></a>OS_TaskStat</STRONG> (ARM, 220 bytes, Stack size 24 bytes, os_core.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[add960]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskStatHook
+<LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+<LI><a href="#[1562670]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[adc200]"></a>OS_TaskIdle</STRONG> (ARM, 48 bytes, Stack size 8 bytes, os_core.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[add888]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskIdleHook
+</UL>
+
+<P><STRONG><a name="[adf5d0]"></a>OSInit</STRONG> (ARM, 56 bytes, Stack size 8 bytes, os_core.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = OSInit &rArr; OS_InitTaskIdle &rArr; OSTaskCreateExt &rArr; OS_TCBInit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[adbd80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_QInit
+<LI><a href="#[adbdc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_MemInit
+<LI><a href="#[adbe10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_FlagInit
+<LI><a href="#[adcdd0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_InitMisc
+<LI><a href="#[adce18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_InitRdyList
+<LI><a href="#[adce60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_InitTCBList
+<LI><a href="#[adcea8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_InitEventList
+<LI><a href="#[adcef0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_InitTaskIdle
+<LI><a href="#[adcf38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_InitTaskStat
+<LI><a href="#[adda38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInitHookEnd
+<LI><a href="#[adda80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInitHookBegin
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adf618]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[adc1b8]"></a>OSIntEnter</STRONG> (ARM, 56 bytes, Stack size 0 bytes, os_core.o(.text), UNUSED)
+
+<P><STRONG><a name="[ae11d8]"></a>OSIntExit</STRONG> (ARM, 240 bytes, Stack size 8 bytes, os_core.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = OSIntExit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae1930]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0_Handler
+<LI><a href="#[ae19c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRQ_Handler
+</UL>
+
+<P><STRONG><a name="[adc170]"></a>OSSchedLock</STRONG> (ARM, 72 bytes, Stack size 8 bytes, os_core.o(.text), UNUSED)
+
+<P><STRONG><a name="[adc128]"></a>OS_Sched</STRONG> (ARM, 168 bytes, Stack size 8 bytes, os_core.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = OS_Sched
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ad50e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDlyResume
+<LI><a href="#[ad5da0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskSuspend
+<LI><a href="#[ad5e30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskResume
+<LI><a href="#[ad5ec0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskDel
+<LI><a href="#[ad5f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskChangePrio
+<LI><a href="#[ad7848]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQPostOpt
+<LI><a href="#[ad7890]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQPostFront
+<LI><a href="#[ad78d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQPost
+<LI><a href="#[ad7920]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQPend
+<LI><a href="#[ad79b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQDel
+<LI><a href="#[adaed0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSFlagPost
+<LI><a href="#[adaf18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSFlagPend
+<LI><a href="#[adaf60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSFlagDel
+<LI><a href="#[adbe58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreateExt
+<LI><a href="#[adc0e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSchedUnlock
+<LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+<LI><a href="#[adf540]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreate
+</UL>
+
+<P><STRONG><a name="[adc0e0]"></a>OSSchedUnlock</STRONG> (ARM, 124 bytes, Stack size 8 bytes, os_core.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[adf588]"></a>OSStart</STRONG> (ARM, 132 bytes, Stack size 16 bytes, os_core.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = OSStart &rArr; OSStartHighRdy
+</UL>
+<BR>[Calls]<UL><LI><a href="#[addac8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSStartHighRdy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adf618]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[adc098]"></a>OSStatInit</STRONG> (ARM, 84 bytes, Stack size 8 bytes, os_core.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+</UL>
+
+<P><STRONG><a name="[ae1978]"></a>OSTimeTick</STRONG> (ARM, 212 bytes, Stack size 8 bytes, os_core.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = OSTimeTick
+</UL>
+<BR>[Calls]<UL><LI><a href="#[add8d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeTickHook
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae1b28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0_Exception
+</UL>
+
+<P><STRONG><a name="[adc050]"></a>OSVersion</STRONG> (ARM, 8 bytes, Stack size 0 bytes, os_core.o(.text), UNUSED)
+
+<P><STRONG><a name="[adc008]"></a>OS_Dummy</STRONG> (ARM, 4 bytes, Stack size 0 bytes, os_core.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ad5ec0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskDel
+</UL>
+
+<P><STRONG><a name="[adbfc0]"></a>OS_EventTaskRdy</STRONG> (ARM, 188 bytes, Stack size 24 bytes, os_core.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ad7848]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQPostOpt
+<LI><a href="#[ad7890]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQPostFront
+<LI><a href="#[ad78d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQPost
+<LI><a href="#[ad79b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQDel
+</UL>
+
+<P><STRONG><a name="[adbf78]"></a>OS_EventTaskWait</STRONG> (ARM, 188 bytes, Stack size 0 bytes, os_core.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ad7920]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQPend
+</UL>
+
+<P><STRONG><a name="[adbf30]"></a>OS_EventTO</STRONG> (ARM, 116 bytes, Stack size 0 bytes, os_core.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ad7920]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQPend
+</UL>
+
+<P><STRONG><a name="[adbee8]"></a>OS_EventWaitListInit</STRONG> (ARM, 24 bytes, Stack size 0 bytes, os_core.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ad79f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSQCreate
+</UL>
+
+<P><STRONG><a name="[adbea0]"></a>OS_TCBInit</STRONG> (ARM, 336 bytes, Stack size 40 bytes, os_core.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = OS_TCBInit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[add918]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTCBInitHook
+<LI><a href="#[add9f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreateHook
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adbe58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreateExt
+<LI><a href="#[adf540]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreate
+</UL>
+
+<P><STRONG><a name="[adb038]"></a>OSFlagAccept</STRONG> (ARM, 440 bytes, Stack size 32 bytes, os_flag.o(.text), UNUSED)
+
+<P><STRONG><a name="[adaff0]"></a>OSFlagCreate</STRONG> (ARM, 144 bytes, Stack size 16 bytes, os_flag.o(.text), UNUSED)
+
+<P><STRONG><a name="[adafa8]"></a>OS_FlagUnlink</STRONG> (ARM, 84 bytes, Stack size 4 bytes, os_flag.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ad5ec0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskDel
+<LI><a href="#[adaf18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSFlagPend
+<LI><a href="#[adb470]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_FlagTaskRdy
+</UL>
+
+<P><STRONG><a name="[adaf60]"></a>OSFlagDel</STRONG> (ARM, 344 bytes, Stack size 24 bytes, os_flag.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adb470]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_FlagTaskRdy
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[adaf18]"></a>OSFlagPend</STRONG> (ARM, 816 bytes, Stack size 64 bytes, os_flag.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adafa8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_FlagUnlink
+<LI><a href="#[adb428]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_FlagBlock
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[adaed0]"></a>OSFlagPost</STRONG> (ARM, 496 bytes, Stack size 40 bytes, os_flag.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adb470]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_FlagTaskRdy
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[adae88]"></a>OSFlagQuery</STRONG> (ARM, 96 bytes, Stack size 16 bytes, os_flag.o(.text), UNUSED)
+
+<P><STRONG><a name="[adbe10]"></a>OS_FlagInit</STRONG> (ARM, 76 bytes, Stack size 0 bytes, os_flag.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[ad9560]"></a>OSMemCreate</STRONG> (ARM, 252 bytes, Stack size 40 bytes, os_mem.o(.text), UNUSED)
+
+<P><STRONG><a name="[ad9518]"></a>OSMemGet</STRONG> (ARM, 120 bytes, Stack size 16 bytes, os_mem.o(.text), UNUSED)
+
+<P><STRONG><a name="[ad94d0]"></a>OSMemPut</STRONG> (ARM, 116 bytes, Stack size 16 bytes, os_mem.o(.text), UNUSED)
+
+<P><STRONG><a name="[ad9488]"></a>OSMemQuery</STRONG> (ARM, 120 bytes, Stack size 16 bytes, os_mem.o(.text), UNUSED)
+
+<P><STRONG><a name="[adbdc8]"></a>OS_MemInit</STRONG> (ARM, 112 bytes, Stack size 0 bytes, os_mem.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[ad7a40]"></a>OSQAccept</STRONG> (ARM, 140 bytes, Stack size 16 bytes, os_q.o(.text), UNUSED)
+
+<P><STRONG><a name="[ad79f8]"></a>OSQCreate</STRONG> (ARM, 240 bytes, Stack size 24 bytes, os_q.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adbee8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_EventWaitListInit
+</UL>
+
+<P><STRONG><a name="[ad79b0]"></a>OSQDel</STRONG> (ARM, 392 bytes, Stack size 24 bytes, os_q.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adbfc0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_EventTaskRdy
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[ad7968]"></a>OSQFlush</STRONG> (ARM, 92 bytes, Stack size 16 bytes, os_q.o(.text), UNUSED)
+
+<P><STRONG><a name="[ad7920]"></a>OSQPend</STRONG> (ARM, 364 bytes, Stack size 24 bytes, os_q.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adbf30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_EventTO
+<LI><a href="#[adbf78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_EventTaskWait
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[ad78d8]"></a>OSQPost</STRONG> (ARM, 216 bytes, Stack size 16 bytes, os_q.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adbfc0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_EventTaskRdy
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[ad7890]"></a>OSQPostFront</STRONG> (ARM, 220 bytes, Stack size 16 bytes, os_q.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adbfc0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_EventTaskRdy
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[ad7848]"></a>OSQPostOpt</STRONG> (ARM, 320 bytes, Stack size 24 bytes, os_q.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adbfc0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_EventTaskRdy
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[ad7800]"></a>OSQQuery</STRONG> (ARM, 156 bytes, Stack size 24 bytes, os_q.o(.text), UNUSED)
+
+<P><STRONG><a name="[adbd80]"></a>OS_QInit</STRONG> (ARM, 68 bytes, Stack size 0 bytes, os_q.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[ad5f08]"></a>OSTaskChangePrio</STRONG> (ARM, 460 bytes, Stack size 40 bytes, os_task.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[adf540]"></a>OSTaskCreate</STRONG> (ARM, 236 bytes, Stack size 40 bytes, os_task.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = OSTaskCreate &rArr; OS_TCBInit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[adbea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_TCBInit
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+<LI><a href="#[addb10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskStkInit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adf618]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[adbe58]"></a>OSTaskCreateExt</STRONG> (ARM, 288 bytes, Stack size 56 bytes, os_task.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = OSTaskCreateExt &rArr; OS_TCBInit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[adbea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_TCBInit
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+<LI><a href="#[addb10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskStkInit
+<LI><a href="#[1562b60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adcef0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_InitTaskIdle
+<LI><a href="#[adcf38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_InitTaskStat
+</UL>
+
+<P><STRONG><a name="[ad5ec0]"></a>OSTaskDel</STRONG> (ARM, 508 bytes, Stack size 24 bytes, os_task.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adafa8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_FlagUnlink
+<LI><a href="#[adc008]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Dummy
+<LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+<LI><a href="#[add9a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskDelHook
+</UL>
+
+<P><STRONG><a name="[ad5e78]"></a>OSTaskDelReq</STRONG> (ARM, 140 bytes, Stack size 24 bytes, os_task.o(.text), UNUSED)
+
+<P><STRONG><a name="[ad5e30]"></a>OSTaskResume</STRONG> (ARM, 192 bytes, Stack size 16 bytes, os_task.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[ad5de8]"></a>OSTaskStkChk</STRONG> (ARM, 192 bytes, Stack size 32 bytes, os_task.o(.text), UNUSED)
+
+<P><STRONG><a name="[ad5da0]"></a>OSTaskSuspend</STRONG> (ARM, 240 bytes, Stack size 16 bytes, os_task.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[ad5d58]"></a>OSTaskQuery</STRONG> (ARM, 120 bytes, Stack size 16 bytes, os_task.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[1562e20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+</UL>
+
+<P><STRONG><a name="[adf4f8]"></a>OSTimeDly</STRONG> (ARM, 140 bytes, Stack size 8 bytes, os_time.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ad5130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDlyHMSM
+<LI><a href="#[adc098]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSStatInit
+<LI><a href="#[adc248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_TaskStat
+<LI><a href="#[adf660]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task0
+<LI><a href="#[adf6a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task1
+<LI><a href="#[adf6f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task2
+<LI><a href="#[adf738]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task3
+<LI><a href="#[adf780]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task4
+<LI><a href="#[adf7c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task5
+<LI><a href="#[adf810]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task6
+<LI><a href="#[adf858]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task7
+</UL>
+
+<P><STRONG><a name="[ad5130]"></a>OSTimeDlyHMSM</STRONG> (ARM, 232 bytes, Stack size 32 bytes, os_time.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adf4f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
+<LI><a href="#[1562670]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[ad50e8]"></a>OSTimeDlyResume</STRONG> (ARM, 184 bytes, Stack size 16 bytes, os_time.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adc128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
+</UL>
+
+<P><STRONG><a name="[ad50a0]"></a>OSTimeGet</STRONG> (ARM, 32 bytes, Stack size 8 bytes, os_time.o(.text), UNUSED)
+
+<P><STRONG><a name="[ad5058]"></a>OSTimeSet</STRONG> (ARM, 32 bytes, Stack size 8 bytes, os_time.o(.text), UNUSED)
+
+<P><STRONG><a name="[ad3b98]"></a>srand</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, rand.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = srand
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae1a50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TargetInit (via Veneer)
+<LI><a href="#[15630c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_rand_init
+</UL>
+
+<P><STRONG><a name="[15630c0]"></a>_rand_init</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, rand.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _rand_init &rArr; srand
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ad3b98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;srand
+</UL>
+<BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init
+</UL>
+
+<P><STRONG><a name="[1563078]"></a>rand</STRONG> (Thumb, 56 bytes, Stack size 12 bytes, rand.o(.text), UNUSED)
+
+<P><STRONG><a name="[1562e20]"></a>__aeabi_memcpy4</STRONG> (ARM, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[ad5d58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskQuery
+</UL>
+
+<P><STRONG><a name="[1562dd8]"></a>__aeabi_memcpy8</STRONG> (ARM, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
+
+<P><STRONG><a name="[1562d90]"></a>__rt_memcpy_w</STRONG> (ARM, 100 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
+
+<P><STRONG><a name="[1562d48]"></a>_memcpy_lastbytes_aligned</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rt_memcpy_w.o(.text), UNUSED)
+
+<P><STRONG><a name="[1562b60]"></a>__aeabi_memclr4</STRONG> (ARM, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_memclr4
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adbe58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreateExt
+</UL>
+
+<P><STRONG><a name="[1562b18]"></a>__aeabi_memclr8</STRONG> (ARM, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
+
+<P><STRONG><a name="[1562ad0]"></a>__rt_memclr_w</STRONG> (ARM, 84 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
+
+<P><STRONG><a name="[1562a88]"></a>_memset_w</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rt_memclr_w.o(.text), UNUSED)
+
+<P><STRONG><a name="[1562748]"></a>__aeabi_idiv</STRONG> (ARM, 0 bytes, Stack size 8 bytes, aeabi_sdiv.o(.text), UNUSED)
+
+<P><STRONG><a name="[1562700]"></a>__aeabi_idivmod</STRONG> (ARM, 384 bytes, Stack size 8 bytes, aeabi_sdiv.o(.text), UNUSED)
+
+<P><STRONG><a name="[1561748]"></a>__rt_entry</STRONG> (ARM, 76 bytes, Stack size 16 bytes, kernel.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
+<LI>Call Chain = __rt_entry &rArr; __rt_lib_init &rArr; _fp_init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[155f9b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_lib_init
+<LI><a href="#[155fb28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_stackheap_init
+<LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+<LI><a href="#[1560a98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_stackheap_init
+<LI><a href="#[1560c48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (via BX)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[155bd00]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+<LI><a href="#[1561a08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+</UL>
+
+<P><STRONG><a name="[1561700]"></a>__rt_exit</STRONG> (ARM, 20 bytes, Stack size 8 bytes, kernel.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __rt_exit &rArr; __rt_lib_shutdown
+</UL>
+<BR>[Calls]<UL><LI><a href="#[15604b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (via Veneer)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1560c48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (via Veneer)
+</UL>
+
+<P><STRONG><a name="[15616b8]"></a>__rt_abort</STRONG> (ARM, 8 bytes, Stack size 0 bytes, kernel.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[1560e00]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
+</UL>
+
+<P><STRONG><a name="[1560e00]"></a>_sys_exit</STRONG> (ARM, 20 bytes, Stack size 0 bytes, sys_exit.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[15616b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_abort
+</UL>
+
+<P><STRONG><a name="[1560c48]"></a>exit</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, exit.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = exit &rArr; __rt_exit &rArr; __rt_lib_shutdown
+</UL>
+<BR>[Calls]<UL><LI><a href="#[1560bb8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_call_atexit_fns (Weak Reference)
+<LI><a href="#[1561700]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit (via Veneer)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1561748]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[1560a98]"></a>__rt_stackheap_init</STRONG> (ARM, 40 bytes, Stack size 8 bytes, stkheap1.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
+<LI>Call Chain = __rt_stackheap_init &rArr; __user_setup_stackheap
+</UL>
+<BR>[Calls]<UL><LI><a href="#[155f058]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_stackheap_storage
+<LI><a href="#[155f4c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1561748]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[1560a50]"></a>__rt_heap_extend</STRONG> (ARM, 112 bytes, Stack size 16 bytes, stkheap1.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[155f058]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_stackheap_storage
+<LI><a href="#[1560978]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_heap_extend (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[15604f8]"></a>__rt_lib_init</STRONG> (Thumb, 184 bytes, Stack size 40 bytes, lib_init.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = __rt_lib_init &rArr; _fp_init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[155e4d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_init (via Veneer)
+<LI><a href="#[155eca0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale (via Veneer)
+<LI><a href="#[155fec8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_signal_init (Weak Reference)
+<LI><a href="#[155ff58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio (Weak Reference)
+<LI><a href="#[155ffa0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_init_user_alloc (Weak Reference)
+<LI><a href="#[155ffe8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_init_alloc (Weak Reference)
+<LI><a href="#[1560030]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_getenv_init (Weak Reference)
+<LI><a href="#[1560078]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_time (Weak Reference)
+<LI><a href="#[15600c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric (Weak Reference)
+<LI><a href="#[1560108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_monetary (Weak Reference)
+<LI><a href="#[1560150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype (Weak Reference)
+<LI><a href="#[1560198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_collate (Weak Reference)
+<LI><a href="#[15601e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_trap_init (Weak Reference)
+<LI><a href="#[1560228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_clock_init (Weak Reference)
+<LI><a href="#[1560270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_atexit_init (Weak Reference)
+<LI><a href="#[1560300]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__cpp_initialize__aeabi_ (Weak Reference)
+<LI><a href="#[1560348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__alloca_initialize (Weak Reference)
+<LI><a href="#[1560390]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_DescSize (Weak Reference)
+<LI><a href="#[15603d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_exceptions_init (Weak Reference)
+<LI><a href="#[1560588]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_argv_veneer (via Veneer)
+<LI><a href="#[15630c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_rand_init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1561748]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry (via Veneer)
+</UL>
+
+<P><STRONG><a name="[15604b0]"></a>__rt_lib_shutdown</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, lib_init.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __rt_lib_shutdown
+</UL>
+<BR>[Calls]<UL><LI><a href="#[155fe38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio (Weak Reference)
+<LI><a href="#[155fe80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminate_user_alloc (Weak Reference)
+<LI><a href="#[15602b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__cxa_finalize (Weak Reference)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1561700]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit (via Veneer)
+</UL>
+
+<P><STRONG><a name="[155fb28]"></a>_platform_post_stackheap_init</STRONG> (ARM, 12 bytes, Stack size 0 bytes, boardinit2.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[1561748]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[155f9b8]"></a>_platform_post_lib_init</STRONG> (ARM, 16 bytes, Stack size 8 bytes, boardinit3.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _platform_post_lib_init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1561748]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[155f680]"></a>__I_use_semihosting</STRONG> (ARM, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> sys_exit.o(.text)
+</UL>
+<P><STRONG><a name="[155f638]"></a>__use_no_semihosting_swi</STRONG> (ARM, 4 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[155f4c8]"></a>__user_setup_stackheap</STRONG> (ARM, 96 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = __user_setup_stackheap
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ae3200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_initial_stackheap
+<LI><a href="#[155e030]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perproc_libspace
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1560a98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_stackheap_init
+</UL>
+
+<P><STRONG><a name="[155f058]"></a>__rt_stackheap_storage</STRONG> (ARM, 12 bytes, Stack size 0 bytes, rt_stackheap_storage_intlibspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[1560a50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_extend
+<LI><a href="#[1560a98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_stackheap_init
+</UL>
+
+<P><STRONG><a name="[155eca0]"></a>__rt_locale</STRONG> (ARM, 12 bytes, Stack size 0 bytes, rt_locale_intlibspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+</UL>
+
+<P><STRONG><a name="[155e6a8]"></a>__ARM_get_argv</STRONG> (Thumb, 6 bytes, Stack size 4 bytes, no_argv.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __ARM_get_argv
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> lib_init.o(.emb_text)
+</UL>
+<P><STRONG><a name="[155e078]"></a>__user_libspace</STRONG> (ARM, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+
+<P><STRONG><a name="[155e030]"></a>__user_perproc_libspace</STRONG> (ARM, 0 bytes, Stack size 0 bytes, libspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[155f4c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+
+<P><STRONG><a name="[155dfe8]"></a>__user_perthread_libspace</STRONG> (ARM, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+
+<P><STRONG><a name="[155dc78]"></a>__rt_fp_status_addr</STRONG> (ARM, 12 bytes, Stack size 0 bytes, rt_fp_status_addr_intlibspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[155e4d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_init
+</UL>
+
+<P><STRONG><a name="[15626b8]"></a>__aeabi_uidiv</STRONG> (ARM, 0 bytes, Stack size 0 bytes, aeabi_sdiv.o(.text_udiv), UNUSED)
+
+<P><STRONG><a name="[1562670]"></a>__aeabi_uidivmod</STRONG> (ARM, 28 bytes, Stack size 0 bytes, aeabi_sdiv.o(.text_udiv))
+<BR><BR>[Calls]<UL><LI><a href="#[1562790]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__arm_div_large
+<LI><a href="#[15627d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__arm_div4
+<LI><a href="#[1562820]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__arm_div8
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ad5130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDlyHMSM
+<LI><a href="#[adc248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_TaskStat
+<LI><a href="#[ae1a08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitialiseUART0
+</UL>
+
+<P><STRONG><a name="[ae19c0]"></a>IRQ_Handler</STRONG> (ARM, 0 bytes, Stack size unknown bytes, irq.o(IRQ))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = IRQ_Handler &rArr; OSIntExit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ae11d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[ae1b70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IRQ_Exception
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> target.o(.text)
+</UL>
+<P><STRONG><a name="[ae1930]"></a>Timer0_Handler</STRONG> (ARM, 0 bytes, Stack size unknown bytes, irq.o(IRQ))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
+<LI>Call Chain = Timer0_Handler &rArr; Timer0_Exception &rArr; OSTimeTick
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ae11d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[ae1b28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0_Exception
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> target.o(.text)
+</UL>
+<P><STRONG><a name="[ae32d8]"></a>SoftwareInterrupt</STRONG> (ARM, 0 bytes, Stack size unknown bytes, os_cpu_a.o(subr))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4 + Unknown Stack Size
+<LI>Call Chain = SoftwareInterrupt &rArr; SWI_Exception
+</UL>
+<BR>[Calls]<UL><LI><a href="#[adf0a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SWI_Exception
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(vectors)
+</UL>
+<P><STRONG><a name="[ae1220]"></a>OSIntCtxSw</STRONG> (ARM, 0 bytes, Stack size unknown bytes, os_cpu_a.o(subr))
+<BR><BR>[Calls]<UL><LI><a href="#[adf0f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskSwHook
+</UL>
+<BR>[Address Reference Count : 2]<UL><LI> os_cpu_a.o(subr)
+<LI> irq.o(IRQ)
+</UL>
+<P><STRONG><a name="[adf210]"></a>__OSStartHighRdy</STRONG> (ARM, 0 bytes, Stack size unknown bytes, os_cpu_a.o(subr))
+<BR><BR>[Calls]<UL><LI><a href="#[adf0f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskSwHook
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> os_cpu_a.o(subr)
+</UL>
+<P><STRONG><a name="[ae3290]"></a>Reset</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(vectors), UNUSED)
+
+<P><STRONG><a name="[ae3200]"></a>__user_initial_stackheap</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(vectors))
+<BR><BR>[Called By]<UL><LI><a href="#[155f4c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+
+<P><STRONG><a name="[ae3248]"></a>__rt_div0</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(vectors), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[ae3248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_div0
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae3248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_div0
+</UL>
+
+<P><STRONG><a name="[155e4d0]"></a>_fp_init</STRONG> (ARM, 24 bytes, Stack size 8 bytes, fpinit.o(x$fpl$fpinit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _fp_init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[155dc78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_fp_status_addr
+</UL>
+<BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+</UL>
+
+<P><STRONG><a name="[155e488]"></a>__fplib_config_pureend_doubles</STRONG> (ARM, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
+<P>
+<H3>
+Local Symbols
+</H3>
+<P><STRONG><a name="[ae37e8]"></a>Undefined</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(vectors))
+<BR><BR>[Calls]<UL><LI><a href="#[ae37e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Undefined
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae37e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Undefined
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(vectors)
+</UL>
+<P><STRONG><a name="[ae37a0]"></a>PrefetchAbort</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(vectors))
+<BR><BR>[Calls]<UL><LI><a href="#[ae37a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PrefetchAbort
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae37a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PrefetchAbort
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(vectors)
+</UL>
+<P><STRONG><a name="[ae3758]"></a>DataAbort</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(vectors))
+<BR><BR>[Calls]<UL><LI><a href="#[ae3758]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DataAbort
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae3758]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DataAbort
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(vectors)
+</UL>
+<P><STRONG><a name="[ae3560]"></a>ResetInit</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(vectors))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
+<LI>Call Chain = ResetInit &rArr; __main &rArr; __rt_entry &rArr; __rt_lib_init &rArr; _fp_init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ae3320]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TargetResetInit
+<LI><a href="#[1561a08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(vectors)
+</UL>
+<P><STRONG><a name="[ae3518]"></a>FIQ_Handler</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(vectors))
+<BR><BR>[Calls]<UL><LI><a href="#[ae33b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FIQ_Exception
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(vectors)
+</UL>
+<P><STRONG><a name="[adcf38]"></a>OS_InitTaskStat</STRONG> (ARM, 68 bytes, Stack size 24 bytes, os_core.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = OS_InitTaskStat &rArr; OSTaskCreateExt &rArr; OS_TCBInit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[adbe58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreateExt
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[adcef0]"></a>OS_InitTaskIdle</STRONG> (ARM, 68 bytes, Stack size 24 bytes, os_core.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = OS_InitTaskIdle &rArr; OSTaskCreateExt &rArr; OS_TCBInit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[adbe58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskCreateExt
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[adcea8]"></a>OS_InitEventList</STRONG> (ARM, 80 bytes, Stack size 0 bytes, os_core.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[adce60]"></a>OS_InitTCBList</STRONG> (ARM, 116 bytes, Stack size 0 bytes, os_core.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[adce18]"></a>OS_InitRdyList</STRONG> (ARM, 88 bytes, Stack size 0 bytes, os_core.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[adcdd0]"></a>OS_InitMisc</STRONG> (ARM, 88 bytes, Stack size 0 bytes, os_core.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[adf5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
+</UL>
+
+<P><STRONG><a name="[adb470]"></a>OS_FlagTaskRdy</STRONG> (ARM, 140 bytes, Stack size 20 bytes, os_flag.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[adafa8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_FlagUnlink
+</UL>
+<BR>[Called By]<UL><LI><a href="#[adaed0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSFlagPost
+<LI><a href="#[adaf60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSFlagDel
+</UL>
+
+<P><STRONG><a name="[adb428]"></a>OS_FlagBlock</STRONG> (ARM, 220 bytes, Stack size 16 bytes, os_flag.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[adaf18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSFlagPend
+</UL>
+
+<P><STRONG><a name="[1562820]"></a>__arm_div8</STRONG> (ARM, 0 bytes, Stack size unknown bytes, aeabi_sdiv.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[1562670]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[15627d8]"></a>__arm_div4</STRONG> (ARM, 0 bytes, Stack size unknown bytes, aeabi_sdiv.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[1562670]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[1562790]"></a>__arm_div_large</STRONG> (ARM, 0 bytes, Stack size unknown bytes, aeabi_sdiv.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[1562670]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+<P>
+<H3>
+Undefined Global Symbols
+</H3>
+<P><STRONG><a name="[15603d8]"></a>__ARM_exceptions_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560390]"></a>__Heap_DescSize</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560348]"></a>__alloca_initialize</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560300]"></a>__cpp_initialize__aeabi_</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[15602b8]"></a>__cxa_finalize</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560978]"></a>__user_heap_extend</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED, UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[1560a50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_extend (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560270]"></a>_atexit_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560bb8]"></a>_call_atexit_fns</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[1560c48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560228]"></a>_clock_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[15601e0]"></a>_fp_trap_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560198]"></a>_get_lc_collate</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560150]"></a>_get_lc_ctype</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560108]"></a>_get_lc_monetary</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[15600c0]"></a>_get_lc_numeric</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560078]"></a>_get_lc_time</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[1560030]"></a>_getenv_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[155ffe8]"></a>_init_alloc</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[155ffa0]"></a>_init_user_alloc</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[155ff58]"></a>_initio</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[155fec8]"></a>_signal_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[155fe80]"></a>_terminate_user_alloc</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[155fe38]"></a>_terminateio</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[15604b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (Weak Reference)
+</UL>
+<HR></body></html>

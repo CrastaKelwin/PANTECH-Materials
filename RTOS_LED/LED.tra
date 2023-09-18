@@ -1,0 +1,32 @@
+*** Creating Trace Output File 'LED.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup.o"'
+### List of Objects: adding '"target.o"'
+### List of Objects: adding '"irq.o"'
+### List of Objects: adding '"led.o"'
+### List of Objects: adding '"os_cpu_a.o"'
+### List of Objects: adding '"os_cpu_c.o"'
+### List of Objects: adding '"os_core.o"'
+### List of Objects: adding '"os_flag.o"'
+### List of Objects: adding '"os_mbox.o"'
+### List of Objects: adding '"os_mem.o"'
+### List of Objects: adding '"os_mutex.o"'
+### List of Objects: adding '"os_q.o"'
+### List of Objects: adding '"os_sem.o"'
+### List of Objects: adding '"os_task.o"'
+### List of Objects: adding '"os_time.o"'
+### ADS-LD Command completed:
+"startup.o" "target.o" "irq.o" "led.o" "os_cpu_a.o" "os_cpu_c.o" "os_core.o" "os_flag.o" "os_mbox.o" "os_mem.o" "os_mutex.o" "os_q.o" "os_sem.o" "os_task.o" "os_time.o" --device DARMP --strict --autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\LED.map" -o "LED.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'LED.axf'
+### ADS-LD Command File: 'LED.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'LED.lnp', Handle=0x000004A4
+### Writing '.lnp' file
+### ADS-LD Command file 'LED.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

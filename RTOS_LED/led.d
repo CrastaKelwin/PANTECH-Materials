@@ -1,0 +1,14 @@
+.\led.o: APP\LED.C
+.\led.o: APP\config.h
+.\led.o: APP\Includes.h
+.\led.o: APP\..\uCosii\os_cpu.h
+.\led.o: APP\os_cfg.h
+.\led.o: APP\..\uCosii\ucos_ii.h
+.\led.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\led.o: C:\Keil\ARM\Inc\Philips\LPC214x.h
+.\led.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
+.\led.o: C:\Keil\ARM\ARMCC\bin\..\include\ctype.h
+.\led.o: C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h
+.\led.o: C:\Keil\ARM\ARMCC\bin\..\include\setjmp.h
+.\led.o: C:\Keil\ARM\ARMCC\bin\..\include\rt_misc.h
+.\led.o: APP\target.h

@@ -1,0 +1,3 @@
+"startup.o" "target.o" "irq.o" "led.o" "os_cpu_a.o" "os_cpu_c.o" "os_core.o" "os_flag.o" "os_mbox.o" "os_mem.o" "os_mutex.o" "os_q.o" "os_sem.o" "os_task.o" "os_time.o" --device DARMP --strict --autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\LED.map" -o "LED.axf"
